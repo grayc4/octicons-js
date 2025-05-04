@@ -1,4 +1,4 @@
-import Octicons, { octicon, octiconBtn, octiconLabelBtn } from '../index.js';
+import Octicons, { octicon, octiconBtn, octiconLabelBtn } from './index.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const filterInput = document.getElementById('icon-filter');
