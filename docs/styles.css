@@ -1,0 +1,255 @@
+/* Landing page styles */
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: #1f2328;
+    background-color: #ffffff;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+    border-bottom: 1px solid #d0d7de;
+    padding-bottom: 0.3em;
+    margin-top: 24px;
+    margin-bottom: 16px;
+}
+
+a {
+    color: #0969da;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.code-block {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.code-block pre {
+    background-color: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    padding: 16px;
+    padding-right: 55px;
+    overflow-x: auto;
+    font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.code-block pre code.hljs {
+    padding: 0;
+    background: transparent;
+    color: #1f2328;
+}
+
+.copy-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 4px 8px;
+    background-color: #fff;
+    border: 1px solid #d0d7de;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #57606a;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s, background-color 0.2s, border-color 0.2s, color 0.2s;
+    z-index: 1;
+}
+
+.copy-button:hover {
+    opacity: 1;
+    background-color: #0969da;
+    border-color: #0969da;
+    color: #ffffff;
+}
+
+.copy-button.copied {
+    background-color: #1a7f37;
+    border-color: #1a7f37;
+    color: #ffffff;
+    opacity: 1;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    font-size: 3em;
+    border: none;
+    margin-bottom: 0.2em;
+}
+
+.page-header .subtitle {
+    font-size: 1.2em;
+    color: #57606a;
+    margin-bottom: 1em;
+}
+
+.page-header .github-link {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+#tabbed-gallery {
+    margin-top: 30px;
+}
+
+.tab-list {
+    border-bottom: 1px solid #d0d7de;
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.tab-button {
+    padding: 8px 16px;
+    margin-bottom: -1px;
+    border: 1px solid transparent;
+    border-bottom: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    color: #57606a;
+    border-radius: 6px 6px 0 0;
+    position: relative;
+    bottom: -1px;
+}
+
+.tab-button:hover {
+    color: #1f2328;
+    background-color: #f6f8fa;
+}
+
+.tab-button[aria-selected="true"] {
+    font-weight: 600;
+    color: #1f2328;
+    background-color: #ffffff;
+    border-color: #d0d7de;
+    border-bottom: 1px solid #ffffff;
+}
+
+.tab-panel {
+    display: none;
+    border: 1px solid #d0d7de;
+    border-top: none;
+    padding: 20px;
+    border-radius: 0 0 6px 6px;
+}
+
+.tab-panel[aria-hidden="false"] {
+    display: block;
+}
+
+.gallery-container {
+    display: table;
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.gallery-header-row {
+    display: table-row;
+    background-color: #f6f8fa;
+    font-weight: 600;
+    font-size: 14px;
+    border-bottom: 1px solid #d0d7de;
+}
+
+.gallery-header-cell {
+    display: table-cell;
+    padding: 12px 10px;
+    border-right: 1px solid #eaecef;
+}
+
+.gallery-header-cell:last-child {
+    border-right: none;
+}
+
+.gallery-row {
+    display: table-row;
+    border-top: 1px solid #d0d7de;
+}
+
+.gallery-row:first-child {
+    border-top: none;
+}
+
+.gallery-row:nth-child(even) {
+    background-color: #f6f8fa;
+}
+
+.gallery-row:hover {
+    background-color: #f0f1f3;
+}
+
+.gallery-cell {
+    display: table-cell;
+    padding: 10px;
+    vertical-align: middle;
+    border-right: 1px solid #eaecef;
+    font-size: 14px;
+}
+
+.gallery-cell:last-child {
+    border-right: none;
+}
+
+.cell-preview {
+    width: 100px;
+    text-align: center;
+}
+
+.cell-name {
+    width: 250px;
+    font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+    word-break: break-all;
+}
+
+.cell-code {
+    width: auto;
+}
+
+.cell-code .code-block {
+    margin-bottom: 0;
+}
+
+.cell-code pre {
+    font-size: 12px;
+    padding: 8px;
+    padding-right: 50px;
+}
+
+.cell-code .copy-button {
+    top: 4px;
+    right: 4px;
+}
+
+#icon-filter {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 20px auto;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+#icon-filter:focus {
+    border-color: #0969da;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.3);
+}

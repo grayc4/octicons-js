@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Octicons JS - Vanilla JS GitHub Octicons</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="script.js" defer></script>
+</head>
+
+<body>
+    <header class="page-header">
+        <h1>Octicons JS</h1>
+        <p class="subtitle">Use GitHub Octicons in JavaScript with ES6 imports. Vanilla JS & NodeJS ready.</p>
+        <a href="https://github.com/grayc4/octicons-js" target="_blank" rel="noopener noreferrer" class="github-link">
+            View on GitHub
+        </a>
+    </header>
+
+    <main>
+        <section id="installation">
+            <h2>Installation</h2>
+            <div class="code-block">
+                <pre><code class="language-bash">npm install octicons-js</code></pre>
+                <button class="copy-button">Copy</button>
+            </div>
+        </section>
+
+        <section id="usage">
+            <h2>Basic Usage</h2>
+            <p>Import the library and access icons and component functions:</p>
+            <div class="code-block">
+                <pre><code class="language-javascript">import Octicons, { octicon, octiconBtn, octiconLabelBtn } from 'octicons-js';
+
+const fileSvg = Octicons.octiconFile16 || '&lt;svg&gt;&lt;/svg&gt;';
+const zapSvg = Octicons.octiconZap16 || '&lt;svg&gt;&lt;/svg&gt;';
+const folderSvg = Octicons.octiconFolder16 || '&lt;svg&gt;&lt;/svg&gt;';
+
+const fileIcon = octicon(fileSvg, 16, 'dark');
+document.body.appendChild(fileIcon);
+
+const zapButton = octiconBtn(zapSvg, 'dark', 16, 32);
+document.body.appendChild(zapButton);
+
+const folderButton = octiconLabelBtn(folderSvg, 'My Folder', 'dark', 16, true);
+document.body.appendChild(folderButton);</code></pre>
+                <button class="copy-button">Copy</button>
+            </div>
+        </section>
+
+        <section id="tabbed-gallery">
+            <h2>Examples & Gallery</h2>
+            <input type="text" id="icon-filter" placeholder="Filter icons by name...">
+
+            <div class="tab-list" role="tablist" aria-label="Icon Examples">
+                <button class="tab-button" role="tab" aria-selected="true" aria-controls="panel-icons"
+                    id="tab-icons">Standalone Icons</button>
+                <button class="tab-button" role="tab" aria-selected="false" aria-controls="panel-buttons"
+                    id="tab-buttons">Square Buttons</button>
+                <button class="tab-button" role="tab" aria-selected="false" aria-controls="panel-label-buttons"
+                    id="tab-label-buttons">Label Buttons</button>
+            </div>
+
+            <div class="tab-panels">
+                <div class="tab-panel" role="tabpanel" id="panel-icons" aria-labelledby="tab-icons" aria-hidden="false">
+                    <div class="gallery-container" id="gallery-icons">
+                        <div class="gallery-header-row">
+                            <div class="gallery-header-cell cell-preview">Preview</div>
+                            <div class="gallery-header-cell cell-name">Icon Name</div>
+                            <div class="gallery-header-cell cell-code">Usage (`octicon`)</div>
+                        </div>
+                        <!-- Icon rows will be generated here -->
+                    </div>
+                </div>
+                <div class="tab-panel" role="tabpanel" id="panel-buttons" aria-labelledby="tab-buttons"
+                    aria-hidden="true">
+                    <div class="gallery-container" id="gallery-buttons">
+                        <div class="gallery-header-row">
+                            <div class="gallery-header-cell cell-preview">Preview</div>
+                            <div class="gallery-header-cell cell-name">Icon Name</div>
+                            <div class="gallery-header-cell cell-code">Usage (`octiconBtn`)</div>
+                        </div>
+                        <!-- Button rows will be generated here -->
+                    </div>
+                </div>
+                <div class="tab-panel" role="tabpanel" id="panel-label-buttons" aria-labelledby="tab-label-buttons"
+                    aria-hidden="true">
+                    <div class="gallery-container" id="gallery-label-buttons">
+                        <div class="gallery-header-row">
+                            <div class="gallery-header-cell cell-preview">Preview</div>
+                            <div class="gallery-header-cell cell-name">Icon Name</div>
+                            <div class="gallery-header-cell cell-code">Usage (`octiconLabelBtn`)</div>
+                        </div>
+                        <!-- Label Button rows will be generated here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
