@@ -1,4 +1,4 @@
-// --- Style Injection Logic ---
+// --- Default styles ---
 
 const essentialCSS = `
 .octicon {
@@ -97,9 +97,7 @@ function injectStyles() {
   }
 }
 
-
 // --- Component Functions ---
-
 
 /**
  * Creates a span element containing an Octicon SVG.
