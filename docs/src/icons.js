@@ -1,53 +1,60 @@
-import { getOcticons, octicon, octiconBtn, octiconLabelBtn } from '../index.js';
+import { octicon, octiconBtn, octiconLabelBtn } from './components.js';
+import * as icons12 from './icons_12.js';
+import * as icons16 from './icons_16.js';
+import * as icons24 from './icons_24.js';
+import * as icons48 from './icons_48.js';
+import * as icons96 from './icons_96.js';
 
-/**
- * @type {Object}
- */
 export const icons = {};
 
-/**
- * @returns {string[]}
- * @private
- */
+const allIconData = {};
+
+function addIcons(sourceIcons, sizeSuffix) {
+  if (!sourceIcons || typeof sourceIcons !== 'object') {
+    return;
+  }
+  Object.keys(sourceIcons).forEach(key => {
+    allIconData[String(key) + String(sizeSuffix)] = sourceIcons[key];
+  });
+}
+
+addIcons(icons12, '12');
+addIcons(icons16, '16');
+addIcons(icons24, '24');
+addIcons(icons48, '48');
+addIcons(icons96, '96');
+
 function getAllIconNames() {
   const names = new Set();
-  const OcticonsData = getOcticons(); // Use the new function to get populated Octicons
   
-  Object.keys(OcticonsData).forEach(key => { // Iterate over the populated OcticonsData
+  Object.keys(allIconData).forEach(key => {
     if (key.startsWith('octicon')) {
-      const match = key.match(/^octicon([A-Z][a-zA-Z0-9]+)(\d+)$/);
-      if (match) {
-        const name = match[1];
-        const size = parseInt(match[2], 10);
-        
-        const kebabName = name
-          .replace(/([A-Z])/g, (match, p1, offset) => 
-            (offset > 0 ? '-' : '') + p1.toLowerCase()
-          );
-        
-        if (!icons[kebabName]) {
-          icons[kebabName] = {};
-        }
-        
-        icons[kebabName][size] = OcticonsData[key]; // Use OcticonsData
-        
-        names.add(kebabName);
+      const iconNameCapitalized = key.replace(/^octicon/, '').replace(/\d+$/, '');
+      
+      let size = 16;
+      if (key.endsWith('12')) size = 12;
+      else if (key.endsWith('16')) size = 16;
+      else if (key.endsWith('24')) size = 24;
+      else if (key.endsWith('48')) size = 48;
+      else if (key.endsWith('96')) size = 96;
+      
+      const kebabName = iconNameCapitalized
+        .replace(/([A-Z])/g, (match, p1, offset) => 
+          (offset > 0 ? '-' : '') + p1.toLowerCase()
+        );
+      
+      if (!icons[kebabName]) {
+        icons[kebabName] = {};
       }
+      
+      icons[kebabName][size] = allIconData[key];
+      names.add(kebabName);
     }
   });
   
   return Array.from(names);
 }
 
-/**
- * Icon
- * @param {string} name
- * @param {Object} [options={}] - Configuration
- * @param {number} [options.size=16] - Icon sz. (see docs for size availability)
- * @param {('light'|'dark')} [options.style='dark'] - Theme
- * @returns {HTMLSpanElement}
- * @throws {Error}
- */
 export function icon(name, options = {}) {
   const { size = 16, style = 'dark' } = options;
   
@@ -58,16 +65,6 @@ export function icon(name, options = {}) {
   return octicon(icons[name][size], size, style);
 }
 
-/**
- * Square button icon button
- * @param {string} name
- * @param {Object} [options={}] - Configuration
- * @param {number} [options.size=16] - Icon sz. (see docs for size availability)
- * @param {number} [options.buttonSize=null] - Button size (defaults to size + 16)
- * @param {('light'|'dark')} [options.style='dark'] - Theme
- * @returns {HTMLButtonElement}
- * @throws {Error}
- */
 export function iconButton(name, options = {}) {
   const { size = 16, buttonSize = null, style = 'dark' } = options;
   
@@ -78,17 +75,6 @@ export function iconButton(name, options = {}) {
   return octiconBtn(icons[name][size], style, size, buttonSize);
 }
 
-/**
- * Icon button with label
- * @param {string} name
- * @param {string} label - Button label string
- * @param {Object} [options={}] - Configuration
- * @param {number} [options.size=16] - Icon sz. (see docs for size availability)
- * @param {('light'|'dark')} [options.style='dark'] - Theme
- * @param {boolean} [options.iconFirst=true] - Icon position relative to label
- * @returns {HTMLButtonElement}
- * @throws {Error}
- */
 export function labelButton(name, label, options = {}) {
   const { size = 16, style = 'dark', iconFirst = true } = options;
   
@@ -99,9 +85,6 @@ export function labelButton(name, label, options = {}) {
   return octiconLabelBtn(icons[name][size], label, style, size, iconFirst);
 }
 
-/**
- * @type {Object}
- */
 export const buttons = {};
 
 getAllIconNames();

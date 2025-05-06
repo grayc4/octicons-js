@@ -10,208 +10,32 @@ npm install octicons-js
 
 ## Usage
 
-### Simplified API (Recommended)
-
-```javascript
-import { icons, icon, iconButton, labelButton, buttons } from 'octicons-js';
-
-// Example 1: Direct access to SVG strings
-const alertSvg = icons.alert[16];        // Get svg string for 16px alert icon
-const folderSvg = icons['file-directory'][24]; // Get svg for 24px folder icon
-
-// Example 2: Create an icon element
-const alertIcon = icon('alert', { size: 16, style: 'dark' });
-
-// Example 3: Create a button with icon and label
-const settingsButton = labelButton('gear', 'Settings');
-
-// Example 4: Create a square icon button
-const deleteButton = iconButton('trash', { buttonSize: 32 });
-
-// Example 5: Pre-configured buttons
-const addButton = buttons.plus('Add Item');
-const closeIconButton = buttons.xIcon(); // Just the icon
-
-// Add to DOM
-document.body.appendChild(alertIcon);
-document.body.appendChild(settingsButton);
-document.body.appendChild(deleteButton);
-document.body.appendChild(addButton);
-document.body.appendChild(closeIconButton);
-```
-
-### Traditional API
-
-```javascript
-import Octicons, { octicon, octiconBtn, octiconLabelBtn } from 'octicons-js';
-
-// Example 1: Just the icon
-const fileIcon = octicon(
-  Octicons.octiconFile16,
-  16,
-  'dark'
-);
-
-// Example 2: Square icon button
-const folderButton = octiconBtn(
-  Octicons.octiconFileDirectory16,
-  'dark',
-  16
-);
-
-// Example 3: Button with icon and label
-const lockButton = octiconLabelBtn(
-  Octicons.octiconLock16,
-  'Secure',
-  'dark',
-  16
-);
-
-// Add to DOM
-document.body.appendChild(fileIcon);
-document.body.appendChild(folderButton);
-document.body.appendChild(lockButton);
-```
-
-## Simplified API Reference
-
-### `icons` Object
-
-Direct access to all icon SVG strings by name and size:
-
-```javascript
-import { icons } from 'octicons-js';
-
-// Get SVG string for alert icon at 16px size
-const alertSvg = icons.alert[16];
-
-// Get SVG string for file directory at 24px size
-const folderSvg = icons['file-directory'][24];
-
-// Check if an icon exists in a specific size
-if (icons.gear[48]) {
-  console.log('48px gear icon is available');
-}
-
-// Get all available sizes for an icon
-const alertSizes = Object.keys(icons.alert).map(Number);
-console.log(alertSizes); // e.g. [16, 24]
-```
-
-### `icon(name, options)`
-
-Creates an icon element:
-
-```javascript
-import { icon } from 'octicons-js';
-
-// Basic usage with defaults (16px, dark style)
-const alertIcon = icon('alert');
-
-// With options
-const gearIcon = icon('gear', {
-  size: 24,        // 12, 16, 24, 48, or 96
-  style: 'light'   // 'light' or 'dark'
-});
-```
-
-### `iconButton(name, options)`
-
-Creates a square button with an icon:
-
-```javascript
-import { iconButton } from 'octicons-js';
-
+```js
 // Basic usage
-const deleteButton = iconButton('trash');
+import { icon, iconButton, labelButton } from 'octicons-js';
 
-// With options
-const settingsButton = iconButton('gear', {
-  size: 24,         // Icon size
-  buttonSize: 48,   // Button size (default is size + 16)
-  style: 'dark'     // 'light' or 'dark'
+// Simple icon
+const alertIcon = icon('alert-fill', { size: 12 });
+
+// Icon button (square)
+const checkButton = iconButton('check-circle-fill', { 
+  size: 12,
+  buttonSize: 32
 });
-```
 
-### `labelButton(name, label, options)`
-
-Creates a button with an icon and label:
-
-```javascript
-import { labelButton } from 'octicons-js';
-
-// Basic usage
-const addButton = labelButton('plus', 'Add Item');
-
-// With options
-const searchButton = labelButton('search', 'Search', {
-  size: 16,        // Icon size
-  style: 'dark',   // 'light' or 'dark'
-  iconFirst: false // Label first, then icon (default is icon first)
+// Button with icon and label
+const downloadButton = labelButton('download', 'Download File', {
+  size: 16,
+  style: 'dark'
 });
+
+// Direct SVG access (alternative method)
+import { octicon } from 'octicons-js';
+import { octiconAlertFill } from 'octicons-js/src/icons_12.js';
+const directIcon = octicon(octiconAlertFill, 12, 'dark');
 ```
-
-### `buttons` Object
-
-Convenient pre-configured buttons for all icons:
-
-```javascript
-import { buttons } from 'octicons-js';
-
-// Create label buttons with default text
-const settingsButton = buttons.gear(); // Text will be "Gear"
-const folderButton = buttons['file-directory'](); // Text will be "File Directory"
-
-// Create label buttons with custom text
-const alertButton = buttons.alert('Warning');
-const addButton = buttons.plus('Add Item');
-
-// Create square icon buttons (no text)
-const closeButton = buttons.xIcon();
-const searchButton = buttons.searchIcon();
-
-// For kebab-case names, use array notation or camelCase for icon-only buttons
-const fileCodeButton = buttons['file-code']('View Code');
-const fileCodeIconButton = buttons.fileCodeIcon();
-```
-
-## Traditional API Reference
-
-### `octicon(svg, size, style)`
-
-Creates just the icon element.
-
-- `svg` (String): SVG markup for the icon (e.g., `Octicons.octiconFile16`)
-- `size` (Number): Size of the icon in pixels (default: 16)
-- `style` (String): 'light' or 'dark' style (default: 'dark')
-- Returns: HTMLElement (span) containing the octicon
-
-### `octiconBtn(svg, style, size, buttonSize)`
-
-Creates a square button with centered icon.
-
-- `svg` (String): SVG markup for the icon (e.g., `Octicons.octiconZap16`)
-- `style` (String): 'light' or 'dark' style for the icon (default: 'dark')
-- `size` (Number): Size of the icon in pixels (default: 16)
-- `buttonSize` (Number): Size of the square button (default: size + 16)
-- Returns: HTMLElement (button) with centered icon
-
-### `octiconLabelBtn(svg, label, style, size, iconFirst)`
-
-Creates a button with icon and label.
-
-- `svg` (String): SVG markup for the icon (e.g., `Octicons.octiconLock16`)
-- `label` (String): Text label for the button
-- `style` (String): 'light' or 'dark' style for the icon (default: 'dark')
-- `size` (Number): Size of the icon in pixels (default: 16)
-- `iconFirst` (Boolean): Whether icon appears before label (default: true)
-- Returns: HTMLElement (button) with icon and label
 
 ## Available Icons
-
-**`Octicons` (Default Export):** An object containing raw SVG string data for all available icons. Access icons by name with size suffix (e.g., `Octicons.octiconAlert16`, `Octicons.octiconGear24`).
-
-With the simplified API, you can access icons directly by name and size (e.g., `icons.alert[16]`, `icons.gear[24]`).
 
 The following icons are included in this package:
 
@@ -548,66 +372,6 @@ The following icons are included in this package:
 | zap | 16, 24 |
 | zoom-in | 16, 24 |
 | zoom-out | 16, 24 |
-
-## Examples
-
-### Simplified Access to Icons
-
-```javascript
-import { icons, icon } from 'octicons-js';
-
-// Check which sizes are available for an icon
-const availableSizes = Object.keys(icons.gear);
-console.log(`Gear icon is available in these sizes: ${availableSizes.join(', ')}`);
-
-// Create icons in different sizes
-const small = icon('alert', { size: 16 });
-const medium = icon('alert', { size: 24 });
-
-document.body.appendChild(small);
-document.body.appendChild(medium);
-```
-
-### Dark Mode Support
-
-```javascript
-import { icon, labelButton } from 'octicons-js';
-
-// Use system preference to choose icon style
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-const iconStyle = prefersDark ? 'light' : 'dark'; // Use light icon on dark background
-
-// Create components with appropriate style
-const gearIcon = icon('gear', { style: iconStyle });
-const settingsButton = labelButton('gear', 'Settings', { style: iconStyle });
-
-document.body.appendChild(gearIcon);
-document.body.appendChild(settingsButton);
-```
-
-### Adding Custom Events
-
-```javascript
-import { iconButton, labelButton } from 'octicons-js';
-
-// Square button with event
-const deleteButton = iconButton('trash', { buttonSize: 36 });
-deleteButton.addEventListener('click', () => {
-  if (confirm('Are you sure you want to delete?')) {
-    console.log('Deleting item...');
-  }
-});
-
-// Label button with event
-const saveButton = labelButton('check', 'Save Changes');
-saveButton.addEventListener('click', () => {
-  console.log('Saving changes...');
-  // Your save logic here
-});
-
-document.body.appendChild(deleteButton);
-document.body.appendChild(saveButton);
-```
 
 ## Browser Support
 
