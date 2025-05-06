@@ -1,6 +1,6 @@
 {
   "name": "octicons-js",
-  "version": "1.2.1",
+  "version": "1.2.3",
   "description": "octicons-js is a JavaScript library that provides a simple way to use GitHub Octicons in your frontend projects.",
   "main": "index.js",
   "module": "index.js",

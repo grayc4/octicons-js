@@ -43,6 +43,8 @@ addIcons(icons24, '24');
 addIcons(icons48, '48');
 addIcons(icons96, '96');
 
+export function getOcticons() { return Octicons; }
+
 export { octicon, octiconBtn, octiconLabelBtn };
 export default Octicons;
 export * from './src/api.js';
