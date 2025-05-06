@@ -3,21 +3,30 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Octicons JS - Vanilla JS GitHub Octicons</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
     <link rel="stylesheet" href="styles.css">
     <script type="module" src="script.js" defer></script>
 </head>
 
 <body>
     <header class="page-header">
-        <h1>Octicons JS</h1>
-        <p class="subtitle">Use GitHub Octicons in JavaScript with ES6 imports. Vanilla JS & NodeJS ready.</p>
-        <a href="https://github.com/grayc4/octicons-js" target="_blank" rel="noopener noreferrer" class="github-link">
-            View on GitHub
-        </a>
+        <h1>octicons-js</h1>
+        <p class="intro">GitHub Octicons for JavaScript projects with a simple, intuitive API. Create icon elements and
+            buttons with minimal code. Zero dependencies, fully TypeScript-compatible, and ready for both Node.js and
+            browser environments. Includes all official GitHub icons with light/dark styling options.</p>
+        <div class="split-button-container">
+            <a href="https://www.npmjs.com/package/octicons-js" class="split-button left-section">
+                <svg class="button-icon npm-icon" width="68" height="24" viewBox="0 0 256 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet"><path d="M0 0v85.498h71.166V99.83H128V85.498h128V0H0z" fill="#CB3837"/><path d="M42.502 14.332h-28.17v56.834h28.17V28.664h14.332v42.502h14.332V14.332H42.502zM85.498 14.332v71.166h28.664V71.166h28.17V14.332H85.498zM128 56.834h-13.838v-28.17H128v28.17zM184.834 14.332h-28.17v56.834h28.17V28.664h14.332v42.502h14.332V28.664h14.332v42.502h14.332V14.332h-57.328z" fill="#FFF"/></svg>
+            </a>
+            <div class="button-divider"></div>
+            <a href="https://github.com/grayc4/octicons-js" class="split-button right-section">
+                <svg class="button-icon github-icon" xmlns="http://www.w3.org/2000/" width="68" height="24" viewBox="-0.122 175.062 480.244 129.875"><g fill="#121110"><path d="M92.375 230.65H52.019a1.887 1.887 0 0 0-1.886 1.886v19.731a1.89 1.89 0 0 0 1.886 1.889h15.743v24.513s-3.535 1.206-13.308 1.206c-11.53 0-27.637-4.214-27.637-39.632 0-35.425 16.772-40.087 32.518-40.087 13.63 0 19.502 2.401 23.238 3.556 1.174.36 2.26-.808 2.26-1.851l4.502-19.063c0-.487-.165-1.075-.721-1.474-1.517-1.082-10.774-6.262-34.16-6.262-26.941 0-54.576 11.463-54.576 66.562 0 55.103 31.64 63.313 58.302 63.313 22.076 0 35.468-9.434 35.468-9.434.552-.306.612-1.077.612-1.431v-61.537c0-1.04-.844-1.885-1.885-1.885M300.354 181.664a1.88 1.88 0 0 0-1.873-1.896h-22.724a1.889 1.889 0 0 0-1.882 1.896l.006 43.913h-35.419v-43.913a1.882 1.882 0 0 0-1.875-1.896h-22.722a1.887 1.887 0 0 0-1.877 1.896v118.904c0 1.048.843 1.901 1.877 1.901h22.722c1.039 0 1.875-.854 1.875-1.901v-50.86h35.419l-.062 50.86c0 1.048.844 1.901 1.883 1.901h22.777c1.041 0 1.873-.854 1.875-1.901V181.664M135.254 197.268c0-8.183-6.56-14.795-14.653-14.795-8.085 0-14.65 6.612-14.65 14.795 0 8.173 6.565 14.802 14.65 14.802 8.093 0 14.653-6.629 14.653-14.802M133.629 275.486V220.6a1.89 1.89 0 0 0-1.88-1.895h-22.651c-1.039 0-1.969 1.072-1.969 2.115v78.634c0 2.312 1.44 2.998 3.304 2.998h20.408c2.239 0 2.788-1.1 2.788-3.034v-23.932M386.71 218.884h-22.549c-1.034 0-1.876.852-1.876 1.901v58.302s-5.729 4.192-13.859 4.192c-8.13 0-10.287-3.689-10.287-11.65v-50.844c0-1.049-.841-1.901-1.875-1.901h-22.886c-1.032 0-1.879.852-1.879 1.901v54.693c0 23.646 13.179 29.431 31.31 29.431 14.873 0 26.864-8.216 26.864-8.216s.571 4.329.829 4.843c.259.512.932 1.029 1.659 1.029l14.56-.064c1.032 0 1.879-.854 1.879-1.898l-.008-79.817c0-1.05-.843-1.902-1.882-1.902M439.445 283.207c-7.821-.238-13.126-3.788-13.126-3.788v-37.653s5.233-3.208 11.654-3.782c8.12-.727 15.944 1.726 15.944 21.095.001 20.426-3.53 24.457-14.472 24.128zm8.894-66.993c-12.807 0-21.518 5.714-21.518 5.714v-40.263c0-1.05-.839-1.897-1.875-1.897h-22.787a1.887 1.887 0 0 0-1.878 1.897v118.903c0 1.048.842 1.901 1.881 1.901h15.811c.711 0 1.25-.367 1.648-1.009.393-.639.96-5.482.96-5.482s9.318 8.83 26.957 8.83c20.708 0 32.584-10.504 32.584-47.154 0-36.651-18.967-41.44-31.783-41.44M198.936 218.695h-17.045l-.026-22.519c0-.852-.439-1.278-1.424-1.278h-23.228c-.903 0-1.388.398-1.388 1.265v23.271s-11.64 2.809-12.427 3.037a1.886 1.886 0 0 0-1.361 1.812v14.623c0 1.052.84 1.898 1.879 1.898h11.909v35.178c0 26.13 18.328 28.697 30.696 28.697 5.651 0 12.411-1.814 13.527-2.228.675-.248 1.067-.947 1.067-1.705l.019-16.086c0-1.05-.886-1.897-1.884-1.897-.993 0-3.534.404-6.15.404-8.372 0-11.209-3.893-11.209-8.932l-.001-33.432h17.046c1.039 0 1.88-.847 1.88-1.898v-18.317a1.884 1.884 0 0 0-1.88-1.893"/></g></svg>
+            </a>
+        </div>
     </header>
 
     <main>
@@ -30,29 +39,252 @@
         </section>
 
         <section id="usage">
-            <h2>Basic Usage</h2>
-            <p>Import the library and access icons and component functions:</p>
-            <div class="code-block">
-                <pre><code class="language-javascript">import Octicons, { octicon, octiconBtn, octiconLabelBtn } from 'octicons-js';
+            <h2>Usage</h2>
+
+            <div class="api-section">
+                <h3>Simplified API (Recommended)</h3>
+                <p>Use these helper functions for the easiest and most intuitive way to work with Octicons:</p>
+
+                <div class="api-title">
+                    icon(name, options)
+                    <span class="api-tag">New</span>
+                </div>
+                <p>Create a standalone icon using just the icon name:</p>
+                <div class="code-block">
+                    <pre><code class="language-javascript">import { icon } from 'octicons-js';
+
+// Create a 16px alert icon with dark style
+const alertIcon = icon('alert');
+document.body.appendChild(alertIcon);
+
+// Create a 24px gear icon with light style
+const gearIcon = icon('gear', { size: 24, style: 'light' });
+document.body.appendChild(gearIcon);</code></pre>
+                    <button class="copy-button">Copy</button>
+                </div>
+
+                <div class="api-title">
+                    iconButton(name, options)
+                    <span class="api-tag">New</span>
+                </div>
+                <p>Create a square button containing just an icon:</p>
+                <div class="code-block">
+                    <pre><code class="language-javascript">import { iconButton } from 'octicons-js';
+
+// Create a 16px x icon button (32px square button)
+const closeBtn = iconButton('x', { buttonSize: 32 });
+document.body.appendChild(closeBtn);
+
+// Create a large search button with custom styling
+const searchBtn = iconButton('search', {
+  size: 24,             // Icon size
+  buttonSize: 48,       // Button dimensions
+  style: 'light'        // Icon color
+});
+document.body.appendChild(searchBtn);</code></pre>
+                    <button class="copy-button">Copy</button>
+                </div>
+
+                <div class="api-title">
+                    labelButton(name, label, options)
+                    <span class="api-tag">New</span>
+                </div>
+                <p>Create a button with both an icon and text label:</p>
+                <div class="code-block">
+                    <pre><code class="language-javascript">import { labelButton } from 'octicons-js';
+
+// Create a settings button with default options
+const settingsBtn = labelButton('gear', 'Settings');
+document.body.appendChild(settingsBtn);
+
+// Create a download button with icon after text
+const downloadBtn = labelButton('download', 'Download ZIP', {
+  size: 16,             // Icon size
+  style: 'dark',        // Icon color
+  iconFirst: false      // Place icon after text
+});
+document.body.appendChild(downloadBtn);</code></pre>
+                    <button class="copy-button">Copy</button>
+                </div>
+
+                <div class="api-title">
+                    buttons
+                    <span class="api-tag">New</span>
+                </div>
+                <p>Pre-configured buttons for common icons:</p>
+                <div class="code-block">
+                    <pre><code class="language-javascript">import { buttons } from 'octicons-js';
+
+// Add buttons with a single function call
+document.body.appendChild(buttons.gear('Settings'));
+document.body.appendChild(buttons.plus('Add Item'));
+document.body.appendChild(buttons.file('View File'));
+
+// Icon-only buttons (no label)
+document.body.appendChild(buttons.gearIcon());
+document.body.appendChild(buttons.alertIcon());</code></pre>
+                    <button class="copy-button">Copy</button>
+                </div>
+
+                <h4>Common Pre-configured Buttons</h4>
+                <div class="example-grid">
+                    <div class="example-card">
+                        <div class="example-preview" id="example-gear"></div>
+                        <div class="example-code">
+                            <div class="code-block">
+                                <pre><code class="language-javascript">buttons.gear('Settings')</code></pre>
+                                <button class="copy-button">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-preview" id="example-plus"></div>
+                        <div class="example-code">
+                            <div class="code-block">
+                                <pre><code class="language-javascript">buttons.plus('Add New')</code></pre>
+                                <button class="copy-button">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-preview" id="example-search"></div>
+                        <div class="example-code">
+                            <div class="code-block">
+                                <pre><code class="language-javascript">buttons.search('Search')</code></pre>
+                                <button class="copy-button">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="example-grid">
+                    <div class="example-card">
+                        <div class="example-preview" id="example-gearicon"></div>
+                        <div class="example-code">
+                            <div class="code-block">
+                                <pre><code class="language-javascript">buttons.gearIcon()</code></pre>
+                                <button class="copy-button">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-preview" id="example-alerticon"></div>
+                        <div class="example-code">
+                            <div class="code-block">
+                                <pre><code class="language-javascript">buttons.alertIcon()</code></pre>
+                                <button class="copy-button">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-preview" id="example-trashicon"></div>
+                        <div class="example-code">
+                            <div class="code-block">
+                                <pre><code class="language-javascript">buttons.trashIcon()</code></pre>
+                                <button class="copy-button">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="api-section">
+                <h3>Core API</h3>
+                <p>Access raw SVG strings and create elements with more control:</p>
+
+                <div class="api-title">Octicons</div>
+                <p>Object containing all icon SVG strings indexed by name and size:</p>
+                <div class="code-block">
+                    <pre><code class="language-javascript">import Octicons from 'octicons-js';
+
+// Each icon is available in multiple sizes (12, 16, 24, 48, 96)
+const alertSvg = Octicons.octiconAlert16;
+const gearSvg = Octicons.octiconGear24;
+
+// Always check if the icon exists
+if (alertSvg) {
+  console.log('Alert icon SVG:', alertSvg);
+}</code></pre>
+                    <button class="copy-button">Copy</button>
+                </div>
+
+                <div class="api-title">octicon(svg, size, style)</div>
+                <p>Creates a span element with the icon SVG inside:</p>
+                <div class="code-block">
+                    <pre><code class="language-javascript">import Octicons, { octicon } from 'octicons-js';
 
 const fileSvg = Octicons.octiconFile16;
+
+if (fileSvg) {
+  // octicon(svgString, size, style)
+  const fileIcon = octicon(fileSvg, 16, 'dark');
+  document.body.appendChild(fileIcon);
+}</code></pre>
+                    <button class="copy-button">Copy</button>
+                </div>
+
+                <div class="api-title">octiconBtn(svg, style, size, buttonSize)</div>
+                <p>Creates a square button with a centered icon:</p>
+                <div class="code-block">
+                    <pre><code class="language-javascript">import Octicons, { octiconBtn } from 'octicons-js';
+
 const zapSvg = Octicons.octiconZap16;
-const folderSvg = Octicons.octiconFolder16;
 
-const fileIcon = octicon(fileSvg, 16, 'dark');
-document.body.appendChild(fileIcon);
+if (zapSvg) {
+  // octiconBtn(svgString, style, iconSize, buttonSize)
+  const zapButton = octiconBtn(zapSvg, 'dark', 16, 32);
+  document.body.appendChild(zapButton);
+}</code></pre>
+                    <button class="copy-button">Copy</button>
+                </div>
 
-const zapButton = octiconBtn(zapSvg, 'dark', 16, 32);
-document.body.appendChild(zapButton);
+                <div class="api-title">octiconLabelBtn(svg, label, style, size, iconFirst)</div>
+                <p>Creates a button with an icon and text label:</p>
+                <div class="code-block">
+                    <pre><code class="language-javascript">import Octicons, { octiconLabelBtn } from 'octicons-js';
 
-const folderButton = octiconLabelBtn(folderSvg, 'My Folder', 'dark', 16, true);
-document.body.appendChild(folderButton);</code></pre>
-                <button class="copy-button">Copy</button>
+const folderSvg = Octicons.octiconFileDirectory16;
+
+if (folderSvg) {
+  // octiconLabelBtn(svgString, label, style, iconSize, iconFirst)
+  const folderButton = octiconLabelBtn(folderSvg, 'My Folder', 'dark', 16, true);
+  document.body.appendChild(folderButton);
+}</code></pre>
+                    <button class="copy-button">Copy</button>
+                </div>
+            </div>
+
+            <div class="api-section">
+                <h3>TypeScript Support</h3>
+                <p>The package includes TypeScript definitions for all functions and interfaces:</p>
+                <div class="code-block">
+                    <pre><code class="language-typescript">import { buttons, icon, iconButton, labelButton, IconOptions } from 'octicons-js';
+
+// Options interface for customizing icons
+const options: IconOptions = {
+  size: 24,
+  style: 'dark'
+};
+
+// Create and use components with type safety
+const alertIcon = icon('alert', options);
+document.body.appendChild(alertIcon);
+
+// Pre-configured buttons with TypeScript support
+const settingsBtn = buttons.gear('Settings');
+document.body.appendChild(settingsBtn);</code></pre>
+                    <button class="copy-button">Copy</button>
+                </div>
             </div>
         </section>
 
         <section id="tabbed-gallery">
-            <h2>Examples & Gallery</h2>
+            <h2>Icons Gallery</h2>
+            <p>Browse all available icons and see how to use them:</p>
             <input type="text" id="icon-filter" placeholder="Filter icons by name...">
 
             <div class="tab-list" role="tablist" aria-label="Icon Examples">
@@ -70,9 +302,9 @@ document.body.appendChild(folderButton);</code></pre>
                         <div class="gallery-header-row">
                             <div class="gallery-header-cell cell-preview">Preview</div>
                             <div class="gallery-header-cell cell-name">Icon Name</div>
-                            <div class="gallery-header-cell cell-code">Usage (`octicon`)</div>
+                            <div class="gallery-header-cell cell-code">Usage</div>
                         </div>
-                        <!-- Icon rows will be generated here -->
+                        <!-- Icon rows -->
                     </div>
                 </div>
                 <div class="tab-panel" role="tabpanel" id="panel-buttons" aria-labelledby="tab-buttons"
@@ -81,9 +313,9 @@ document.body.appendChild(folderButton);</code></pre>
                         <div class="gallery-header-row">
                             <div class="gallery-header-cell cell-preview">Preview</div>
                             <div class="gallery-header-cell cell-name">Icon Name</div>
-                            <div class="gallery-header-cell cell-code">Usage (`octiconBtn`)</div>
+                            <div class="gallery-header-cell cell-code">Usage</div>
                         </div>
-                        <!-- Button rows will be generated here -->
+                        <!-- Button rows -->
                     </div>
                 </div>
                 <div class="tab-panel" role="tabpanel" id="panel-label-buttons" aria-labelledby="tab-label-buttons"
@@ -92,9 +324,9 @@ document.body.appendChild(folderButton);</code></pre>
                         <div class="gallery-header-row">
                             <div class="gallery-header-cell cell-preview">Preview</div>
                             <div class="gallery-header-cell cell-name">Icon Name</div>
-                            <div class="gallery-header-cell cell-code">Usage (`octiconLabelBtn`)</div>
+                            <div class="gallery-header-cell cell-code">Usage</div>
                         </div>
-                        <!-- Label Button rows will be generated here -->
+                        <!-- Label Button rows -->
                     </div>
                 </div>
             </div>

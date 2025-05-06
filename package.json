@@ -1,29 +1,27 @@
 {
   "name": "octicons-js",
-  "version": "1.1.0",
-  "description": "Octicons for JavaScript via ES6 modules with no dependencies.",
+  "version": "1.2.0",
+  "description": "octicons-js is a JavaScript library that provides a simple way to use GitHub Octicons in your frontend projects.",
   "main": "index.js",
+  "module": "index.js",
   "type": "module",
+  "types": "index.d.ts",
   "files": [
     "index.js",
+    "index.d.ts",
     "src/",
-    "readme.md"
+    "README.md",
+    "LICENSE"
   ],
   "keywords": [
     "octicons",
     "github",
     "icons",
     "svg",
-    "ui",
-    "components",
     "javascript",
-    "es6",
-    "modules",
-    "icon buttons"
+    "vanilla-js"
   ],
-  "author": {
-    "name": "grayc4"
-  },
+  "author": "grayc4",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -32,8 +30,5 @@
   "bugs": {
     "url": "https://github.com/grayc4/octicons-js/issues"
   },
-  "homepage": "https://github.com/grayc4/octicons-js#readme",
-  "publishConfig": {
-    "access": "public"
-  }
+  "homepage": "https://grayc4.github.io/octicons-js/"
 }

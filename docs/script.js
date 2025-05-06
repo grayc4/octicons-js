@@ -1,4 +1,12 @@
-import Octicons, { octicon, octiconBtn, octiconLabelBtn } from './index.js';
+import Octicons, {
+    octicon,
+    octiconBtn,
+    octiconLabelBtn,
+    icon,
+    iconButton,
+    labelButton,
+    buttons
+} from './index.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const filterInput = document.getElementById('icon-filter');
@@ -11,6 +19,28 @@ document.addEventListener('DOMContentLoaded', () => {
         buttons: document.getElementById('gallery-buttons'),
         labelButtons: document.getElementById('gallery-label-buttons')
     };
+    
+    const exampleContainers = [
+        { id: 'example-gear', creator: () => buttons.gear('Settings') },
+        { id: 'example-plus', creator: () => buttons.plus('Add New') },
+        { id: 'example-search', creator: () => buttons.search('Search') },
+        { id: 'example-gearicon', creator: () => buttons.gearIcon() },
+        { id: 'example-alerticon', creator: () => buttons.alertIcon() },
+        { id: 'example-trashicon', creator: () => buttons.trashIcon() }
+    ];
+
+    exampleContainers.forEach(example => {
+        const container = document.getElementById(example.id);
+        if (container) {
+            try {
+                const element = example.creator();
+                container.appendChild(element);
+            } catch (e) {
+                container.textContent = 'Error loading example';
+                console.error(`Error rendering example ${example.id}:`, e);
+            }
+        }
+    });
 
     for (const key in galleryContainers) {
         if (!galleryContainers[key]) {
@@ -26,6 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function createGalleryRow(name, size, svgString, type) {
         const row = document.createElement('div');
         row.className = 'gallery-row';
+
+        let baseName = name.replace(/^octicon/, '');
+        if (/\d+$/.test(baseName)) {
+            baseName = baseName.replace(/\d+$/, '');
+        }
+        baseName = baseName.charAt(0).toLowerCase() + baseName.slice(1);
 
         const cellPreview = document.createElement('div');
         cellPreview.className = 'gallery-cell cell-preview';
@@ -62,11 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let codeText = '';
         if (type === 'icon') {
-            codeText = `octicon(Octicons.${name}, ${size}, 'dark');`;
+            codeText = `// Original API\nocticon(Octicons.${name}, ${size}, 'dark');\n\n// Simplified API\nicon('${baseName}', { size: ${size} });`;
         } else if (type === 'button') {
-            codeText = `octiconBtn(Octicons.${name}, 'dark', ${size}, ${size + 16});`;
+            codeText = `// Original API\nocticonBtn(Octicons.${name}, 'dark', ${size}, ${size + 16});\n\n// Simplified API\niconButton('${baseName}', { size: ${size}, buttonSize: ${size + 16} });`;
         } else if (type === 'labelButton') {
-            codeText = `octiconLabelBtn(Octicons.${name}, 'Label', 'dark', ${size}, true);`;
+            codeText = `// Original API\nocticonLabelBtn(Octicons.${name}, 'Label', 'dark', ${size}, true);\n\n// Simplified API\nlabelButton('${baseName}', 'Label', { size: ${size} });`;
         }
         code.textContent = codeText;
 
@@ -116,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 try {
                     hljs.highlightElement(block);
                 } catch (e) {
-                    // Error handling removed as requested
+                    console.error('Error highlighting code block:', e);
                 }
             });
         }
@@ -190,13 +226,13 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             hljs.highlightAll();
         } catch (e) {
-            // Error handling removed as requested
+            console.error('Error highlighting code blocks:', e);
         }
     }
 
     try {
         updateGalleries();
     } catch (error) {
-        // Error handling removed as requested
+        console.error('Error updating galleries:', error);
     }
 });
