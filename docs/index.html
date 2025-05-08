@@ -4,6 +4,267 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Octicons-JS Demo</title>
+    <style>
+        :root {
+            --primary-color: #0969da;
+            --secondary-color: #2da44e;
+            --text-color: #24292f;
+            --text-muted: #57606a;
+            --bg-color: #ffffff;
+            --bg-secondary: #f6f8fa;
+            --border-color: #d0d7de;
+            --radius: 6px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding: 0;
+            margin: 0;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            background: linear-gradient(to right, #0969da, #218bff);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        header a {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        header a:hover {
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        section {
+            margin-bottom: 3.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--text-color);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        ul, ol {
+            margin: 1rem 0 1.5rem 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        pre {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius);
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        code {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 0.9rem;
+            color: #24292e;
+        }
+
+        .demo-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        label {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        select, input[type="number"], input[type="text"] {
+            padding: 0.5rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            background-color: white;
+            min-width: 100px;
+        }
+
+        .output-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .output {
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 120px;
+        }
+
+        #popularIcons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.75rem;
+            border-radius: var(--radius);
+            background-color: var(--bg-secondary);
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .icon-item:hover {
+            border-color: var(--primary-color);
+            background-color: white;
+            transform: translateY(-2px);
+        }
+
+        .icon-name {
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .api-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .api-params {
+            margin-top: 1rem;
+        }
+
+        strong {
+            color: var(--text-color);
+        }
+
+        footer {
+            background-color: var(--bg-secondary);
+            padding: 2rem 1rem;
+            text-align: center;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .demo-container {
+                flex-direction: row;
+            }
+
+            .controls {
+                width: 40%;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .output-container {
+                width: 60%;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -11,12 +272,12 @@
         <p>A lightweight JavaScript library for using GitHub Octicons</p>
         <a href="https://github.com/grayc4/octicons-js">View on GitHub</a>
     </header>
-    
+
     <main>
         <section>
             <h2>About</h2>
             <p>Octicons-JS provides easy access to GitHub's <a href="https://primer.style/octicons/" target="_blank">Octicons</a> for use in JavaScript projects. It includes 300+ SVG icons with a simple, framework-agnostic API.</p>
-            
+
             <p>This library offers:</p>
             <ul>
                 <li><strong>300+ SVG Icons</strong> - The complete GitHub Octicons set</li>
@@ -26,7 +287,7 @@
                 <li><strong>Simple API</strong> - Straightforward functions for creating icons and buttons</li>
             </ul>
         </section>
-        
+
         <section>
             <h2>Installation</h2>
             <pre><code>npm install octicons-js</code></pre>
@@ -36,103 +297,119 @@
 
         <section>
             <h2>Interactive Demo</h2>
-            
+
             <h3>Icon Demo</h3>
-            <div>
-                <div>
-                    <label for="iconName">Icon Name:</label>
-                    <select id="iconName">
-                        <option value="alert">alert</option>
-                        <option value="check">check</option>
-                        <option value="download" selected>download</option>
-                        <option value="eye">eye</option>
-                        <option value="heart">heart</option>
-                        <option value="star">star</option>
-                        <option value="search">search</option>
-                    </select>
-                
-                    <label for="iconSize">Size (px):</label>
-                    <input type="number" id="iconSize" value="32" min="12" max="96">
-                
-                    <label for="iconColor">Color:</label>
-                    <input type="color" id="iconColor" value="#0969da">
+            <div class="demo-container">
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="iconName">Icon Name:</label>
+                        <select id="iconName">
+                            <option value="alert">alert</option>
+                            <option value="check">check</option>
+                            <option value="download" selected>download</option>
+                            <option value="eye">eye</option>
+                            <option value="heart">heart</option>
+                            <option value="star">star</option>
+                            <option value="search">search</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="iconSize">Size (px):</label>
+                        <input type="number" id="iconSize" value="32" min="12" max="96">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="iconColor">Color:</label>
+                        <input type="color" id="iconColor" value="#0969da">
+                    </div>
                 </div>
 
-                <div>
-                    <div id="iconOutput"></div>
+                <div class="output-container">
+                    <div id="iconOutput" class="output"></div>
                     <pre><code id="iconCode"></code></pre>
                 </div>
             </div>
-            
+
             <h3>Icon Button Demo</h3>
-            <div>
-                <div>
-                    <label for="buttonIcon">Icon:</label>
-                    <select id="buttonIcon">
-                        <option value="alert">alert</option>
-                        <option value="check">check</option>
-                        <option value="download">download</option>
-                        <option value="eye">eye</option>
-                        <option value="heart">heart</option>
-                        <option value="search" selected>search</option>
-                        <option value="star">star</option>
-                    </select>
-                
-                    <label for="buttonSize">Icon Size (px):</label>
-                    <input type="number" id="buttonSize" value="16" min="12" max="32">
-                
-                    <label for="buttonColor">Icon Color:</label>
-                    <input type="color" id="buttonColor" value="#ffffff">
-                
-                    <label for="buttonBgColor">Bg Color:</label>
-                    <input type="color" id="buttonBgColor" value="#2da44e">
-                
-                    <label for="buttonLabel">Label (optional):</label>
-                    <input type="text" id="buttonLabel" value="Search">
+            <div class="demo-container">
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="buttonIcon">Icon:</label>
+                        <select id="buttonIcon">
+                            <option value="alert">alert</option>
+                            <option value="check">check</option>
+                            <option value="download">download</option>
+                            <option value="eye">eye</option>
+                            <option value="heart">heart</option>
+                            <option value="search" selected>search</option>
+                            <option value="star">star</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="buttonSize">Icon Size (px):</label>
+                        <input type="number" id="buttonSize" value="16" min="12" max="32">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="buttonColor">Icon Color:</label>
+                        <input type="color" id="buttonColor" value="#ffffff">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="buttonBgColor">Bg Color:</label>
+                        <input type="color" id="buttonBgColor" value="#2da44e">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="buttonLabel">Label (optional):</label>
+                        <input type="text" id="buttonLabel" value="Search">
+                    </div>
                 </div>
 
-                <div>
-                    <div id="buttonOutput"></div>
+                <div class="output-container">
+                    <div id="buttonOutput" class="output"></div>
                     <pre><code id="buttonCode"></code></pre>
                 </div>
             </div>
         </section>
-        
+
         <section>
             <h2>Popular Icons</h2>
             <p>Click any icon to copy its name. View <a href="https://primer.style/octicons/" target="_blank">all Octicons</a> on the Primer website.</p>
             <div id="popularIcons"></div>
         </section>
-        
+
         <section>
             <h2>Quick Start</h2>
-            <pre><code>import { icon, iconButton, injectStyles } from 'octicons-js';
+            <pre><code>import { icon, iconButton, applyStyles } from 'octicons-js';
 
-injectStyles();
+applyStyles();
 
 const downloadIcon = icon('download', { size: 24, fill: 'blue' });
 document.body.appendChild(downloadIcon);
 
-const searchButton = iconButton('search', { 
+const searchButton = iconButton('search', {
   label: 'Search',
-  size: 16, 
-  fill: 'currentColor' 
+  size: 16,
+  fill: 'currentColor'
 });
 document.body.appendChild(searchButton);</code></pre>
         </section>
 
         <section>
             <h2>Full API</h2>
-            
-            <div>
-                <h3>injectStyles()</h3>
+
+            <div class="api-item">
+                <h3>applyStyles()</h3>
                 <p>Injects the required CSS styles into the document's head. Call this once at the beginning of your app.</p>
             </div>
-            
-            <div>
+
+            <div class="api-item">
                 <h3>icon(name, options?)</h3>
                 <p>Creates an SVG icon element.</p>
-                <div>
+                <div class="api-params">
                     <p><strong>name</strong>: String - The name of the icon</p>
                     <p><strong>options</strong>: Object - Optional parameters</p>
                     <ul>
@@ -142,11 +419,11 @@ document.body.appendChild(searchButton);</code></pre>
                     </ul>
                 </div>
             </div>
-            
-            <div>
+
+            <div class="api-item">
                 <h3>iconButton(name, options?)</h3>
                 <p>Creates a button containing an icon.</p>
-                <div>
+                <div class="api-params">
                     <p><strong>name</strong>: String - The name of the icon</p>
                     <p><strong>options</strong>: Object - Optional parameters</p>
                     <ul>
@@ -160,23 +437,21 @@ document.body.appendChild(searchButton);</code></pre>
             </div>
         </section>
     </main>
-    
+
     <footer>
-        <div>
+        <div class="footer-links">
             <a href="https://github.com/grayc4/octicons-js">GitHub</a>
             <a href="https://www.npmjs.com/package/octicons-js">npm</a>
             <a href="https://primer.style/octicons/" target="_blank">Primer Octicons</a>
         </div>
         <p>© 2025 grayc4. MIT License.</p>
-        <p>Last updated: 2025-05-08 21:13:09</p>
     </footer>
 
     <script type="module">
-        import { icon, iconButton, injectStyles } from 'https://cdn.jsdelivr.net/npm/octicons-js/+esm';
-        
-        // Inject the octicons-js default styles
-        injectStyles();
-        
+        import { icon, iconButton, applyStyles } from 'https://cdn.jsdelivr.net/npm/octicons-js/+esm';
+
+        applyStyles();
+
         const popularIcons = [
             'alert', 'check', 'download', 'eye', 'heart',
             'star', 'search', 'x', 'info', 'lock',
@@ -184,25 +459,22 @@ document.body.appendChild(searchButton);</code></pre>
             'file', 'gitBranch', 'gitPullRequest', 'globe', 'home',
             'link', 'mail', 'pencil', 'people', 'person'
         ];
-        
+
         const iconGrid = document.getElementById('popularIcons');
         popularIcons.forEach(iconName => {
             const iconItem = document.createElement('div');
-            iconItem.style.display = 'inline-block';
-            iconItem.style.margin = '10px';
-            iconItem.style.cursor = 'pointer';
+            iconItem.className = 'icon-item';
             iconItem.title = `Click to copy: ${iconName}`;
-            
+
             try {
                 const iconElement = icon(iconName, { size: 24 });
                 iconItem.appendChild(iconElement);
-                
+
                 const nameElement = document.createElement('div');
-                nameElement.style.fontSize = '12px';
-                nameElement.style.textAlign = 'center';
+                nameElement.className = 'icon-name';
                 nameElement.textContent = iconName;
                 iconItem.appendChild(nameElement);
-                
+
                 iconItem.addEventListener('click', () => {
                     navigator.clipboard.writeText(iconName);
                     nameElement.textContent = 'Copied!';
@@ -210,36 +482,36 @@ document.body.appendChild(searchButton);</code></pre>
                         nameElement.textContent = iconName;
                     }, 1000);
                 });
-                
+
                 iconGrid.appendChild(iconItem);
             } catch (e) {
                 console.error(`Error creating icon ${iconName}:`, e);
             }
         });
-        
+
         const iconName = document.getElementById('iconName');
         const iconSize = document.getElementById('iconSize');
         const iconColor = document.getElementById('iconColor');
         const iconOutput = document.getElementById('iconOutput');
         const iconCode = document.getElementById('iconCode');
-        
+
         function updateIconDemo() {
             iconOutput.innerHTML = '';
-            
+
             const name = iconName.value;
             const size = parseInt(iconSize.value, 10);
             const fill = iconColor.value;
-            
+
             try {
                 const iconElement = icon(name, { size, fill });
                 iconOutput.appendChild(iconElement);
-                
+
                 iconCode.textContent = `import { icon } from 'octicons-js';\n\nconst ${name}Icon = icon('${name}', {\n  size: ${size},\n  fill: '${fill}'\n});\n\ndocument.body.appendChild(${name}Icon);`;
             } catch (e) {
                 iconOutput.textContent = `Error: ${e.message}`;
             }
         }
-        
+
         const buttonIcon = document.getElementById('buttonIcon');
         const buttonSize = document.getElementById('buttonSize');
         const buttonColor = document.getElementById('buttonColor');
@@ -247,30 +519,30 @@ document.body.appendChild(searchButton);</code></pre>
         const buttonLabel = document.getElementById('buttonLabel');
         const buttonOutput = document.getElementById('buttonOutput');
         const buttonCode = document.getElementById('buttonCode');
-        
+
         function updateButtonDemo() {
             buttonOutput.innerHTML = '';
-            
+
             const name = buttonIcon.value;
             const size = parseInt(buttonSize.value, 10);
             const fill = buttonColor.value;
             const bgColor = buttonBgColor.value;
             const label = buttonLabel.value;
-            
+
             try {
                 const options = {
                     size,
                     fill,
                     bgColor
                 };
-                
+
                 if (label) {
                     options.label = label;
                 }
-                
+
                 const buttonElement = iconButton(name, options);
                 buttonOutput.appendChild(buttonElement);
-                
+
                 let codeExample = `import { iconButton } from 'octicons-js';\n\nconst ${name}Button = iconButton('${name}', {\n`;
                 if (label) {
                     codeExample += `  label: '${label}',\n`;
@@ -281,17 +553,17 @@ document.body.appendChild(searchButton);</code></pre>
                 buttonOutput.textContent = `Error: ${e.message}`;
             }
         }
-        
+
         iconName.addEventListener('change', updateIconDemo);
         iconSize.addEventListener('input', updateIconDemo);
         iconColor.addEventListener('input', updateIconDemo);
-        
+
         buttonIcon.addEventListener('change', updateButtonDemo);
         buttonSize.addEventListener('input', updateButtonDemo);
         buttonColor.addEventListener('input', updateButtonDemo);
         buttonBgColor.addEventListener('input', updateButtonDemo);
         buttonLabel.addEventListener('input', updateButtonDemo);
-        
+
         updateIconDemo();
         updateButtonDemo();
     </script>

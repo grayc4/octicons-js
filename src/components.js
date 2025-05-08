@@ -71,7 +71,7 @@ const essentialCSS = `
 let stylesInjected = false;
 const styleElementId = 'octicons-js-styles';
 
-function injectStyles() {
+function applyStyles() {
   if (typeof document === 'undefined') return;
   if (stylesInjected && document.getElementById(styleElementId)) return;
 
@@ -88,7 +88,7 @@ function injectStyles() {
 }
 
 function octicon(svg, size = 16, style = 'dark') {
-  injectStyles();
+  applyStyles();
   const wrapper = document.createElement('span');
   wrapper.innerHTML = svg;
   wrapper.className = 'octicon';
@@ -102,7 +102,7 @@ function octicon(svg, size = 16, style = 'dark') {
 }
 
 function octiconBtn(svg, style = 'dark', size = 16, buttonSize = null) {
-  injectStyles();
+  applyStyles();
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'square-icon-button';
@@ -115,7 +115,7 @@ function octiconBtn(svg, style = 'dark', size = 16, buttonSize = null) {
 }
 
 function octiconLabelBtn(svg, label, style = 'dark', size = 16, iconFirst = true) {
-  injectStyles();
+  applyStyles();
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'icon-button';
@@ -128,4 +128,4 @@ function octiconLabelBtn(svg, label, style = 'dark', size = 16, iconFirst = true
 }
 
 // Export the functions and CSS
-export { octicon, octiconBtn, octiconLabelBtn, injectStyles, essentialCSS };
+export { octicon, octiconBtn, octiconLabelBtn, applyStyles, essentialCSS };

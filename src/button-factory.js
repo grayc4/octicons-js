@@ -1,9 +1,9 @@
 import { render } from './render.js';
-import { injectStyles } from './components.js';
+import { applyStyles } from './components.js';
 
 export const makeButton = iconFn => (props = {}) => {
     if (typeof document !== 'undefined') {
-        injectStyles();
+        applyStyles();
     }
 
     const {

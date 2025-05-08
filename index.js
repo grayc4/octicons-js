@@ -2,7 +2,7 @@ import {
   icons,
   icon,
   iconButton,
-  injectStyles,
+  applyStyles,
   injectOcticonsStyles
 } from './src/api.js';
 
@@ -10,7 +10,7 @@ export {
   icons,
   icon,
   iconButton,
-  injectStyles,
+  applyStyles,
   injectOcticonsStyles
 };
 
@@ -18,7 +18,7 @@ const octiconsJs = {
   icons,
   icon,
   iconButton,
-  injectStyles,
+  applyStyles,
   injectOcticonsStyles
 };
 

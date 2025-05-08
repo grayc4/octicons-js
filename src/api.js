@@ -1,10 +1,10 @@
 import { icons } from './icons.js';
 import { makeButton } from './button-factory.js';
-import { injectStyles } from './components.js';
+import { applyStyles } from './components.js';
 
 export function injectOcticonsStyles() {
   if (typeof document !== 'undefined') {
-    injectStyles();
+    applyStyles();
   }
 }
 
@@ -36,4 +36,4 @@ export function iconButton(name, props) {
   return makeButton(iconGeneratorFn)(props);
 }
 
-export { icons, injectStyles };
+export { icons, applyStyles };

@@ -29,7 +29,7 @@ export function icon(name: string, props?: IconProps): SVGElement | string;
  */
 export function iconButton(name: string, props?: ButtonProps): HTMLElement | string;
 
-export function injectStyles(): void;
+export function applyStyles(): void;
 
 export function injectOcticonsStyles(): void;
 
@@ -39,7 +39,7 @@ declare const _default: {
   icons: Record<string, IconFn>;
   icon: typeof icon;
   iconButton: typeof iconButton;
-  injectStyles: typeof injectStyles;
+  applyStyles: typeof applyStyles;
   injectOcticonsStyles: typeof injectOcticonsStyles;
 };
 export default _default;
