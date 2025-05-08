@@ -1,77 +1,50 @@
-declare module 'octicons-js' {
-  export interface IconSet {
-    [key: string]: string;
-  }
+export interface IconProps {
+  size?: number;
+  fill?: string;
+  style?: string;
+  [key: string]: unknown;
+}
 
-  const Octicons: IconSet;
+export type IconFn = (props?: IconProps) => SVGElement | string;
 
-  export function octicon(
-    svg: string,
-    size?: number,
-    style?: 'light' | 'dark'
-  ): HTMLSpanElement;
+export interface ButtonProps extends IconProps {
+  label?: string;
+  bgColor?: string;
+  bgSize?: number;
+}
 
-  export function octiconBtn(
-    svg: string,
-    style?: 'light' | 'dark',
-    size?: number,
-    buttonSize?: number | null
-  ): HTMLButtonElement;
+export type ButtonFn = (props?: ButtonProps) => HTMLElement | string;
 
-  export function octiconLabelBtn(
-    svg: string,
-    label: string,
-    style?: 'light' | 'dark',
-    size?: number,
-    iconFirst?: boolean
-  ): HTMLButtonElement;
+export const icons: Record<string, IconFn>;
 
-  export interface IconSizes {
-    12?: string;
-    16?: string;
-    24?: string;
-    48?: string;
-    96?: string;
-    [size: number]: string | undefined;
-  }
+/**
+ * @param name The name of the icon
+ * @param props Optional properties to customize the icon
+ */
+export function icon(name: string, props?: IconProps): SVGElement | string;
 
-  /**
-   * eg. icons.alert[16]
-   * eg. icons['file-directory'][24]
-   */
-  export const icons: {
-    [name: string]: IconSizes;
-  };
+/**
+ * @param name The name of the icon
+ * @param props Optional properties to customize the button and the icon
+ */
+export function iconButton(name: string, props?: ButtonProps): HTMLElement | string;
 
-  export interface IconOptions {
-    size?: number;
-    style?: 'light' | 'dark';
-  }
+export function injectStyles(): void;
 
-  export interface IconButtonOptions extends IconOptions {
-    buttonSize?: number;
-  }
+export function injectOcticonsStyles(): void;
 
-  export interface LabelButtonOptions extends IconOptions {
-    iconFirst?: boolean;
-  }
+export const essentialCSS: string;
 
-  export function icon(name: string, options?: IconOptions): HTMLSpanElement;
-  
-  export function iconButton(name: string, options?: IconButtonOptions): HTMLButtonElement;
-  
-  export function labelButton(
-    name: string, 
-    label: string, 
-    options?: LabelButtonOptions
-  ): HTMLButtonElement;
+declare const _default: {
+  icons: Record<string, IconFn>;
+  icon: typeof icon;
+  iconButton: typeof iconButton;
+  injectStyles: typeof injectStyles;
+  injectOcticonsStyles: typeof injectOcticonsStyles;
+};
+export default _default;
 
-  export interface ButtonsObject {
-    [iconName: string]: (label?: string) => HTMLButtonElement;
-    [iconMethodName: `${string}Icon`]: () => HTMLButtonElement;
-  }
-
-  export const buttons: ButtonsObject;
-
-  export default Octicons;
+declare module 'icons/*' {
+  const fn: IconFn;
+  export default fn;
 }

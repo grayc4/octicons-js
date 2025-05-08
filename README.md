@@ -1,6 +1,20 @@
-# Octicons JS
+# Octicons-JS
 
-GitHub Octicons for JavaScript projects with a simple, intuitive API. Create icon elements and buttons with minimal code. Zero dependencies, fully TypeScript-compatible, and ready for both Node.js and browser environments. Includes all official GitHub icons with light/dark styling options.
+![Octicons-JS](https://img.shields.io/badge/octicons--js-v1.3.1-blue)
+[![npm package](https://img.shields.io/npm/v/octicons-js.svg)](https://www.npmjs.com/package/octicons-js)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+A lightweight JavaScript library that provides GitHub's Octicons for frontend projects with an intuitive API, full TypeScript support, and zero dependencies.
+
+## Features
+
+- 🎨 **300+ SVG Icons** - The complete GitHub Octicons set
+- 🔌 **Zero Dependencies** - No external libraries required
+- 📱 **Framework Agnostic** - Works with any JavaScript project
+- 🔄 **TypeScript Support** - Fully typed API with autocompletion
+- 🧩 **Simple API** - Straightforward functions for creating icons and buttons
+- 🎛️ **Customizable** - Easy styling with standard CSS
+- 🌐 **Browser & Node.js Compatible** - Works everywhere JavaScript runs
 
 ## Installation
 
@@ -8,387 +22,142 @@ GitHub Octicons for JavaScript projects with a simple, intuitive API. Create ico
 npm install octicons-js
 ```
 
-## Usage
+Or using yarn:
 
-```js
-// Basic usage
-import { icon, iconButton, labelButton } from 'octicons-js';
-
-// Simple icon
-const alertIcon = icon('alert-fill', { size: 12 });
-
-// Icon button (square)
-const checkButton = iconButton('check-circle-fill', { 
-  size: 12,
-  buttonSize: 32
-});
-
-// Button with icon and label
-const downloadButton = labelButton('download', 'Download File', {
-  size: 16,
-  style: 'dark'
-});
-
-// Direct SVG access (alternative method)
-import { octicon } from 'octicons-js';
-import { octiconAlertFill } from 'octicons-js/src/icons_12.js';
-const directIcon = octicon(octiconAlertFill, 12, 'dark');
+```bash
+yarn add octicons-js
 ```
 
-## Available Icons
+## Quick Start
 
-The following icons are included in this package:
+```javascript
+import { icon, iconButton, applyStyles } from 'octicons-js';
 
-| Icon Name Base | Available Sizes |
-|----------------|-----------------|
-| accessibility | 16, 24 |
-| accessibility-inset | 16, 24 |
-| ai-model | 16, 24 |
-| alert | 16, 24 |
-| alert-fill | 12, 16, 24 |
-| apps | 16, 24 |
-| archive | 16, 24 |
-| arrow-both | 16, 24 |
-| arrow-down | 16, 24 |
-| arrow-down-left | 16, 24 |
-| arrow-down-right | 16, 24 |
-| arrow-left | 16, 24 |
-| arrow-right | 16, 24 |
-| arrow-switch | 16, 24 |
-| arrow-up | 16, 24 |
-| arrow-up-left | 16, 24 |
-| arrow-up-right | 16, 24 |
-| beaker | 16, 24 |
-| bell | 16, 24 |
-| bell-fill | 16, 24 |
-| bell-slash | 16, 24 |
-| blocked | 16, 24 |
-| bold | 16, 24 |
-| book | 16, 24 |
-| bookmark | 16, 24 |
-| bookmark-filled | 16 |
-| bookmark-slash | 16, 24 |
-| bookmark-slash-fill | 16, 24 |
-| briefcase | 16, 24 |
-| broadcast | 16, 24 |
-| browser | 16, 24 |
-| bug | 16, 24 |
-| cache | 16, 24 |
-| calendar | 16, 24 |
-| check | 16, 24 |
-| check-circle | 16, 24 |
-| check-circle-fill | 12, 16, 24 |
-| checkbox | 16, 24 |
-| checklist | 16, 24 |
-| chevron-down | 12, 16, 24 |
-| chevron-left | 12, 16, 24 |
-| chevron-right | 12, 16, 24 |
-| chevron-up | 12, 16, 24 |
-| circle | 16, 24 |
-| circle-slash | 16, 24 |
-| clock | 16, 24 |
-| clock-fill | 16, 24 |
-| cloud | 16, 24 |
-| cloud-offline | 16, 24 |
-| code | 16, 24 |
-| code-of-conduct | 16, 24 |
-| code-review | 16, 24 |
-| code-square | 16, 24 |
-| codescan | 16, 24 |
-| codescan-checkmark | 16, 24 |
-| codespaces | 16, 24 |
-| columns | 16, 24 |
-| command-palette | 16, 24 |
-| comment | 16, 24 |
-| comment-discussion | 16, 24 |
-| container | 16, 24 |
-| copilot | 16, 24, 48, 96 |
-| copilot-error | 16 |
-| copilot-warning | 16 |
-| copy | 16, 24 |
-| cpu | 16, 24 |
-| credit-card | 16, 24 |
-| cross-reference | 16, 24 |
-| dash | 16, 24 |
-| database | 16, 24 |
-| dependabot | 16, 24 |
-| desktop-download | 16, 24 |
-| device-camera | 16, 24 |
-| device-camera-video | 16, 24 |
-| device-desktop | 16, 24 |
-| device-mobile | 16, 24 |
-| devices | 16, 24 |
-| diamond | 16, 24 |
-| diff | 16, 24 |
-| diff-added | 16, 24 |
-| diff-ignored | 16, 24 |
-| diff-modified | 16, 24 |
-| diff-removed | 16, 24 |
-| diff-renamed | 16, 24 |
-| discussion-closed | 16, 24 |
-| discussion-duplicate | 16, 24 |
-| discussion-outdated | 16, 24 |
-| dot | 16, 24 |
-| dot-fill | 16, 24 |
-| download | 16, 24 |
-| duplicate | 16, 24 |
-| ellipsis | 16, 24 |
-| eye | 16, 24 |
-| eye-closed | 16, 24 |
-| feed-discussion | 16 |
-| feed-forked | 16 |
-| feed-heart | 16 |
-| feed-issue-closed | 16 |
-| feed-issue-draft | 16 |
-| feed-issue-open | 16 |
-| feed-issue-reopen | 16 |
-| feed-merged | 16 |
-| feed-person | 16 |
-| feed-plus | 16 |
-| feed-public | 16 |
-| feed-pull-request-closed | 16 |
-| feed-pull-request-draft | 16 |
-| feed-pull-request-open | 16 |
-| feed-repo | 16 |
-| feed-rocket | 16 |
-| feed-star | 16 |
-| feed-tag | 16 |
-| feed-trophy | 16 |
-| file | 16, 24 |
-| file-added | 16, 24 |
-| file-badge | 16, 24 |
-| file-binary | 16, 24 |
-| file-code | 16, 24 |
-| file-diff | 16, 24 |
-| file-directory | 16, 24 |
-| file-directory-fill | 16, 24 |
-| file-directory-open-fill | 16, 24 |
-| file-directory-symlink | 16, 24 |
-| file-media | 16, 24 |
-| file-moved | 16, 24 |
-| file-removed | 16, 24 |
-| file-submodule | 16, 24 |
-| file-symlink-file | 16, 24 |
-| file-zip | 16, 24 |
-| filter | 16, 24 |
-| filter-remove | 16, 24 |
-| fiscal-host | 16, 24 |
-| flame | 16, 24 |
-| fold | 16, 24 |
-| fold-down | 16, 24 |
-| fold-up | 16, 24 |
-| gear | 16, 24 |
-| gift | 16, 24 |
-| git-branch | 16, 24 |
-| git-commit | 16, 24 |
-| git-compare | 16, 24 |
-| git-merge | 16, 24 |
-| git-merge-queue | 16, 24 |
-| git-pull-request | 16, 24 |
-| git-pull-request-closed | 16, 24 |
-| git-pull-request-draft | 16, 24 |
-| globe | 16, 24 |
-| goal | 16, 24 |
-| grabber | 16, 24 |
-| graph | 16, 24 |
-| hash | 16, 24 |
-| heading | 16, 24 |
-| heart | 16, 24 |
-| heart-fill | 16, 24 |
-| history | 16, 24 |
-| home | 16, 24 |
-| home-fill | 16, 24 |
-| horizontal-rule | 16, 24 |
-| hourglass | 16, 24 |
-| hubot | 16, 24 |
-| id-badge | 16, 24 |
-| image | 16, 24 |
-| inbox | 16, 24 |
-| infinity | 16, 24 |
-| info | 16, 24 |
-| issue-closed | 16, 24 |
-| issue-draft | 16, 24 |
-| issue-opened | 16, 24 |
-| issue-reopened | 16, 24 |
-| issue-tracked-by | 16, 24 |
-| issue-tracks | 16, 24 |
-| italic | 16, 24 |
-| iterations | 16, 24 |
-| kebab-horizontal | 16, 24 |
-| key | 16, 24 |
-| key-asterisk | 16, 24 |
-| law | 16, 24 |
-| light-bulb | 16, 24 |
-| link | 16, 24 |
-| link-external | 16, 24 |
-| list-ordered | 16, 24 |
-| list-unordered | 16, 24 |
-| location | 16, 24 |
-| lock | 16, 24 |
-| log | 16, 24 |
-| logo-gist | 16, 24 |
-| logo-github | 16, 24 |
-| mail | 16, 24 |
-| mark-github | 16, 24 |
-| markdown | 16, 24 |
-| megaphone | 16, 24 |
-| mention | 16, 24 |
-| meter | 16, 24 |
-| milestone | 16, 24 |
-| mirror | 16, 24 |
-| moon | 16, 24 |
-| mortar-board | 16, 24 |
-| move-to-bottom | 16, 24 |
-| move-to-end | 16, 24 |
-| move-to-start | 16, 24 |
-| move-to-top | 16, 24 |
-| multi-select | 16, 24 |
-| mute | 16, 24 |
-| no-entry | 16, 24 |
-| no-entry-fill | 12 |
-| north-star | 16, 24 |
-| note | 16, 24 |
-| number | 16, 24 |
-| organization | 16, 24 |
-| package | 16, 24 |
-| package-dependencies | 16, 24 |
-| package-dependents | 16, 24 |
-| paintbrush | 16, 24 |
-| paper-airplane | 16, 24 |
-| paperclip | 16, 24 |
-| passkey-fill | 16, 24 |
-| paste | 16, 24 |
-| pencil | 16, 24 |
-| people | 16, 24 |
-| person | 16, 24 |
-| person-add | 16, 24 |
-| person-fill | 16, 24 |
-| pin | 16, 24 |
-| pin-slash | 16, 24 |
-| pivot-column | 16, 24 |
-| play | 16, 24 |
-| plug | 16, 24 |
-| plus | 16, 24 |
-| plus-circle | 16, 24 |
-| project | 16, 24 |
-| project-roadmap | 16, 24 |
-| project-symlink | 16, 24 |
-| project-template | 16, 24 |
-| pulse | 16, 24 |
-| question | 16, 24 |
-| quote | 16, 24 |
-| read | 16, 24 |
-| redo | 16, 24 |
-| rel-file-path | 16, 24 |
-| reply | 16, 24 |
-| repo | 16, 24 |
-| repo-clone | 16, 24 |
-| repo-delete | 24 |
-| repo-deleted | 16 |
-| repo-forked | 16, 24 |
-| repo-locked | 16, 24 |
-| repo-pull | 16, 24 |
-| repo-push | 16, 24 |
-| repo-template | 16, 24 |
-| report | 16, 24 |
-| rocket | 16, 24 |
-| rows | 16, 24 |
-| rss | 16, 24 |
-| ruby | 16, 24 |
-| screen-full | 16, 24 |
-| screen-normal | 16, 24 |
-| search | 16, 24 |
-| server | 16, 24 |
-| share | 16, 24 |
-| share-android | 16, 24 |
-| shield | 16, 24 |
-| shield-check | 16, 24 |
-| shield-lock | 16, 24 |
-| shield-slash | 16, 24 |
-| shield-x | 16, 24 |
-| sidebar-collapse | 16, 24 |
-| sidebar-expand | 16, 24 |
-| sign-in | 16, 24 |
-| sign-out | 16, 24 |
-| single-select | 16, 24 |
-| skip | 16, 24 |
-| skip-fill | 16, 24 |
-| sliders | 16, 24 |
-| smiley | 16, 24 |
-| sort-asc | 16, 24 |
-| sort-desc | 16, 24 |
-| sparkle-fill | 16, 24 |
-| sparkles-fill | 16, 24 |
-| sponsor-tiers | 16, 24 |
-| square | 16, 24 |
-| square-circle | 16, 24 |
-| square-fill | 16, 24 |
-| squirrel | 16, 24 |
-| stack | 16, 24 |
-| star | 16, 24 |
-| star-fill | 16, 24 |
-| stop | 16, 24 |
-| stopwatch | 16, 24 |
-| strikethrough | 16, 24 |
-| sun | 16, 24 |
-| sync | 16, 24 |
-| tab | 16, 24 |
-| tab-external | 16, 24 |
-| table | 16, 24 |
-| tag | 16, 24 |
-| tasklist | 16, 24 |
-| telescope | 16, 24 |
-| telescope-fill | 16, 24 |
-| terminal | 16, 24 |
-| three-bars | 16, 24 |
-| thumbsdown | 16, 24 |
-| thumbsup | 16, 24 |
-| tools | 16, 24 |
-| tracked-by-closed-completed | 16, 24 |
-| tracked-by-closed-not-planned | 16, 24 |
-| trash | 16, 24 |
-| triangle-down | 16, 24 |
-| triangle-left | 16, 24 |
-| triangle-right | 16, 24 |
-| triangle-up | 16, 24 |
-| trophy | 16, 24 |
-| typography | 16, 24 |
-| undo | 16, 24 |
-| unfold | 16, 24 |
-| unlink | 16, 24 |
-| unlock | 16, 24 |
-| unmute | 16, 24 |
-| unread | 16, 24 |
-| unverified | 16, 24 |
-| upload | 16, 24 |
-| verified | 16, 24 |
-| versions | 16, 24 |
-| video | 16, 24 |
-| webhook | 16 |
-| workflow | 16, 24 |
-| x | 12, 16, 24 |
-| x-circle | 16, 24 |
-| x-circle-fill | 12, 16, 24 |
-| zap | 16, 24 |
-| zoom-in | 16, 24 |
-| zoom-out | 16, 24 |
+// Apply default styles
+applyStyles();
 
-## Browser Support
+// Create a new icon
+const downloadIcon = icon('download', { size: 24, fill: 'blue' });
+document.body.appendChild(downloadIcon);
 
-This package works in all modern browsers that support ES6 modules:
-- Chrome
-- Firefox
-- Safari
-- Edge (Chromium-based)
+// Create a new icon button with label
+const searchButton = iconButton('search', {
+  label: 'Search',
+  size: 16,
+  fill: 'currentColor'
+});
+document.body.appendChild(searchButton);
+```
+
+## API Reference
+
+### `applyStyles()`
+
+Injects the required CSS styles into the document's head. Call this once at the beginning of your app. It's safe to call multiple times - the styles will only be applied once.
+
+```javascript
+import { applyStyles } from 'octicons-js';
+applyStyles();
+```
+
+### `icon(name, options?)`
+
+Creates an SVG icon element.
+
+```javascript
+const starIcon = icon('star', {
+  size: 24,           // Size in pixels (default: 16)
+  fill: 'gold',       // Fill color (default: 'currentColor')
+  style: 'margin: 4px' // Additional inline styles
+});
+```
+
+### `iconButton(name, options?)`
+
+Creates a button containing an icon.
+
+```javascript
+// Button with just an icon
+const alertButton = iconButton('alert', {
+  size: 16,           // Size of the icon (default: 16)
+  fill: 'red',        // Color of the icon (default: 'currentColor')
+  bgSize: 32,         // Size of the button (square) (default: null - auto)
+  bgColor: '#ffeeee', // Background color (default: system button color)
+  'aria-label': 'Show alert' // Accessibility attributes
+});
+
+// Button with icon and text label
+const searchButton = iconButton('search', {
+  label: 'Search',    // Text label (makes the button non-square)
+  size: 16,           // Size of the icon
+  fill: 'blue'        // Color of the icon
+});
+```
+
+### Available Icons
+
+The package includes 300+ icons from the GitHub Octicons set. Refer to [GitHub Octicons](https://primer.style/octicons/) to view the icons that are supported..
+
+## Customization
+
+All icons and buttons created by this library use CSS classes that you can target for additional styling:
+
+```css
+/* Note: Ignore this if you prefer default styles */
+
+/* targeting the following CSS classes allows further styling */
+
+.octicon {
+  margin: 2px;
+}
+
+.icon-button {
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.square-icon-button {
+  border-radius: 50%;
+}
+```
 
 ## TypeScript Support
 
-Type definitions are included with the package.
+The library includes full TypeScript definitions:
 
-## Contributing
+```typescript
+import { icon, iconButton, IconProps, ButtonProps } from 'octicons-js';
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+const customIcon: SVGElement = icon('download', { size: 24 });
+
+const customButton = iconButton('search', {
+  label: 'Search',
+  size: 16,
+  bgColor: '#eee'
+});
+```
+
+## Browser Compatibility
+
+Octicons-JS works in all modern browsers and IE11+ with appropriate polyfills.
 
 ## License
 
-MIT License
+MIT © grayc4
+
+The Octicons themselves are licensed by GitHub under the [MIT License](https://github.com/primer/octicons/blob/main/LICENSE).
+
+## Acknowledgements
+
+This package provides a JavaScript interface to [GitHub's Octicons](https://primer.style/octicons/), which were created by GitHub, Inc. The icon designs are copyright GitHub, Inc.
+
+## Links
+
+- [GitHub Repository](https://github.com/grayc4/octicons-js)
+- [Documentation Site](https://grayc4.github.io/octicons-js/)
+- [Issue Tracker](https://github.com/grayc4/octicons-js/issues)
+- [npm Package](https://www.npmjs.com/package/octicons-js)
+
+## Contributing
+
+Contributions, issues, and feature requests are welcome!

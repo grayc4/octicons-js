@@ -1,5 +1,3 @@
-// --- Default styles ---
-
 const essentialCSS = `
 .octicon {
     display: inline-flex;
@@ -71,18 +69,11 @@ const essentialCSS = `
 `;
 
 let stylesInjected = false;
-const styleElementId = 'octicons-js-styles'; // Unique ID for the style tag
+const styleElementId = 'octicons-js-styles';
 
-/**
- * Injects the essential CSS into the document's head if not already present.
- * Only runs in browser environments.
- * @private
- */
 function injectStyles() {
-  // Only run in browser environments
-  if (typeof document === 'undefined' || stylesInjected || document.getElementById(styleElementId)) {
-    return;
-  }
+  if (typeof document === 'undefined') return;
+  if (stylesInjected && document.getElementById(styleElementId)) return;
 
   try {
     const styleElement = document.createElement('style');
@@ -91,100 +82,50 @@ function injectStyles() {
     document.head.appendChild(styleElement);
     stylesInjected = true;
   } catch (e) {
-    console.error("Octicons-js: Failed to inject styles.", e);
-    // Prevent repeated attempts if injection fails
+    console.error("Octicons-JS: Failed to inject styles.", e);
     stylesInjected = true;
   }
 }
 
-// --- Component Functions ---
-
-/**
- * Creates a span element containing an Octicon SVG.
- * Applies necessary classes and sets dimensions.
- * Ensures styles are injected into the page.
- *
- * @param {string} svg - The raw SVG string for the icon.
- * @param {number} [size=16] - The desired width and height of the icon in pixels.
- * @param {('light'|'dark')} [style='dark'] - The color style for the icon ('light' for white, 'dark' for black/default).
- * @returns {HTMLSpanElement} A span element wrapping the configured SVG icon.
- */
-export function octicon(svg, size = 16, style = 'dark') {
-    injectStyles();
-
-    const newIcon = document.createElement('span');
-    newIcon.innerHTML = svg;
-    newIcon.className = 'octicon';
-
-    const svgElement = newIcon.querySelector('svg');
-    if (svgElement) {
-        svgElement.setAttribute('width', String(size));
-        svgElement.setAttribute('height', String(size));
-    }
-
-    newIcon.classList.add(style === 'light' ? 'octicon-light' : 'octicon-dark');
-
-    return newIcon;
+function octicon(svg, size = 16, style = 'dark') {
+  injectStyles();
+  const wrapper = document.createElement('span');
+  wrapper.innerHTML = svg;
+  wrapper.className = 'octicon';
+  const svgEl = wrapper.querySelector('svg');
+  if (svgEl) {
+    svgEl.setAttribute('width', String(size));
+    svgEl.setAttribute('height', String(size));
+  }
+  wrapper.classList.add(style === 'light' ? 'octicon-light' : 'octicon-dark');
+  return wrapper;
 }
 
-/**
- * Creates a square button element containing a centered Octicon.
- * Ensures styles are injected into the page.
- *
- * @param {string} svg - The raw SVG string for the icon.
- * @param {('light'|'dark')} [style='dark'] - The color style for the icon.
- * @param {number} [size=16] - The desired width and height of the icon in pixels.
- * @param {number|null} [buttonSize=null] - The explicit width and height of the button in pixels. If null, relies on CSS sizing.
- * @returns {HTMLButtonElement} A button element containing the centered icon.
- */
-export function octiconBtn(svg, style = 'dark', size = 16, buttonSize = null) {
-    injectStyles();
-
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'square-icon-button';
-
-    // If buttonSize is provided, override CSS width/height via inline styles
-    if (buttonSize !== null) {
-        btn.style.width = `${buttonSize}px`;
-        btn.style.height = `${buttonSize}px`;
-    }
-
-    const iconElement = octicon(svg, size, style);
-    btn.appendChild(iconElement);
-    return btn;
+function octiconBtn(svg, style = 'dark', size = 16, buttonSize = null) {
+  injectStyles();
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'square-icon-button';
+  if (buttonSize !== null) {
+    btn.style.width = `${buttonSize}px`;
+    btn.style.height = `${buttonSize}px`;
+  }
+  btn.appendChild(octicon(svg, size, style));
+  return btn;
 }
 
-/**
- * Creates a button element containing an Octicon and a text label.
- * Ensures styles are injected into the page.
- *
- * @param {string} svg - The raw SVG string for the icon.
- * @param {string} label - The text content for the button's label.
- * @param {('light'|'dark')} [style='dark'] - The color style for the icon.
- * @param {number} [size=16] - The desired width and height of the icon in pixels.
- * @param {boolean} [iconFirst=true] - If true, the icon appears before the label; otherwise, the label appears first.
- * @returns {HTMLButtonElement} A button element containing the icon and label.
- */
-export function octiconLabelBtn(svg, label, style = 'dark', size = 16, iconFirst = true) {
-    injectStyles();
-
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'icon-button';
-
-    const iconElement = octicon(svg, size, style);
-    const text = document.createElement('span');
-    text.className = 'icon-label';
-    text.textContent = label;
-
-    if (iconFirst) {
-        btn.appendChild(iconElement);
-        btn.appendChild(text);
-    } else {
-        btn.appendChild(text);
-        btn.appendChild(iconElement);
-    }
-
-    return btn;
+function octiconLabelBtn(svg, label, style = 'dark', size = 16, iconFirst = true) {
+  injectStyles();
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'icon-button';
+  const iconElement = octicon(svg, size, style);
+  const text = document.createElement('span');
+  text.className = 'icon-label';
+  text.textContent = label;
+  iconFirst ? btn.append(iconElement, text) : btn.append(text, iconElement);
+  return btn;
 }
+
+// Export the functions and CSS
+export { octicon, octiconBtn, octiconLabelBtn, injectStyles, essentialCSS };
