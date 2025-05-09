@@ -109,11 +109,6 @@
             color: var(--text-color);
         }
 
-        p {
-            margin-bottom: 1rem;
-            color: var(--text-muted);
-        }
-
         ul, ol {
             margin: 1rem 0 1.5rem 1.5rem;
         }
@@ -134,7 +129,6 @@
         code {
             font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
             font-size: 0.9rem;
-            color: #24292e;
         }
 
         .examples-container {
@@ -158,7 +152,6 @@
 
         .example-card h4 {
             font-size: 1rem;
-            color: var(--text-muted);
             margin-bottom: 0.5rem;
         }
 
@@ -442,8 +435,6 @@ const searchLabelButton = iconButton('search', { label: 'Search', size: 12 });</
 
     <script type="module">
         import { icon, iconButton, applyStyles } from 'https://cdn.jsdelivr.net/npm/octicons-js@1.3.3/+esm';
-
-        applyStyles();
 
         const basicIcons = document.getElementById('basicIcons');
         [
