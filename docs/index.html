@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Octicons-JS Demo</title>
     <style>
+        :root {
+            --primary-color: #0969da;
+            --secondary-color: #57606a;
+            --text-color: #24292f;
+            --text-muted: #57606a;
+            --bg-color: #ffffff;
+            --bg-secondary: #f6f8fa;
+            --border-color: #d0d7de;
+            --radius: 6px;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -21,6 +32,7 @@
         }
 
         a {
+            color: var(--primary-color);
             text-decoration: none;
         }
 
@@ -29,28 +41,27 @@
         }
 
         header {
-            background: linear-gradient(to right, #0969da, #218bff);
-            color: white;
+            background-color: #f6f8fa;
+            color: #24292f;
             padding: 3rem 1rem;
             text-align: center;
+            border-bottom: 1px solid var(--border-color);
         }
 
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 0.5rem;
             font-weight: 600;
         }
 
         header p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 1.5rem;
-            opacity: 0.9;
+            color: var(--text-muted);
         }
 
         header a {
             display: inline-block;
-            background-color: white;
-            color: var(--primary-color);
             padding: 0.6rem 1.2rem;
             border-radius: var(--radius);
             font-weight: 500;
@@ -59,8 +70,6 @@
 
         header a:hover {
             text-decoration: none;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transform: translateY(-2px);
         }
 
         main {
@@ -152,7 +161,7 @@
             padding: 1.5rem;
             min-height: 100px;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             gap: 1rem;
             flex-wrap: wrap;
@@ -172,7 +181,7 @@
             align-items: center;
             padding: 1rem;
             border-radius: var(--radius);
-            background-color: var(--bg-secondary);
+            background-color: var(--bg-color);
             border: 1px solid var(--border-color);
         }
 
@@ -211,6 +220,18 @@
             justify-content: center;
             gap: 1.5rem;
             margin-bottom: 1rem;
+        }
+
+        button.icon-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button.icon-label-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
     </style>
 </head>
@@ -339,31 +360,35 @@ document.body.appendChild(searchButton);</code></pre>
         const basicIcons = document.getElementById('basicIcons');
         [
             { name: 'alert', size: 16, fill: 'currentColor' },
-            { name: 'check', size: 24, fill: '#2da44e' },
-            { name: 'download', size: 32, fill: '#0969da' },
-            { name: 'star', size: 24, fill: '#bf8700' },
-            { name: 'heart', size: 32, fill: '#cf222e' }
+            { name: 'check', size: 24, fill: 'currentColor' },
+            { name: 'download', size: 32, fill: 'currentColor' },
+            { name: 'star', size: 24, fill: 'currentColor' },
+            { name: 'heart', size: 32, fill: 'currentColor' }
         ].forEach(({ name, size, fill }) => {
             basicIcons.appendChild(icon(name, { size, fill }));
         });
 
         const iconButtons = document.getElementById('iconButtons');
         [
-            { name: 'search', fill: '#ffffff', bgColor: '#0969da' },
-            { name: 'plus', fill: '#ffffff', bgColor: '#2da44e' },
-            { name: 'trash', fill: '#ffffff', bgColor: '#cf222e' },
-            { name: 'pencil', fill: '#ffffff', bgColor: '#bf8700' }
-        ].forEach(({ name, fill, bgColor }) => {
-            iconButtons.appendChild(iconButton(name, { size: 16, fill, bgColor }));
+            { name: 'search' },
+            { name: 'plus' },
+            { name: 'trash' },
+            { name: 'pencil' }
+        ].forEach(({ name }) => {
+            const btn = iconButton(name, { size: 16 });
+            btn.classList.add('icon-button');
+            iconButtons.appendChild(btn);
         });
 
         const labelButtons = document.getElementById('labelButtons');
         [
-            { name: 'search', label: 'Search', fill: '#ffffff', bgColor: '#0969da' },
-            { name: 'plus', label: 'Add new', fill: '#ffffff', bgColor: '#2da44e' },
-            { name: 'download', label: 'Download', fill: '#ffffff', bgColor: '#6639ba' }
-        ].forEach(({ name, label, fill, bgColor }) => {
-            labelButtons.appendChild(iconButton(name, { label, size: 16, fill, bgColor }));
+            { name: 'search', label: 'Search' },
+            { name: 'plus', label: 'Add new' },
+            { name: 'download', label: 'Download' }
+        ].forEach(({ name, label }) => {
+            const btn = iconButton(name, { label, size: 16 });
+            btn.classList.add('icon-label-button');
+            labelButtons.appendChild(btn);
         });
 
         const popularIcons = document.getElementById('popularIcons');
