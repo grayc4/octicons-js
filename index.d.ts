@@ -31,7 +31,7 @@ export function iconButton(name: string, props?: ButtonProps): HTMLElement | str
 
 export function applyStyles(): void;
 
-export function injectOcticonsStyles(): void;
+export function applyOcticonsStyles(): void;
 
 export const essentialCSS: string;
 
@@ -40,7 +40,7 @@ declare const _default: {
   icon: typeof icon;
   iconButton: typeof iconButton;
   applyStyles: typeof applyStyles;
-  injectOcticonsStyles: typeof injectOcticonsStyles;
+  applyOcticonsStyles: typeof applyOcticonsStyles;
 };
 export default _default;
 

@@ -2,7 +2,7 @@ import { icons } from './icons.js';
 import { makeButton } from './button-factory.js';
 import { applyStyles } from './components.js';
 
-export function injectOcticonsStyles() {
+export function applyOcticonsStyles() {
   if (typeof document !== 'undefined') {
     applyStyles();
   }

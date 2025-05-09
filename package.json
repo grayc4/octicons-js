@@ -1,6 +1,6 @@
 {
   "name": "octicons-js",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Simple JavaScript package that provides GitHub Octicons for frontend projects with TypeScript support. Built with zero dependencies.",
   "main": "index.js",
   "module": "index.js",

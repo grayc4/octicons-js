@@ -53,7 +53,7 @@ document.body.appendChild(searchButton);
 
 ### `applyStyles()`
 
-Injects the required CSS styles into the document's head. Call this once at the beginning of your app. It's safe to call multiple times - the styles will only be applied once.
+Applies the required CSS styles into the document's head. Call this once at the beginning of your app. It's safe to call multiple times - the styles will only be applied once.
 
 ```javascript
 import { applyStyles } from 'octicons-js';
