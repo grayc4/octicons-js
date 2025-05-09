@@ -220,6 +220,10 @@
             border: 1px solid var(--border-color);
         }
 
+        .iconButton {
+            fill: #e3242b;
+        }
+
         .api-params {
             margin-top: 1rem;
         }
@@ -312,10 +316,10 @@ const basicIcons = document.getElementById('basicIcons');
 // Anything different than the default, we need to clarify: (eg. a row of small heart icon buttons)
 const iconButtons = document.getElementById('iconButtons');
 [
-    { name: 'heart', { size: 14, bgSize: 32, fill: '#e3242b' }},
-    { name: 'heart', { size: 14, bgSize: 32, fill: '#e3242b' }},
-    { name: 'heart', { size: 14, bgSize: 32, fill: '#e3242b' }},
-    { name: 'heart', { size: 14, bgSize: 32, fill: '#e3242b' }}
+    { name: 'heart', { size: 14, bgSize: 32 }},
+    { name: 'heart', { size: 14, bgSize: 32 }},
+    { name: 'heart', { size: 14, bgSize: 32 }},
+    { name: 'heart', { size: 14, bgSize: 32 }}
 ].forEach(({ name, size, bgSize, fill }) => {
     const btn = iconButton(name, { size, bgSize, fill });
     // And finally, add to DOM...
@@ -449,10 +453,10 @@ const searchLabelButton = iconButton('search', { label: 'Search', size: 12 });</
 
         const iconButtons = document.getElementById('iconButtons');
         [
-            { name: 'heart', size: 14, bgSize: 32, fill: '#d30000' },
-            { name: 'heart', size: 14, bgSize: 32, fill: '#d30000' },
-            { name: 'heart', size: 14, bgSize: 32, fill: '#d30000' },
-            { name: 'heart', size: 14, bgSize: 32, fill: '#d30000' }
+            { name: 'heart', size: 14, bgSize: 32 },
+            { name: 'heart', size: 14, bgSize: 32 },
+            { name: 'heart', size: 14, bgSize: 32 },
+            { name: 'heart', size: 14, bgSize: 32 }
         ].forEach(({ name, size, bgSize, fill }) => {
             const btn = iconButton(name, { size, bgSize, fill });
             iconButtons.appendChild(btn);
