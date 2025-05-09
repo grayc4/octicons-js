@@ -60,7 +60,6 @@
             color: var(--text-muted);
         }
 
-        /* GitHub-style button for the main "View on GitHub" button */
         .github-button {
             display: inline-block;
             padding: 0.6rem 1.2rem;
@@ -173,28 +172,48 @@
             flex-wrap: wrap;
         }
 
-        .icon-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            justify-content: center;
+        .all-icons-grid {
+            display: grid;
+            grid-template-columns: repeat(20, 1fr);
+            gap: 8px;
             margin: 2rem 0;
+            width: 100%;
         }
 
-        .icon-item {
+        .icon-grid-item {
+            width: 32px;
+            height: 32px;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            padding: 1rem;
-            border-radius: var(--radius);
-            background-color: var(--bg-color);
+            justify-content: center;
+            background-color: var(--bg-secondary);
             border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
-        .icon-name {
-            margin-top: 0.5rem;
+        .icon-grid-item:hover {
+            background-color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(9, 105, 218, 0.2);
+        }
+
+        .icon-tooltip {
+            display: none;
+            position: absolute;
+            background-color: #24292f;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
             font-size: 0.75rem;
-            color: var(--text-muted);
+            z-index: 100;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .icon-grid-item:hover .icon-tooltip {
+            display: block;
         }
 
         .api-item {
@@ -226,15 +245,6 @@
             justify-content: center;
             gap: 1.5rem;
             margin-bottom: 1rem;
-        }
-
-        /* Leave these empty - they should be styled by the package */
-        button.icon-button {
-            /* No custom styling */
-        }
-
-        button.icon-label-button {
-            /* No custom styling */
         }
     </style>
 </head>
@@ -284,9 +294,9 @@
         </section>
 
         <section>
-            <h2>Popular Icons</h2>
-            <p>A selection of commonly used icons from the Octicons library:</p>
-            <div class="icon-grid" id="popularIcons"></div>
+            <h2>All Octicons</h2>
+            <p>Browse the complete collection of 300+ icons available in the Octicons-JS library:</p>
+            <div class="all-icons-grid" id="allIcons"></div>
         </section>
 
         <section>
@@ -394,23 +404,69 @@ document.body.appendChild(searchButton);</code></pre>
             labelButtons.appendChild(btn);
         });
 
-        const popularIcons = document.getElementById('popularIcons');
-        [
-            'alert', 'check', 'download', 'eye', 'heart',
-            'star', 'search', 'x', 'info', 'lock'
-        ].forEach(name => {
-            const iconItem = document.createElement('div');
-            iconItem.className = 'icon-item';
+        const allIcons = document.getElementById('allIcons');
+        const iconNames = [
+            'accessibility', 'accessibility-inset', 'ai-model', 'alert', 'alert-fill', 'apps', 'archive', 
+            'arrow-both', 'arrow-down', 'arrow-down-left', 'arrow-down-right', 'arrow-left', 'arrow-right', 
+            'arrow-switch', 'arrow-up', 'arrow-up-left', 'arrow-up-right', 'beaker', 'bell', 'bell-fill', 
+            'bell-slash', 'blocked', 'bold', 'book', 'bookmark', 'bookmark-filled', 'bookmark-slash', 
+            'bookmark-slash-fill', 'briefcase', 'broadcast', 'browser', 'bug', 'cache', 'calendar', 'check', 
+            'checkbox', 'check-circle', 'check-circle-fill', 'checklist', 'chevron-down', 'chevron-left', 
+            'chevron-right', 'chevron-up', 'circle', 'circle-slash', 'clock', 'clock-fill', 'cloud', 
+            'cloud-offline', 'code', 'code-of-conduct', 'code-review', 'codescan', 'codescan-checkmark', 
+            'codespaces', 'code-square', 'columns', 'command-palette', 'comment', 'comment-discussion', 
+            'container', 'copilot', 'copilot-error', 'copilot-warning', 'copy', 'cpu', 'credit-card', 
+            'cross-reference', 'dash', 'database', 'dependabot', 'desktop-download', 'device-camera', 
+            'device-camera-video', 'device-desktop', 'device-mobile', 'devices', 'diamond', 'diff', 
+            'diff-added', 'diff-ignored', 'diff-modified', 'diff-removed', 'diff-renamed', 'discussion-closed', 
+            'discussion-duplicate', 'discussion-outdated', 'dot', 'dot-fill', 'download', 'duplicate', 
+            'ellipsis', 'eye', 'eye-closed', 'feed-discussion', 'feed-forked', 'feed-heart', 
+            'feed-issue-closed', 'feed-issue-draft', 'feed-issue-open', 'feed-issue-reopen', 'feed-merged', 
+            'feed-person', 'feed-plus', 'feed-public', 'feed-pull-request-closed', 'feed-pull-request-draft', 
+            'feed-pull-request-open', 'feed-repo', 'feed-rocket', 'feed-star', 'feed-tag', 'feed-trophy', 
+            'file', 'file-added', 'file-badge', 'file-binary', 'file-code', 'file-diff', 'file-directory', 
+            'file-directory-fill', 'file-directory-open-fill', 'file-directory-symlink', 'file-media', 
+            'file-moved', 'file-removed', 'file-submodule', 'file-symlink-file', 'file-zip', 'filter', 
+            'filter-remove', 'fiscal-host', 'flame', 'fold', 'fold-down', 'fold-up', 'gear', 'gift', 
+            'git-branch', 'git-commit', 'git-compare', 'git-merge', 'git-merge-queue', 'git-pull-request', 
+            'git-pull-request-closed', 'git-pull-request-draft', 'globe', 'goal', 'grabber', 'graph', 'hash', 
+            'heading', 'heart', 'heart-fill', 'history', 'home', 'home-fill', 'horizontal-rule', 'hourglass', 
+            'hubot', 'id-badge', 'image', 'inbox', 'infinity', 'info', 'issue-closed', 'issue-draft', 
+            'issue-opened', 'issue-reopened', 'issue-tracked-by', 'issue-tracks', 'italic', 'iterations', 
+            'kebab-horizontal', 'key', 'key-asterisk', 'law', 'light-bulb', 'link', 'link-external', 
+            'list-ordered', 'list-unordered', 'location', 'lock', 'log', 'logo-gist', 'logo-github', 'mail', 
+            'markdown', 'mark-github', 'megaphone', 'mention', 'meter', 'milestone', 'mirror', 'moon', 
+            'mortar-board', 'move-to-bottom', 'move-to-end', 'move-to-start', 'move-to-top', 'multi-select', 
+            'mute', 'no-entry', 'north-star', 'note', 'number', 'organization', 'packaged', 
+            'package-dependencies', 'package-dependents', 'paintbrush', 'paper-airplane', 'paperclip', 
+            'passkey-fill', 'paste', 'pencil', 'people', 'person', 'person-add', 'person-fill', 'pin', 
+            'pin-slash', 'pivot-column', 'play', 'plug', 'plus', 'plus-circle', 'project', 'project-roadmap', 
+            'project-symlink', 'project-template', 'pulse', 'question', 'quote', 'read', 'redo', 
+            'rel-file-path', 'reply', 'repo', 'repo-clone', 'repo-deleted', 'repo-forked', 'repo-locked', 
+            'repo-pull', 'repo-push', 'report', 'repo-template', 'rocket', 'rows', 'rss', 'ruby', 
+            'screen-full', 'screen-normal', 'search', 'server', 'share', 'share-android', 'shield', 
+            'shield-check', 'shield-lock', 'shield-slash', 'shield-x', 'sidebar-collapse', 'sidebar-expand', 
+            'sign-in', 'sign-out', 'single-select', 'skip', 'skip-fill', 'sliders', 'smiley', 'sort-asc', 
+            'sort-desc', 'sparkle-fill', 'sparkles-fill', 'sponsor-tiers', 'square', 'square-circle', 
+            'square-fill', 'squirrel', 'stack', 'star', 'star-fill', 'stop', 'stopwatch', 'strikethrough', 
+            'sun', 'sync', 'tab', 'tab-external', 'table', 'tag', 'tasklist', 'telescope', 'telescope-fill', 
+            'terminal', 'three-bars', 'thumbsdown', 'thumbsup', 'tools', 'tracked-by-closed-completed', 
+            'tracked-by-closed-not-planned', 'trash', 'triangle-down', 'triangle-left', 'triangle-right', 
+            'triangle-up', 'trophy', 'typography', 'undo', 'unfold', 'unlink', 'unlock', 'unmute', 'unread', 
+            'unverified', 'upload', 'verified', 'versions', 'video', 'webhook', 'workflow', 'x', 'x-circle', 
+            'x-circle-fill', 'zap', 'zoom-in', 'zoom-out'
+        ];
 
-            const iconElement = icon(name, { size: 24 });
-            iconItem.appendChild(iconElement);
-
-            const nameElement = document.createElement('div');
-            nameElement.className = 'icon-name';
-            nameElement.textContent = name;
-            iconItem.appendChild(nameElement);
-
-            popularIcons.appendChild(iconItem);
+        iconNames.forEach(name => {
+            const btn = iconButton(name, { size: 12 });
+            btn.classList.add('icon-grid-item');
+            
+            const tooltip = document.createElement('span');
+            tooltip.className = 'icon-tooltip';
+            tooltip.textContent = name;
+            btn.appendChild(tooltip);
+            
+            allIcons.appendChild(btn);
         });
     </script>
 </body>
