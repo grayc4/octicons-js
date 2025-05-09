@@ -299,12 +299,12 @@ applyStyles();
 const basicIcons = document.getElementById('basicIcons');
 [
     { name: 'alert' },
-    { name: 'search', fill: '#1e1e1e' },
-    { name: 'download', fill: 'currentColor' },
+    { name: 'search' },
+    { name: 'download' },
     { name: 'star' },
-    { name: 'heart', size: 24, fill: '#d30000' }
-].forEach(({ name, size, fill }) => {
-    basicIcons.appendChild(icon(name, { size, fill }));
+    { name: 'heart' }
+].forEach(({ name }) => {
+    basicIcons.appendChild(icon(name));
 });</code></pre>
         </section>
 
@@ -325,12 +325,12 @@ applyStyles();
 // Anything different than the default, we need to clarify: (eg. a row of small heart icon buttons)
 const iconButtons = document.getElementById('iconButtons');
 [
-    { name: 'heart' },
-    { name: 'heart' },
-    { name: 'heart' },
-    { name: 'heart' }
-].forEach(({ name }) => {
-    const btn = iconButton(name, { size: 14, bgSize: 32, fill: '#d30000' });
+    { name: 'heart', { size: 14, bgSize: 32, fill: '#d30000' }},
+    { name: 'heart', { size: 14, bgSize: 32, fill: '#d30000' }},
+    { name: 'heart', { size: 14, bgSize: 32, fill: '#d30000' }},
+    { name: 'heart', { size: 14, bgSize: 32, fill: '#d30000' }}
+].forEach(({ name, size, fill }) => {
+    const btn = iconButton(name, { size, fill });
     // And finally, add to DOM...
     iconButtons.appendChild(btn);
 });</code></pre>
@@ -358,6 +358,7 @@ const labelButtons = document.getElementById('labelButtons');
     { name: 'download', label: 'Download' }
 ].forEach(({ name, label }) => {
     const btn = iconButton(name, { label, size: 16 });
+    // And finally, add to DOM...
     labelButtons.appendChild(btn);
 });</code></pre>
         </section>
@@ -463,12 +464,12 @@ const searchLabelButton = iconButton('search', { label: 'Search', size: 12 });</
 
         const iconButtons = document.getElementById('iconButtons');
         [
-            { name: 'search' },
-            { name: 'plus' },
-            { name: 'trash' },
-            { name: 'pencil' }
-        ].forEach(({ name }) => {
-            const btn = iconButton(name, { size: 16, bgSize: 32 });
+            { name: 'heart', size: 14, bgSize: 32, fill: '#d30000' },
+            { name: 'heart', size: 14, bgSize: 32, fill: '#d30000' },
+            { name: 'heart', size: 14, bgSize: 32, fill: '#d30000' },
+            { name: 'heart', size: 14, bgSize: 32, fill: '#d30000' }
+        ].forEach(({ name, size, bgSize, fill }) => {
+            const btn = iconButton(name, { size, bgSize, fill });
             iconButtons.appendChild(btn);
         });
 
