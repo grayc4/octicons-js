@@ -175,7 +175,7 @@
         .all-icons-grid {
             display: grid;
             grid-template-columns: repeat(20, 1fr);
-            gap: 8px;
+            gap: 4px;
             margin: 2rem 0;
             width: 100%;
         }
@@ -245,25 +245,6 @@
             justify-content: center;
             gap: 1.5rem;
             margin-bottom: 1rem;
-        }
-
-        .icon-button {
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .icon-button:hover {
-            background-color: white;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(9, 105, 218, 0.2);
         }
     </style>
 </head>
@@ -407,8 +388,7 @@ document.body.appendChild(searchButton);</code></pre>
             { name: 'trash' },
             { name: 'pencil' }
         ].forEach(({ name }) => {
-            const btn = iconButton(name, { size: 16 });
-            btn.classList.add('icon-button');
+            const btn = iconButton(name, { size: 16, bgSize: 32 });
             iconButtons.appendChild(btn);
         });
 
@@ -419,7 +399,6 @@ document.body.appendChild(searchButton);</code></pre>
             { name: 'download', label: 'Download' }
         ].forEach(({ name, label }) => {
             const btn = iconButton(name, { label, size: 16 });
-            btn.classList.add('icon-label-button');
             labelButtons.appendChild(btn);
         });
 
