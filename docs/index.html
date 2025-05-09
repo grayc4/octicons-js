@@ -60,15 +60,21 @@
             color: var(--text-muted);
         }
 
-        header a {
+        /* GitHub-style button for the main "View on GitHub" button */
+        .github-button {
             display: inline-block;
             padding: 0.6rem 1.2rem;
-            border-radius: var(--radius);
+            border-radius: 6px;
             font-weight: 500;
             transition: all 0.2s;
+            background-color: #24292f;
+            color: #ffffff;
+            border: 1px solid rgba(27, 31, 36, 0.15);
+            box-shadow: 0 1px 0 rgba(27, 31, 36, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.25);
         }
 
-        header a:hover {
+        .github-button:hover {
+            background-color: #32383f;
             text-decoration: none;
         }
 
@@ -222,16 +228,13 @@
             margin-bottom: 1rem;
         }
 
+        /* Leave these empty - they should be styled by the package */
         button.icon-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            /* No custom styling */
         }
 
         button.icon-label-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            /* No custom styling */
         }
     </style>
 </head>
@@ -239,7 +242,7 @@
     <header>
         <h1>Octicons-JS</h1>
         <p>A lightweight JavaScript library for using GitHub Octicons</p>
-        <a href="https://github.com/grayc4/octicons-js">View on GitHub</a>
+        <a href="https://github.com/grayc4/octicons-js" class="github-button">View on GitHub</a>
     </header>
 
     <main>
