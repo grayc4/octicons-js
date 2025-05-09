@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Octicons-JS Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-javascript.min.js"></script>
     <style>
         :root {
             --primary-color: #0969da;
@@ -272,9 +275,9 @@
 
         <section>
             <h2>Installation</h2>
-            <pre><code>npm install octicons-js</code></pre>
+            <pre><code class="language-bash">npm install octicons-js</code></pre>
             <p>Or using yarn:</p>
-            <pre><code>yarn add octicons-js</code></pre>
+            <pre><code class="language-bash">yarn add octicons-js</code></pre>
         </section>
 
         <section>
@@ -301,19 +304,24 @@
 
         <section>
             <h2>Quick Start</h2>
-            <pre><code>import { icon, iconButton, applyStyles } from 'octicons-js';
+            <pre><code class="language-javascript">import { icon, iconButton, applyStyles } from 'octicons-js';
 
 applyStyles();
 
-const downloadIcon = icon('download', { size: 24, fill: 'blue' });
-document.body.appendChild(downloadIcon);
+const alertIcon = icon('alert', { size: 16, fill: 'currentColor' });
+const checkIcon = icon('check', { size: 24, fill: 'currentColor' });
+const downloadIcon = icon('download', { size: 32, fill: 'currentColor' });
+const starIcon = icon('star', { size: 24, fill: 'currentColor' });
+const heartIcon = icon('heart', { size: 32, fill: 'currentColor' });
 
-const searchButton = iconButton('search', {
-  label: 'Search',
-  size: 16,
-  fill: 'currentColor'
-});
-document.body.appendChild(searchButton);</code></pre>
+const searchButton = iconButton('search', { size: 16, bgSize: 32 });
+const plusButton = iconButton('plus', { size: 16, bgSize: 32 });
+const trashButton = iconButton('trash', { size: 16, bgSize: 32 });
+const pencilButton = iconButton('pencil', { size: 16, bgSize: 32 });
+
+const searchLabelButton = iconButton('search', { label: 'Search', size: 16 });
+const plusLabelButton = iconButton('plus', { label: 'Add new', size: 16 });
+const downloadLabelButton = iconButton('download', { label: 'Download', size: 16 });</code></pre>
         </section>
 
         <section>
