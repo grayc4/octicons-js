@@ -280,53 +280,120 @@
             <pre><code class="language-bash">yarn add octicons-js</code></pre>
         </section>
 
+        <h2>Usage</h2>
         <section>
-            <h2>Examples</h2>
-
-            <h3>Basic Icons</h3>
-            <p>Default icons with various sizes and colors:</p>
+            <b>Icons</b>
+            <div>Default icons</div>
             <div class="example-display" id="basicIcons"></div>
+        </section>
 
-            <h3>Icon Buttons</h3>
-            <p>Icon-only buttons for simple actions:</p>
+
+        <section>
+            <pre><code class="language-javascript">// Import
+import { icon, applyStyles } from 'https://cdn.jsdelivr.net/npm/octicons-js@1.3.3/+esm';
+
+// Required styles
+applyStyles();
+
+// Insert several icons
+const basicIcons = document.getElementById('basicIcons');
+[
+    { name: 'alert' },
+    { name: 'search', fill: '#1e1e1e' },
+    { name: 'download', fill: 'currentColor' },
+    { name: 'star' },
+    { name: 'heart', size: 24, fill: '#d30000' }
+].forEach(({ name, size, fill }) => {
+    basicIcons.appendChild(icon(name, { size, fill }));
+});</code></pre>
+        </section>
+
+        <section>
+            <b>Icon Buttons</b>
+            <p>Icon-only buttons with square background</p>
             <div class="example-display" id="iconButtons"></div>
+        </section>
 
-            <h3>Icon Buttons with Labels</h3>
-            <p>Buttons that combine icons with text labels:</p>
+        <section>
+            <pre><code class="language-javascript">// Import
+import { iconButton, applyStyles } from 'https://cdn.jsdelivr.net/npm/octicons-js@1.3.3/+esm';
+
+// Required styles
+applyStyles();
+
+// Icon buttons in a row. If you dont specify, the defaults are: `{ size: 16, fill: 'dark' }`
+// Anything different than the default, we need to clarify: (eg. a row of small heart icon buttons)
+const iconButtons = document.getElementById('iconButtons');
+[
+    { name: 'heart' },
+    { name: 'heart' },
+    { name: 'heart' },
+    { name: 'heart' }
+].forEach(({ name }) => {
+    const btn = iconButton(name, { size: 14, bgSize: 32, fill: '#d30000' });
+    // And finally, add to DOM...
+    iconButtons.appendChild(btn);
+});</code></pre>
+        </section>
+
+
+        <section>
+            <b>Icon Buttons with Labels</b>
+            <p>Regular buttons with icons and labels</p>
             <div class="example-display" id="labelButtons"></div>
         </section>
 
         <section>
-            <h2>All Octicons</h2>
-            <p>Browse the complete collection of 300+ icons available in the Octicons-JS library:</p>
-            <div class="all-icons-grid" id="allIcons"></div>
+            <pre><code class="language-javascript">// Import
+import { iconButton, applyStyles } from 'https://cdn.jsdelivr.net/npm/octicons-js@1.3.3/+esm';
+
+// Required styles (this only needs to be done 1 time)
+applyStyles();
+
+// We can add a label to a `iconButton` with `label: 'NameOfIcon'`
+const labelButtons = document.getElementById('labelButtons');
+[
+    { name: 'search', label: 'Search' },
+    { name: 'plus', label: 'Add new' },
+    { name: 'download', label: 'Download' }
+].forEach(({ name, label }) => {
+    const btn = iconButton(name, { label, size: 16 });
+    labelButtons.appendChild(btn);
+});</code></pre>
         </section>
 
         <section>
-            <h2>Quick Start</h2>
-            <pre><code class="language-javascript">
+            <b>More examples</b>
+            <pre><code class="language-javascript">// Step 1. Import
 import { icon, iconButton, applyStyles } from 'octicons-js';
 
-// Basic default styles
+// Step 2. Apply required default styles
 applyStyles();
 
-// Icon
-const alertIcon = icon('alert', { size: 16, fill: '#1e1e1e' });
-const checkIcon = icon('check', { size: 16, fill: '#444444' });
-const downloadIcon = icon('download', { size: 26, fill: '#f4cf4c' });
-const starIcon = icon('star', { size: 26, fill: 'currentColor' });
-const heartIcon = icon('heart', { size: 46, fill: '#d30000' });
+// And thats it! You can now insert octicon icons and buttons directly in your JavaScript 
 
-// Square icon button
-const searchButton = iconButton('search', { bgSize: 32 });
-const plusButton = iconButton('plus', { bgSize: 32 });
-const trashButton = iconButton('trash', { bgSize: 32 });
-const pencilButton = iconButton('pencil', { bgSize: 32 });
+// Icon with default styles: `{ size: 16, fill: 'dark'}`
+const alertIcon = icon('alert');
+
+// Icon with custom size and fill
+const searchIcon = icon('search', { fill: '#1e1e1e', size: 24px });
+
+// Add a square bg to the icon to create a icon button
+// We can add a background like this: `{ 'bgSize: 32' }`
+const copyButton = iconButton('copy', { bgSize: 32 });
+
+// A smaller icon button
+const commentButton = iconButton('comment', { size: 12, bgSize: 28 });
 
 // Normal button with icon + label
-const searchLabelButton = iconButton('search', { label: 'Search', size: 12 });
-const plusLabelButton = iconButton('plus', { label: 'Add new', size: 12 });
-const downloadLabelButton = iconButton('download', { label: 'Download', size: 12 });</code></pre>
+const searchLabelButton = iconButton('search', { label: 'Search', size: 12 });</code></pre>
+        </section>
+
+        <h2>All Octicons</h2>
+        <section>
+            <b>Icons</b>
+            <div>Complete collection of 300+ icons is available in the `octicons-js` library</div>
+            <div class="all-icons-grid" id="allIcons"></div>
         </section>
 
         <section>
@@ -385,11 +452,11 @@ const downloadLabelButton = iconButton('download', { label: 'Download', size: 12
 
         const basicIcons = document.getElementById('basicIcons');
         [
-            { name: 'alert', size: 16, fill: 'currentColor' },
-            { name: 'check', size: 24, fill: 'currentColor' },
-            { name: 'download', size: 32, fill: 'currentColor' },
-            { name: 'star', size: 24, fill: 'currentColor' },
-            { name: 'heart', size: 32, fill: 'currentColor' }
+            { name: 'alert' },
+            { name: 'search', fill: '#1e1e1e' },
+            { name: 'download', fill: 'currentColor' },
+            { name: 'star' },
+            { name: 'heart', size: 24, fill: '#d30000' }
         ].forEach(({ name, size, fill }) => {
             basicIcons.appendChild(icon(name, { size, fill }));
         });
