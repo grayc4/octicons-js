@@ -323,8 +323,8 @@ const iconButtons = document.getElementById('iconButtons');
     { name: 'heart', { size: 14, bgSize: 32, fill: '#e3242b' }},
     { name: 'heart', { size: 14, bgSize: 32, fill: '#e3242b' }},
     { name: 'heart', { size: 14, bgSize: 32, fill: '#e3242b' }}
-].forEach(({ name, size, fill }) => {
-    const btn = iconButton(name, { size, fill });
+].forEach(({ name, size, bgSize, fill }) => {
+    const btn = iconButton(name, { size, bgSize, fill });
     // And finally, add to DOM...
     iconButtons.appendChild(btn);
 });</code></pre>
@@ -448,12 +448,12 @@ const searchLabelButton = iconButton('search', { label: 'Search', size: 12 });</
         const basicIcons = document.getElementById('basicIcons');
         [
             { name: 'alert' },
-            { name: 'search', fill: '#1e1e1e' },
-            { name: 'download', fill: 'currentColor' },
+            { name: 'search' },
+            { name: 'download' },
             { name: 'star' },
-            { name: 'heart', size: 24, fill: '#d30000' }
-        ].forEach(({ name, size, fill }) => {
-            basicIcons.appendChild(icon(name, { size, fill }));
+            { name: 'heart' }
+        ].forEach(({ name }) => {
+            basicIcons.appendChild(icon(name));
         });
 
         const iconButtons = document.getElementById('iconButtons');
