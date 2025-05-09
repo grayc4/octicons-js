@@ -304,24 +304,29 @@
 
         <section>
             <h2>Quick Start</h2>
-            <pre><code class="language-javascript">import { icon, iconButton, applyStyles } from 'octicons-js';
+            <pre><code class="language-javascript">
+import { icon, iconButton, applyStyles } from 'octicons-js';
 
+// Basic default styles
 applyStyles();
 
-const alertIcon = icon('alert', { size: 16, fill: 'currentColor' });
-const checkIcon = icon('check', { size: 24, fill: 'currentColor' });
-const downloadIcon = icon('download', { size: 32, fill: 'currentColor' });
-const starIcon = icon('star', { size: 24, fill: 'currentColor' });
-const heartIcon = icon('heart', { size: 32, fill: 'currentColor' });
+// Icon
+const alertIcon = icon('alert', { size: 16, fill: '#1e1e1e' });
+const checkIcon = icon('check', { size: 16, fill: '#444444' });
+const downloadIcon = icon('download', { size: 26, fill: '#f4cf4c' });
+const starIcon = icon('star', { size: 26, fill: 'currentColor' });
+const heartIcon = icon('heart', { size: 46, fill: '#d30000' });
 
-const searchButton = iconButton('search', { size: 16, bgSize: 32 });
-const plusButton = iconButton('plus', { size: 16, bgSize: 32 });
-const trashButton = iconButton('trash', { size: 16, bgSize: 32 });
-const pencilButton = iconButton('pencil', { size: 16, bgSize: 32 });
+// Square icon button
+const searchButton = iconButton('search', { bgSize: 32 });
+const plusButton = iconButton('plus', { bgSize: 32 });
+const trashButton = iconButton('trash', { bgSize: 32 });
+const pencilButton = iconButton('pencil', { bgSize: 32 });
 
-const searchLabelButton = iconButton('search', { label: 'Search', size: 16 });
-const plusLabelButton = iconButton('plus', { label: 'Add new', size: 16 });
-const downloadLabelButton = iconButton('download', { label: 'Download', size: 16 });</code></pre>
+// Normal button with icon + label
+const searchLabelButton = iconButton('search', { label: 'Search', size: 12 });
+const plusLabelButton = iconButton('plus', { label: 'Add new', size: 12 });
+const downloadLabelButton = iconButton('download', { label: 'Download', size: 12 });</code></pre>
         </section>
 
         <section>
@@ -412,66 +417,66 @@ const downloadLabelButton = iconButton('download', { label: 'Download', size: 16
 
         const allIcons = document.getElementById('allIcons');
         const iconNames = [
-            'accessibility', 'accessibilityInset', 'aiModel', 'alert', 'alertFill', 'apps', 'archive', 
-            'arrowBoth', 'arrowDown', 'arrowDownLeft', 'arrowDownRight', 'arrowLeft', 'arrowRight', 
-            'arrowSwitch', 'arrowUp', 'arrowUpLeft', 'arrowUpRight', 'beaker', 'bell', 'bellFill', 
-            'bellSlash', 'blocked', 'bold', 'book', 'bookmark', 'bookmarkFilled', 'bookmarkSlash', 
-            'bookmarkSlashFill', 'briefcase', 'broadcast', 'browser', 'bug', 'cache', 'calendar', 'check', 
-            'checkbox', 'checkCircle', 'checkCircleFill', 'checklist', 'chevronDown', 'chevronLeft', 
-            'chevronRight', 'chevronUp', 'circle', 'circleSlash', 'clock', 'clockFill', 'cloud', 
-            'cloudOffline', 'code', 'codeOfConduct', 'codeReview', 'codescan', 'codescanCheckmark', 
-            'codespaces', 'codeSquare', 'columns', 'commandPalette', 'comment', 'commentDiscussion', 
-            'container', 'copilot', 'copilotError', 'copilotWarning', 'copy', 'cpu', 'creditCard', 
-            'crossReference', 'dash', 'database', 'dependabot', 'desktopDownload', 'deviceCamera', 
-            'deviceCameraVideo', 'deviceDesktop', 'deviceMobile', 'devices', 'diamond', 'diff', 
-            'diffAdded', 'diffIgnored', 'diffModified', 'diffRemoved', 'diffRenamed', 'discussionClosed', 
-            'discussionDuplicate', 'discussionOutdated', 'dot', 'dotFill', 'download', 'duplicate', 
-            'ellipsis', 'eye', 'eyeClosed', 'feedDiscussion', 'feedForked', 'feedHeart', 
-            'feedIssueClosed', 'feedIssueDraft', 'feedIssueOpen', 'feedIssueReopen', 'feedMerged', 
-            'feedPerson', 'feedPlus', 'feedPublic', 'feedPullRequestClosed', 'feedPullRequestDraft', 
-            'feedPullRequestOpen', 'feedRepo', 'feedRocket', 'feedStar', 'feedTag', 'feedTrophy', 
-            'file', 'fileAdded', 'fileBadge', 'fileBinary', 'fileCode', 'fileDiff', 'fileDirectory', 
-            'fileDirectoryFill', 'fileDirectoryOpenFill', 'fileDirectorySymlink', 'fileMedia', 
-            'fileMoved', 'fileRemoved', 'fileSubmodule', 'fileSymlinkFile', 'fileZip', 'filter', 
-            'filterRemove', 'fiscalHost', 'flame', 'fold', 'foldDown', 'foldUp', 'gear', 'gift', 
-            'gitBranch', 'gitCommit', 'gitCompare', 'gitMerge', 'gitMergeQueue', 'gitPullRequest', 
-            'gitPullRequestClosed', 'gitPullRequestDraft', 'globe', 'goal', 'grabber', 'graph', 'hash', 
-            'heading', 'heart', 'heartFill', 'history', 'home', 'homeFill', 'horizontalRule', 'hourglass', 
-            'hubot', 'idBadge', 'image', 'inbox', 'infinity', 'info', 'issueClosed', 'issueDraft', 
-            'issueOpened', 'issueReopened', 'issueTrackedBy', 'issueTracks', 'italic', 'iterations', 
-            'kebabHorizontal', 'key', 'keyAsterisk', 'law', 'lightBulb', 'link', 'linkExternal', 
-            'listOrdered', 'listUnordered', 'location', 'lock', 'log', 'logoGist', 'logoGithub', 'mail', 
-            'markdown', 'markGithub', 'megaphone', 'mention', 'meter', 'milestone', 'mirror', 'moon', 
-            'mortarBoard', 'moveToBottom', 'moveToEnd', 'moveToStart', 'moveToTop', 'multiSelect', 
-            'mute', 'noEntry', 'northStar', 'note', 'number', 'organization', 'packaged', 
-            'packageDependencies', 'packageDependents', 'paintbrush', 'paperAirplane', 'paperclip', 
-            'passkeyFill', 'paste', 'pencil', 'people', 'person', 'personAdd', 'personFill', 'pin', 
-            'pinSlash', 'pivotColumn', 'play', 'plug', 'plus', 'plusCircle', 'project', 'projectRoadmap', 
-            'projectSymlink', 'projectTemplate', 'pulse', 'question', 'quote', 'read', 'redo', 
-            'relFilePath', 'reply', 'repo', 'repoClone', 'repoDeleted', 'repoForked', 'repoLocked', 
-            'repoPull', 'repoPush', 'report', 'repoTemplate', 'rocket', 'rows', 'rss', 'ruby', 
-            'screenFull', 'screenNormal', 'search', 'server', 'share', 'shareAndroid', 'shield', 
-            'shieldCheck', 'shieldLock', 'shieldSlash', 'shieldX', 'sidebarCollapse', 'sidebarExpand', 
-            'signIn', 'signOut', 'singleSelect', 'skip', 'skipFill', 'sliders', 'smiley', 'sortAsc', 
-            'sortDesc', 'sparkleFill', 'sparklesFill', 'sponsorTiers', 'square', 'squareCircle', 
-            'squareFill', 'squirrel', 'stack', 'star', 'starFill', 'stop', 'stopwatch', 'strikethrough', 
-            'sun', 'sync', 'tab', 'tabExternal', 'table', 'tag', 'tasklist', 'telescope', 'telescopeFill', 
-            'terminal', 'threeBars', 'thumbsdown', 'thumbsup', 'tools', 'trackedByClosedCompleted', 
-            'trackedByClosedNotPlanned', 'trash', 'triangleDown', 'triangleLeft', 'triangleRight', 
-            'triangleUp', 'trophy', 'typography', 'undo', 'unfold', 'unlink', 'unlock', 'unmute', 'unread', 
-            'unverified', 'upload', 'verified', 'versions', 'video', 'webhook', 'workflow', 'x', 'xCircle', 
+            'accessibility', 'accessibilityInset', 'aiModel', 'alert', 'alertFill', 'apps', 'archive',
+            'arrowBoth', 'arrowDown', 'arrowDownLeft', 'arrowDownRight', 'arrowLeft', 'arrowRight',
+            'arrowSwitch', 'arrowUp', 'arrowUpLeft', 'arrowUpRight', 'beaker', 'bell', 'bellFill',
+            'bellSlash', 'blocked', 'bold', 'book', 'bookmark', 'bookmarkFilled', 'bookmarkSlash',
+            'bookmarkSlashFill', 'briefcase', 'broadcast', 'browser', 'bug', 'cache', 'calendar', 'check',
+            'checkbox', 'checkCircle', 'checkCircleFill', 'checklist', 'chevronDown', 'chevronLeft',
+            'chevronRight', 'chevronUp', 'circle', 'circleSlash', 'clock', 'clockFill', 'cloud',
+            'cloudOffline', 'code', 'codeOfConduct', 'codeReview', 'codescan', 'codescanCheckmark',
+            'codespaces', 'codeSquare', 'columns', 'commandPalette', 'comment', 'commentDiscussion',
+            'container', 'copilot', 'copilotError', 'copilotWarning', 'copy', 'cpu', 'creditCard',
+            'crossReference', 'dash', 'database', 'dependabot', 'desktopDownload', 'deviceCamera',
+            'deviceCameraVideo', 'deviceDesktop', 'deviceMobile', 'devices', 'diamond', 'diff',
+            'diffAdded', 'diffIgnored', 'diffModified', 'diffRemoved', 'diffRenamed', 'discussionClosed',
+            'discussionDuplicate', 'discussionOutdated', 'dot', 'dotFill', 'download', 'duplicate',
+            'ellipsis', 'eye', 'eyeClosed', 'feedDiscussion', 'feedForked', 'feedHeart',
+            'feedIssueClosed', 'feedIssueDraft', 'feedIssueOpen', 'feedIssueReopen', 'feedMerged',
+            'feedPerson', 'feedPlus', 'feedPublic', 'feedPullRequestClosed', 'feedPullRequestDraft',
+            'feedPullRequestOpen', 'feedRepo', 'feedRocket', 'feedStar', 'feedTag', 'feedTrophy',
+            'file', 'fileAdded', 'fileBadge', 'fileBinary', 'fileCode', 'fileDiff', 'fileDirectory',
+            'fileDirectoryFill', 'fileDirectoryOpenFill', 'fileDirectorySymlink', 'fileMedia',
+            'fileMoved', 'fileRemoved', 'fileSubmodule', 'fileSymlinkFile', 'fileZip', 'filter',
+            'filterRemove', 'fiscalHost', 'flame', 'fold', 'foldDown', 'foldUp', 'gear', 'gift',
+            'gitBranch', 'gitCommit', 'gitCompare', 'gitMerge', 'gitMergeQueue', 'gitPullRequest',
+            'gitPullRequestClosed', 'gitPullRequestDraft', 'globe', 'goal', 'grabber', 'graph', 'hash',
+            'heading', 'heart', 'heartFill', 'history', 'home', 'homeFill', 'horizontalRule', 'hourglass',
+            'hubot', 'idBadge', 'image', 'inbox', 'infinity', 'info', 'issueClosed', 'issueDraft',
+            'issueOpened', 'issueReopened', 'issueTrackedBy', 'issueTracks', 'italic', 'iterations',
+            'kebabHorizontal', 'key', 'keyAsterisk', 'law', 'lightBulb', 'link', 'linkExternal',
+            'listOrdered', 'listUnordered', 'location', 'lock', 'log', 'logoGist', 'logoGithub', 'mail',
+            'markdown', 'markGithub', 'megaphone', 'mention', 'meter', 'milestone', 'mirror', 'moon',
+            'mortarBoard', 'moveToBottom', 'moveToEnd', 'moveToStart', 'moveToTop', 'multiSelect',
+            'mute', 'noEntry', 'northStar', 'note', 'number', 'organization', 'packaged',
+            'packageDependencies', 'packageDependents', 'paintbrush', 'paperAirplane', 'paperclip',
+            'passkeyFill', 'paste', 'pencil', 'people', 'person', 'personAdd', 'personFill', 'pin',
+            'pinSlash', 'pivotColumn', 'play', 'plug', 'plus', 'plusCircle', 'project', 'projectRoadmap',
+            'projectSymlink', 'projectTemplate', 'pulse', 'question', 'quote', 'read', 'redo',
+            'relFilePath', 'reply', 'repo', 'repoClone', 'repoDeleted', 'repoForked', 'repoLocked',
+            'repoPull', 'repoPush', 'report', 'repoTemplate', 'rocket', 'rows', 'rss', 'ruby',
+            'screenFull', 'screenNormal', 'search', 'server', 'share', 'shareAndroid', 'shield',
+            'shieldCheck', 'shieldLock', 'shieldSlash', 'shieldX', 'sidebarCollapse', 'sidebarExpand',
+            'signIn', 'signOut', 'singleSelect', 'skip', 'skipFill', 'sliders', 'smiley', 'sortAsc',
+            'sortDesc', 'sparkleFill', 'sparklesFill', 'sponsorTiers', 'square', 'squareCircle',
+            'squareFill', 'squirrel', 'stack', 'star', 'starFill', 'stop', 'stopwatch', 'strikethrough',
+            'sun', 'sync', 'tab', 'tabExternal', 'table', 'tag', 'tasklist', 'telescope', 'telescopeFill',
+            'terminal', 'threeBars', 'thumbsdown', 'thumbsup', 'tools', 'trackedByClosedCompleted',
+            'trackedByClosedNotPlanned', 'trash', 'triangleDown', 'triangleLeft', 'triangleRight',
+            'triangleUp', 'trophy', 'typography', 'undo', 'unfold', 'unlink', 'unlock', 'unmute', 'unread',
+            'unverified', 'upload', 'verified', 'versions', 'video', 'webhook', 'workflow', 'x', 'xCircle',
             'xCircleFill', 'zap', 'zoomIn', 'zoomOut'
         ];
 
         iconNames.forEach(name => {
             const btn = iconButton(name, { size: 12 });
             btn.classList.add('icon-grid-item');
-            
+
             const tooltip = document.createElement('span');
             tooltip.className = 'icon-tooltip';
             tooltip.textContent = name;
             btn.appendChild(tooltip);
-            
+
             allIcons.appendChild(btn);
         });
     </script>
