@@ -20,7 +20,7 @@ export const makeButton = iconFn => (props = {}) => {
 
     const buttonAttr = {
         type: 'button',
-        class: label ? 'icon-button' : 'square-icon-button',
+        class: label ? 'icon-button' : '',
         ...rest
     };
 

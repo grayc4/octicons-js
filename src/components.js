@@ -87,7 +87,7 @@ function applyStyles() {
   }
 }
 
-function octicon(svg, size = 16, style = 'dark') {
+function octicon(svg, size = 16, style = 'dark', fill = null) {
   applyStyles();
   const wrapper = document.createElement('span');
   wrapper.innerHTML = svg;
@@ -97,20 +97,26 @@ function octicon(svg, size = 16, style = 'dark') {
     svgEl.setAttribute('width', String(size));
     svgEl.setAttribute('height', String(size));
   }
+  if (fill !== null) {
+    btn.style.fill = `${fill}`;
+  }
   wrapper.classList.add(style === 'light' ? 'octicon-light' : 'octicon-dark');
   return wrapper;
 }
 
-function octiconBtn(svg, style = 'dark', size = 16, buttonSize = null) {
+function octiconBtn(svg, size = 16, buttonSize = null, style = 'dark', fill = null) {
   applyStyles();
   const btn = document.createElement('button');
   btn.type = 'button';
-  btn.className = 'square-icon-button';
+  btn.className = 'iconButton';
   if (buttonSize !== null) {
     btn.style.width = `${buttonSize}px`;
     btn.style.height = `${buttonSize}px`;
   }
-  btn.appendChild(octicon(svg, size, style));
+  if (fill !== null) {
+    btn.style.fill = `${fill}`;
+  }
+  btn.appendChild(octicon(svg, size, style, fill));
   return btn;
 }
 
