@@ -315,20 +315,14 @@ const basicIcons = document.getElementById('basicIcons');
         </section>
 
         <section>
-            <pre><code class="language-javascript">// Import
-import { iconButton, applyStyles } from 'https://cdn.jsdelivr.net/npm/octicons-js@1.3.3/+esm';
-
-// Required styles
-applyStyles();
-
-// Icon buttons in a row. If you dont specify, the defaults are: `{ size: 16, fill: 'dark' }`
+            <pre><code class="language-javascript">// Icon buttons in a row. If you dont specify, the defaults are: `{ size: 16, fill: 'dark' }`
 // Anything different than the default, we need to clarify: (eg. a row of small heart icon buttons)
 const iconButtons = document.getElementById('iconButtons');
 [
-    { name: 'heart', { size: 14, bgSize: 32, fill: '#d30000' }},
-    { name: 'heart', { size: 14, bgSize: 32, fill: '#d30000' }},
-    { name: 'heart', { size: 14, bgSize: 32, fill: '#d30000' }},
-    { name: 'heart', { size: 14, bgSize: 32, fill: '#d30000' }}
+    { name: 'heart', { size: 14, bgSize: 32, fill: '#e3242b' }},
+    { name: 'heart', { size: 14, bgSize: 32, fill: '#e3242b' }},
+    { name: 'heart', { size: 14, bgSize: 32, fill: '#e3242b' }},
+    { name: 'heart', { size: 14, bgSize: 32, fill: '#e3242b' }}
 ].forEach(({ name, size, fill }) => {
     const btn = iconButton(name, { size, fill });
     // And finally, add to DOM...
