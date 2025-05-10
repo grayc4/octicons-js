@@ -2,6 +2,7 @@ export interface IconProps {
   size?: number;
   fill?: string;
   style?: string;
+  bgSize?: number;
 }
 
 export type IconFn = (props?: IconProps) => SVGElement | string;
@@ -10,7 +11,7 @@ export interface ButtonProps extends IconProps {
   label?: string;
   bgColor?: string;
   bgSize?: number;
-  fill: string;
+  fill?: string;
 }
 
 export type ButtonFn = (props?: ButtonProps) => HTMLElement | string;
