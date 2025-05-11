@@ -17,7 +17,7 @@
         <p>A lightweight JavaScript library for using GitHub Octicons</p>
         <div class="badges">
             <a href="https://github.com/grayc4/octicons-js" target="_blank">
-                <img src="https://img.shields.io/badge/octicons--js-v1.4.2-blue" alt="Octicons-JS">
+                <img src="https://img.shields.io/badge/octicons--js-v1.4.1-blue" alt="Octicons-JS">
             </a>
             <a href="https://www.npmjs.com/package/octicons-js" target="_blank">
                 <img src="https://img.shields.io/npm/v/octicons-js.svg" alt="npm package">
@@ -79,7 +79,7 @@ applyStyles();</code></pre>
             <ul>
                 <div class="subline">Method #3</div>
                 <pre><code class="language-javascript">// Import from CDN url. The one below is the most up to date CDN url.
-import { icons, octicon, octiconBtn, applyStyles } from 'https://cdn.jsdelivr.net/npm/octicons-js@1.4.2/+esm';
+import { icons, octicon, octiconBtn, applyStyles } from 'https://cdn.jsdelivr.net/npm/octicons-js@1.4.0/+esm';
 
 // Required default styles (important)
 applyStyles();</code></pre>
@@ -551,13 +551,12 @@ const downloadIcon = octicon(download);</code></pre>
             });
 
             const customLabelButtons = document.getElementById('customLabelButtons');
-
             [
-                { icon: rocket, label: 'Launch', fill: '#0969da' },
-                { icon: flame, label: 'Trending', fill: '#ff7b00' },
-                { icon: heartFill, label: 'Favorite', fill: '#e3242b' }
-            ].forEach(({ icon, label, fill }) => {
-                const btn = octiconLabelBtn(icon, label, 'dark', 16, true, fill);
+                { name: 'rocket', label: 'Launch', fill: '#0969da' },
+                { name: 'flame', label: 'Trending', fill: '#ff7b00' },
+                { name: 'heartFill', label: 'Favorite', fill: '#e3242b' }
+            ].forEach(({ name, label, fill }) => {
+                const btn = octiconLabelBtn(icons[name], label, 'dark', 16, true, fill);
 
                 btn.addEventListener('click', () => {
                     if (btn.disabled) return;
@@ -567,7 +566,7 @@ const downloadIcon = octicon(download);</code></pre>
 
                     originalIcon.remove();
 
-                    const spinnerIcon = octicon(sync, 16, 'dark', fill);
+                    const spinnerIcon = octicon(icons.sync, 16, 'dark', fill);
                     spinnerIcon.classList.add('spin');
                     btn.insertBefore(spinnerIcon, btn.firstChild);
 
@@ -577,7 +576,7 @@ const downloadIcon = octicon(download);</code></pre>
 
                     setTimeout(() => {
                         spinnerIcon.remove();
-                        const newIcon = octicon(icon, 16, 'dark', fill);
+                        const newIcon = octicon(icons[name], 16, 'dark', fill);
                         btn.insertBefore(newIcon, btn.firstChild);
                         btn.querySelector('.icon-label').textContent = originalText;
                         btn.disabled = false;
