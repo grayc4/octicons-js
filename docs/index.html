@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,258 +8,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-javascript.min.js"></script>
-    <style>
-        :root {
-            --primary-color: #0969da;
-            --secondary-color: #57606a;
-            --text-color: #24292f;
-            --text-muted: #57606a;
-            --bg-color: #ffffff;
-            --bg-secondary: #f6f8fa;
-            --border-color: #d0d7de;
-            --radius: 6px;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            padding: 0;
-            margin: 0;
-        }
-
-        a {
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        header {
-            background-color: #f6f8fa;
-            color: #24292f;
-            padding: 3rem 1rem;
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        header h1 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        header p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-muted);
-        }
-
-        .github-button {
-            display: inline-block;
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
-            font-weight: 500;
-            transition: all 0.2s;
-            background-color: #24292f;
-            color: #ffffff;
-            border: 1px solid rgba(27, 31, 36, 0.15);
-            box-shadow: 0 1px 0 rgba(27, 31, 36, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-        }
-
-        .github-button:hover {
-            background-color: #32383f;
-            text-decoration: none;
-        }
-
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-
-        section {
-            margin-bottom: 3.5rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        section:last-child {
-            border-bottom: none;
-        }
-
-        h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            color: var(--text-color);
-        }
-
-        h3 {
-            font-size: 1.3rem;
-            margin: 1.5rem 0 1rem;
-            color: var(--text-color);
-        }
-
-        ul, ol {
-            margin: 1rem 0 1.5rem 1.5rem;
-        }
-
-        li {
-            margin-bottom: 0.5rem;
-        }
-
-        pre {
-            background-color: var(--bg-secondary);
-            border-radius: var(--radius);
-            padding: 1rem;
-            overflow-x: auto;
-            margin: 1rem 0;
-            border: 1px solid var(--border-color);
-        }
-
-        code {
-            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-            font-size: 0.9rem;
-        }
-
-        .examples-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .example-card {
-            background-color: var(--bg-secondary);
-            border-radius: var(--radius);
-            border: 1px solid var(--border-color);
-            padding: 1.5rem;
-            flex: 1;
-            min-width: 250px;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .example-card h4 {
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .example-display {
-            background-color: white;
-            border-radius: var(--radius);
-            border: 1px solid var(--border-color);
-            padding: 1.5rem;
-            min-height: 100px;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .all-icons-grid {
-            display: grid;
-            grid-template-columns: repeat(20, 1fr);
-            gap: 4px;
-            margin: 2rem 0;
-            width: 100%;
-        }
-
-        .icon-grid-item {
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .icon-grid-item:hover {
-            background-color: white;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(9, 105, 218, 0.2);
-        }
-
-        .icon-tooltip {
-            display: none;
-            position: absolute;
-            background-color: #24292f;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            z-index: 100;
-            pointer-events: none;
-            white-space: nowrap;
-        }
-
-        .icon-grid-item:hover .icon-tooltip {
-            display: block;
-        }
-
-        .api-item {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background-color: var(--bg-secondary);
-            border-radius: var(--radius);
-            border: 1px solid var(--border-color);
-        }
-
-        .iconButton {
-            fill: #e3242b;
-        }
-
-        .api-params {
-            margin-top: 1rem;
-        }
-
-        strong {
-            color: var(--text-color);
-        }
-
-        footer {
-            background-color: var(--bg-secondary);
-            padding: 2rem 1rem;
-            text-align: center;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border-color);
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
-        }
-    </style>
+    <link rel="stylesheet" href="./style.css" />
 </head>
+
 <body>
     <header>
         <h1>Octicons-JS</h1>
         <p>A lightweight JavaScript library for using GitHub Octicons</p>
+        <div class="badges">
+            <a href="https://github.com/grayc4/octicons-js" target="_blank">
+                <img src="https://img.shields.io/badge/octicons--js-v1.4.0-blue" alt="Octicons-JS">
+            </a>
+            <a href="https://www.npmjs.com/package/octicons-js" target="_blank">
+                <img src="https://img.shields.io/npm/v/octicons-js.svg" alt="npm package">
+            </a>
+            <a href="https://opensource.org/licenses/MIT" target="_blank">
+                <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
+            </a>
+        </div>
         <a href="https://github.com/grayc4/octicons-js" class="github-button">View on GitHub</a>
     </header>
 
     <main>
-        <section>
+        <div class="section-row">
             <h2>About</h2>
-            <p>Octicons-JS provides easy access to GitHub's <a href="https://primer.style/octicons/" target="_blank">Octicons</a> for use in JavaScript projects. It includes 300+ SVG icons with a simple, framework-agnostic API.</p>
+            <p>Octicons-JS provides easy access to GitHub's <a href="https://primer.style/octicons/"
+                    target="_blank">Octicons</a> for use in JavaScript projects. It includes 300+ SVG icons with a
+                simple, framework-agnostic API.</p>
 
             <p>This library offers:</p>
             <ul>
@@ -266,166 +42,419 @@
                 <li><strong>Zero Dependencies</strong> - No external libraries required</li>
                 <li><strong>Framework Agnostic</strong> - Works with any JavaScript project</li>
                 <li><strong>TypeScript Support</strong> - Fully typed API with autocompletion</li>
+                <li><strong>Tree-Shaking Support</strong> <span class="feature-badge">NEW</span> - Import only what you
+                    need</li>
                 <li><strong>Simple API</strong> - Straightforward functions for creating icons and buttons</li>
+                <li><strong>Customizable</strong> - Control size, color, and styling with simple props</li>
             </ul>
-        </section>
+        </div>
 
-        <section>
-            <h2>Installation</h2>
+        <h2>Installation</h2>
+        <div class="sect-header">
+            <b>Step #1:</b> Package installation
+        </div>
+        <div class="block">
             <pre><code class="language-bash">npm install octicons-js</code></pre>
-            <p>Or using yarn:</p>
-            <pre><code class="language-bash">yarn add octicons-js</code></pre>
-        </section>
+        </div>
+        <div class="sect-header">
+            <b>Step #2:</b> Choose preferred import method...
+        </div>
+        <div class="block">
+            <ul>
+                <div class="subline">Method #1</div>
+                <pre><code class="language-javascript">// Import the previously installed package 'octicon-js' in a .js page to access all icons
+import { icons, octicon, octiconBtn, applyStyles } from 'octicons-js';
 
-        <h2>Usage</h2>
-        <section>
-            <b>Icons</b>
-            <div>Default icons</div>
+// Required default styles (important)
+applyStyles();</code></pre>
+            </ul>
+            <ul>
+                <div class="subline">Method #2</div>
+                <pre><code class="language-javascript">// Import only the icons you need (tree shaking)
+import { alert, download, octicon, applyStyles } from 'octicons-js';
+
+// Required default styles (important)
+applyStyles();</code></pre>
+            </ul>
+            <ul>
+                <div class="subline">Method #3</div>
+                <pre><code class="language-javascript">// Import from CDN url. The one below is the most up to date CDN url.
+import { icons, octicon, octiconBtn, applyStyles } from 'https://cdn.jsdelivr.net/npm/octicons-js@1.4.0/+esm';
+
+// Required default styles (important)
+applyStyles();</code></pre>
+            </ul>
+        </div>
+        <div class="sect-header">
+            <b>Step #3:</b> Create icons using Javascript...
+        </div>
+        <p>Lets check out some actual examples</p>
+        <div class="sect-headerB">
+            <p><b>Icons (default style)</b></p>
+
             <div class="example-display" id="basicIcons"></div>
-        </section>
+            <pre><code class="language-javascript">import { alertFill, search, download, starFill, heartFill, applyStyles } from 'octicons-js';
 
-
-        <section>
-            <pre><code class="language-javascript">// Import
-import { icon, applyStyles } from 'https://cdn.jsdelivr.net/npm/octicons-js@1.3.3/+esm';
-
-// Required styles
-applyStyles();
-
-// Insert several icons
+// Insert basic icons with default styling
 const basicIcons = document.getElementById('basicIcons');
+
+// Option 1: Using the icons collection
 [
-    { name: 'alert' },
-    { name: 'search' },
-    { name: 'download' },
-    { name: 'star' },
-    { name: 'heart' }
-].forEach(({ name }) => {
-    basicIcons.appendChild(icon(name));
+    { icon: icons.alertFill, size: 18 },
+    { icon: icons.search, size: 18 },
+    { icon: icons.download, size: 18 },
+    { icon: icons.starFill, size: 18 },
+    { icon: icons.heartFill, size: 18 }
+].forEach(({ icon, size }) => {
+    basicIcons.appendChild(octicon(icon, size));
+});
+
+// Option 2: Using individually imported icons (enables tree-shaking)
+basicIcons.appendChild(octicon(alertFill, 18));
+basicIcons.appendChild(octicon(search, 18));
+basicIcons.appendChild(octicon(download, 18));
+basicIcons.appendChild(octicon(starFill, 18));
+basicIcons.appendChild(octicon(heartFill, 18));</code></pre>
+        </div>
+
+        <div class="example-header">Custom Size Icons</div>
+        <div class="example-description">Icons with different sizes (12px, 16px, 24px, 32px, 48px)</div>
+        <div class="example-display" id="sizeIcons"></div>
+
+        <pre><code class="language-javascript">import { starFill, octicon } from 'octicons-js';
+
+// Icons with different sizes
+const sizeIcons = document.getElementById('sizeIcons');
+[12, 16, 24, 32, 48].forEach(size => {
+    sizeIcons.appendChild(octicon(starFill, size));
 });</code></pre>
-        </section>
 
-        <section>
-            <b>Icon Buttons</b>
-            <p>Icon-only buttons with square background</p>
-            <div class="example-display" id="iconButtons"></div>
-        </section>
 
-        <section>
-            <pre><code class="language-javascript">// Icon buttons in a row. If you dont specify, the defaults are: `{ size: 16, fill: 'dark' }`
-// Anything different than the default, we need to clarify: (eg. a row of small heart icon buttons)
-const iconButtons = document.getElementById('iconButtons');
+        <div class="example-header">Custom Color Icons</div>
+        <div class="example-description">Icons with different fill colors</div>
+        <div class="example-display" id="colorIcons"></div>
+
+        <pre><code class="language-javascript">import { heartFill, starFill, bellFill, checkCircleFill, flame, octicon } from 'octicons-js';
+
+// Icons with different fill colors
+const colorIcons = document.getElementById('colorIcons');
+
+// Icon, size, style, fill
+colorIcons.appendChild(octicon(heartFill, 24, 'dark', '#e3242b'));  // GitHub red
+colorIcons.appendChild(octicon(starFill, 24, 'dark', '#ffab00'));   // Gold
+colorIcons.appendChild(octicon(bellFill, 24, 'dark', '#0969da'));   // GitHub blue
+colorIcons.appendChild(octicon(checkCircleFill, 24, 'dark', '#1a7f37')); // GitHub green
+colorIcons.appendChild(octicon(flame, 24, 'dark', '#F9826C'));      // Flame orange</code></pre>
+
+
+        <div class="example-header">Button Examples</div>
+        <div class="example-description">Icon-only buttons with various sizes</div>
+        <div class="example-display" id="iconButtons"></div>
+
+        <pre><code class="language-javascript">import { bellFill, bookmarkFilled, starFill, heartFill, octiconBtn } from 'octicons-js';
+
+// Icon buttons container
+const iconButtonsContainer = document.getElementById('iconButtons');
+
+// Add icon buttons with different sizes
+iconButtonsContainer.appendChild(octiconBtn(bellFill, 16, 32));
+iconButtonsContainer.appendChild(octiconBtn(bookmarkFilled, 16, 32));
+iconButtonsContainer.appendChild(octiconBtn(starFill, 16, 32));
+iconButtonsContainer.appendChild(octiconBtn(heartFill, 16, 32, 'dark', '#e3242b'));</code></pre>
+
+
+        <div class="example-header">Interactive Button Examples</div>
+        <div class="example-description">Icon buttons with click animation</div>
+        <div class="example-display" id="buttonSizes"></div>
+
+        <pre><code class="language-javascript">import { copy, sync, octiconBtn } from 'octicons-js';
+
+// Interactive buttons with loading animation
+const buttonSizes = document.getElementById('buttonSizes');
+
+// Create buttons with different sizes
 [
-    { name: 'heart', { size: 14, bgSize: 32 }},
-    { name: 'heart', { size: 14, bgSize: 32 }},
-    { name: 'heart', { size: 14, bgSize: 32 }},
-    { name: 'heart', { size: 14, bgSize: 32 }}
-].forEach(({ name, size, bgSize, fill }) => {
-    const btn = iconButton(name, { size, bgSize, fill });
-    // And finally, add to DOM...
-    iconButtons.appendChild(btn);
+    { size: 12, buttonSize: 28 },
+    { size: 14, buttonSize: 32 },
+    { size: 16, buttonSize: 36 },
+    { size: 20, buttonSize: 40 }
+].forEach(({ size, buttonSize }) => {
+    const btn = octiconBtn(copy, size, buttonSize);
+
+    btn.addEventListener('click', () => {
+        const originalIcon = btn.querySelector('svg');
+        originalIcon.style.display = 'none';
+
+        // Create a temporary spinner icon
+        const spinnerIcon = octiconBtn(sync, size).querySelector('svg');
+        spinnerIcon.classList.add('spin');
+        btn.prepend(spinnerIcon);
+
+        // After 1 second, revert to original icon
+        setTimeout(() => {
+            spinnerIcon.remove();
+            originalIcon.style.display = '';
+        }, 1000);
+    });
+
+    buttonSizes.appendChild(btn);
 });</code></pre>
-        </section>
 
 
-        <section>
-            <b>Icon Buttons with Labels</b>
-            <p>Regular buttons with icons and labels</p>
-            <div class="example-display" id="labelButtons"></div>
-        </section>
+        <div class="example-header">Standard Label Buttons</div>
+        <div class="example-description">Buttons with icons and text labels</div>
+        <div class="example-display" id="labelButtons"></div>
 
-        <section>
-            <pre><code class="language-javascript">// Import
-import { iconButton, applyStyles } from 'https://cdn.jsdelivr.net/npm/octicons-js@1.3.3/+esm';
+        <pre><code class="language-javascript">import { search, plus, download, octiconLabelBtn } from 'octicons-js';
 
-// Required styles (this only needs to be done 1 time)
-applyStyles();
-
-// We can add a label to a `iconButton` with `label: 'NameOfIcon'`
+// Standard buttons with icons and labels
 const labelButtons = document.getElementById('labelButtons');
+
+// Create label buttons
+labelButtons.appendChild(octiconLabelBtn(search, 'Search'));
+labelButtons.appendChild(octiconLabelBtn(plus, 'Add new'));
+labelButtons.appendChild(octiconLabelBtn(download, 'Download'));</code></pre>
+
+
+        <div class="example-header">Interactive Label Buttons</div>
+        <div class="example-description">Label buttons with loading animations</div>
+        <div class="example-display" id="customLabelButtons"></div>
+
+        <pre><code class="language-javascript">import { rocket, flame, heartFill, sync, octiconLabelBtn } from 'octicons-js';
+
+// Interactive label buttons with loading animation
+const customLabelButtons = document.getElementById('customLabelButtons');
+
+// Create interactive buttons
 [
-    { name: 'search', label: 'Search' },
-    { name: 'plus', label: 'Add new' },
-    { name: 'download', label: 'Download' }
-].forEach(({ name, label }) => {
-    const btn = iconButton(name, { label, size: 16 });
-    // And finally, add to DOM...
-    labelButtons.appendChild(btn);
+    { icon: rocket, label: 'Launch', fill: '#0969da' },
+    { icon: flame, label: 'Trending', fill: '#ff7b00' },
+    { icon: heartFill, label: 'Favorite', fill: '#e3242b' }
+].forEach(({ icon, label, fill }) => {
+    const btn = octiconLabelBtn(icon, label, 'dark', 16, true, fill);
+    btn.style.transition = 'all 0.2s ease';
+
+    // Add loading animation on click
+    btn.addEventListener('click', () => {
+        const originalIcon = btn.querySelector('.octicon');
+        const originalText = btn.querySelector('.icon-label').textContent;
+
+        // Replace icon and text
+        originalIcon.remove();
+        btn.querySelector('.icon-label').textContent = 'Loading...';
+
+        // Create spinner icon
+        const spinnerIcon = octiconLabelBtn(sync, '', 'dark', 16, true, fill).querySelector('.octicon');
+        spinnerIcon.classList.add('spin');
+        btn.prepend(spinnerIcon);
+
+        // Disable button during loading
+        btn.disabled = true;
+        btn.style.opacity = '0.8';
+
+        // After 2 seconds, revert to original
+        setTimeout(() => {
+            spinnerIcon.remove();
+            btn.prepend(octiconLabelBtn(icon, '', 'dark', 16, true, fill).querySelector('.octicon'));
+            btn.querySelector('.icon-label').textContent = originalText;
+            btn.disabled = false;
+            btn.style.opacity = '1';
+        }, 2000);
+    });
+
+    customLabelButtons.appendChild(btn);
 });</code></pre>
-        </section>
 
-        <section>
-            <b>More examples</b>
-            <pre><code class="language-javascript">// Step 1. Import
-import { icon, iconButton, applyStyles } from 'octicons-js';
 
-// Step 2. Apply required default styles
-applyStyles();
+        <div class="example-header">Icons on Dark Background</div>
+        <div class="example-description">Using light-colored icons on dark backgrounds</div>
+        <div class="example-display dark-bg" id="darkBgIcons"></div>
 
-// And thats it! You can now insert octicon icons and buttons directly in your JavaScript 
+        <pre><code class="language-javascript">import { starFill, heartFill, checkCircleFill, alertFill, globe, octicon, octiconLabelBtn } from 'octicons-js';
 
-// Icon with default styles: `{ size: 16, fill: 'dark'}`
-const alertIcon = icon('alert');
+// Icons on dark backgrounds
+const darkBgIcons = document.getElementById('darkBgIcons');
 
-// Icon with custom size and fill
-const searchIcon = icon('search', { fill: '#1e1e1e', size: 24px });
+// Light icons for dark background
+darkBgIcons.appendChild(octicon(starFill, 24, 'dark', '#ffffff'));
+darkBgIcons.appendChild(octicon(heartFill, 24, 'dark', '#ff80aa'));
+darkBgIcons.appendChild(octicon(checkCircleFill, 24, 'dark', '#7ee787'));
+darkBgIcons.appendChild(octicon(alertFill, 24, 'dark', '#ffdf5d'));
 
-// Add a square bg to the icon to create a icon button
-// We can add a background like this: `{ 'bgSize: 32' }`
-const copyButton = iconButton('copy', { bgSize: 32 });
+// Button on dark background
+const darkButton = octiconLabelBtn(globe, 'Visit Site', 'light', 16, true, '#ffffff');
+darkButton.style.backgroundColor = '#8957e5';
+darkButton.style.borderColor = '#7048e8';
+darkButton.style.color = '#ffffff';
+darkButton.style.fontWeight = '500';
+darkBgIcons.appendChild(darkButton);</code></pre>
 
-// A smaller icon button
-const commentButton = iconButton('comment', { size: 12, bgSize: 28 });
+        <div class="example-header">Icon Groups</div>
+        <div class="example-description">Interactive rating system and status indicators</div>
+        <div class="example-display" id="iconGroups"></div>
 
-// Normal button with icon + label
-const searchLabelButton = iconButton('search', { label: 'Search', size: 12 });</code></pre>
-        </section>
+        <pre><code class="language-javascript">import { starFill, star, checkCircleFill, octicon } from 'octicons-js';
+
+// Create interactive star rating system
+const iconGroups = document.getElementById('iconGroups');
+const ratingContainer = document.createElement('div');
+ratingContainer.className = 'rating-container';
+let currentRating = 3;
+
+function renderStars(rating) {
+    ratingContainer.innerHTML = '';
+    for (let i = 1; i <= 5; i++) {
+        const iconElement = octicon(
+            i <= rating ? starFill : star,
+            24,
+            'dark',
+            i <= rating ? '#ffab00' : '#d0d7de'
+        );
+
+        iconElement.classList.add('star-rating-icon');
+        iconElement.addEventListener('click', () => {
+            currentRating = i;
+            renderStars(currentRating);
+        });
+
+        iconElement.addEventListener('mouseover', () => {
+            renderStars(i);
+        });
+
+        ratingContainer.appendChild(iconElement);
+    }
+}
+
+ratingContainer.addEventListener('mouseout', () => {
+    renderStars(currentRating);
+});
+
+renderStars(currentRating);
+iconGroups.appendChild(ratingContainer);
+
+// Status indicator
+const statusContainer = document.createElement('div');
+statusContainer.style.display = 'flex';
+statusContainer.style.alignItems = 'center';
+statusContainer.style.gap = '8px';
+statusContainer.style.marginLeft = '32px';
+statusContainer.style.backgroundColor = '#f6f8fa';
+statusContainer.style.padding = '8px 12px';
+statusContainer.style.borderRadius = '6px';
+statusContainer.style.border = '1px solid #d0d7de';
+
+const checkIcon = octicon(checkCircleFill, 16, 'dark', '#1a7f37');
+
+const statusLabel = document.createElement('span');
+statusLabel.textContent = 'All checks passed';
+statusLabel.style.fontWeight = '500';
+statusLabel.style.color = '#1a7f37';
+
+statusContainer.appendChild(checkIcon);
+statusContainer.appendChild(statusLabel);
+iconGroups.appendChild(statusContainer);</code></pre>
+
+        <h3>Tree-Shaking Benefits <span class="feature-badge">NEW</span></h3>
+        <div class="example-description">Learn how tree-shaking helps reduce bundle size</div>
+
+        <p>With the new tree-shaking support, you can significantly reduce your bundle size by only importing the
+            icons you need:</p>
+
+        <div class="example-header">Before: Without Tree-Shaking</div>
+        <pre><code class="language-javascript">import { icons, octicon } from 'octicons-js';
+
+// This imports the entire icon collection (300+ icons)
+const alertIcon = octicon(icons.alert);</code></pre>
+
+        <div class="example-header">After: With Tree-Shaking</div>
+        <pre><code class="language-javascript">import { alert, octicon } from 'octicons-js';
+
+// This only imports the alert icon
+const alertIcon = octicon(alert);</code></pre>
+
+        <p>Bundle size comparison:</p>
+        <ul>
+            <li><strong>Without tree-shaking:</strong> ~200KB (all icons)</li>
+            <li><strong>With tree-shaking:</strong> ~1-2KB per icon</li>
+        </ul>
+
 
         <h2>All Octicons</h2>
-        <section>
-            <b>Icons</b>
-            <div>Complete collection of 300+ icons is available in the `octicons-js` library</div>
-            <div class="all-icons-grid" id="allIcons"></div>
-        </section>
 
-        <section>
-            <h2>Full API</h2>
+        <b>Icons</b>
+        <div>Complete collection of 300+ icons is available in the `octicons-js` library</div>
+        <div class="all-icons-grid" id="allIcons"></div>
 
-            <div class="api-item">
-                <h3>applyStyles()</h3>
-                <p>Applies the required CSS styles into the document's head. Call this once at the beginning of your app.</p>
+
+
+        <h2>Full API</h2>
+
+        <div class="api-item">
+            <h3>applyStyles()</h3>
+            <p>Applies the required CSS styles into the document's head. Call this once at the beginning of your
+                app.</p>
+        </div>
+
+        <div class="api-item">
+            <h3>octicon(icon, size?, style?, fill?)</h3>
+            <p>Creates an SVG icon element.</p>
+            <div class="api-params">
+                <p><strong>icon</strong>: IconFunction | Element - The icon function or element</p>
+                <p><strong>size</strong>: Number - Size in pixels (default: 16)</p>
+                <p><strong>style</strong>: String - "dark" or "light" variant (default: "dark")</p>
+                <p><strong>fill</strong>: String - Fill color (default: null, uses currentColor)</p>
+                <p><strong>Returns</strong>: HTMLElement</p>
             </div>
+        </div>
 
-            <div class="api-item">
-                <h3>icon(name, options?)</h3>
-                <p>Creates an SVG icon element.</p>
-                <div class="api-params">
-                    <p><strong>name</strong>: String - The name of the icon</p>
-                    <p><strong>options</strong>: Object - Optional parameters</p>
-                    <ul>
-                        <li><strong>size</strong>: Number - Size in pixels (default: 16)</li>
-                        <li><strong>fill</strong>: String - Fill color (default: 'currentColor')</li>
-                        <li><strong>style</strong>: String - Additional inline styles</li>
-                    </ul>
-                </div>
+        <div class="api-item">
+            <h3>octiconBtn(icon, size?, buttonSize?, style?, fill?)</h3>
+            <p>Creates a square button containing an icon.</p>
+            <div class="api-params">
+                <p><strong>icon</strong>: IconFunction | Element - The icon function or element</p>
+                <p><strong>size</strong>: Number - Size of the icon (default: 16)</p>
+                <p><strong>buttonSize</strong>: Number - Size of the button (default: null - auto)</p>
+                <p><strong>style</strong>: String - "dark" or "light" variant (default: "dark")</p>
+                <p><strong>fill</strong>: String - Fill color (default: null, uses currentColor)</p>
+                <p><strong>Returns</strong>: HTMLButtonElement</p>
             </div>
+        </div>
 
-            <div class="api-item">
-                <h3>iconButton(name, options?)</h3>
-                <p>Creates a button containing an icon.</p>
-                <div class="api-params">
-                    <p><strong>name</strong>: String - The name of the icon</p>
-                    <p><strong>options</strong>: Object - Optional parameters</p>
-                    <ul>
-                        <li><strong>size</strong>: Number - Size of the icon (default: 16)</li>
-                        <li><strong>fill</strong>: String - Color of the icon (default: 'currentColor')</li>
-                        <li><strong>label</strong>: String - Text label (makes the button non-square)</li>
-                        <li><strong>bgSize</strong>: Number - Size of the button when square (default: null - auto)</li>
-                        <li><strong>bgColor</strong>: String - Background color (default: system button color)</li>
-                    </ul>
-                </div>
+        <div class="api-item">
+            <h3>octiconLabelBtn(icon, label, style?, size?, iconFirst?, fill?)</h3>
+            <p>Creates a button with both an icon and a text label.</p>
+            <div class="api-params">
+                <p><strong>icon</strong>: IconFunction | Element - The icon function or element</p>
+                <p><strong>label</strong>: String - Text label for the button</p>
+                <p><strong>style</strong>: String - "dark" or "light" variant (default: "dark")</p>
+                <p><strong>size</strong>: Number - Size of the icon (default: 16)</p>
+                <p><strong>iconFirst</strong>: Boolean - Whether to show icon before text (default: true)</p>
+                <p><strong>fill</strong>: String - Fill color (default: null, uses currentColor)</p>
+                <p><strong>Returns</strong>: HTMLButtonElement</p>
             </div>
-        </section>
+        </div>
+
+        <div class="api-item">
+            <h3>icons</h3>
+            <p>Object containing all available icons as functions.</p>
+            <pre><code class="language-javascript">import { icons } from 'octicons-js';
+
+// Access icons by name
+const alertIcon = icons.alert;
+const starIcon = icons.star;</code></pre>
+        </div>
+
+        <div class="api-item">
+            <h3>Individual Icon Imports <span class="feature-badge">NEW</span></h3>
+            <p>Import icons individually to enable tree-shaking.</p>
+            <pre><code class="language-javascript">import { alert, star, download } from 'octicons-js';
+
+// Use imported icons directly
+const alertIcon = octicon(alert);
+const starIcon = octicon(star);
+const downloadIcon = octicon(download);</code></pre>
+        </div>
+
     </main>
 
     <footer>
@@ -438,28 +467,73 @@ const searchLabelButton = iconButton('search', { label: 'Search', size: 12 });</
     </footer>
 
     <script type="module">
-        import { icon, iconButton, applyStyles } from 'https://cdn.jsdelivr.net/npm/octicons-js@1.3.3/+esm';
+        import { icons, octicon, octiconBtn, octiconLabelBtn, applyStyles } from '../index.js';
+        import logoGithub from '../icons/octiconLogoGithub.js';
+
+        const button = document.getElementById('github-button');
+        const githubIcon = octicon(logoGithub, 16, 'light', '#ffffff');
+        button.prepend(githubIcon);
+        applyStyles();
 
         const basicIcons = document.getElementById('basicIcons');
         [
-            { name: 'alert' },
-            { name: 'search' },
-            { name: 'download' },
-            { name: 'star' },
-            { name: 'heart' }
-        ].forEach(({ name }) => {
-            basicIcons.appendChild(icon(name));
+            { name: 'alertFill', size: 18 },
+            { name: 'search', size: 18 },
+            { name: 'download', size: 18 },
+            { name: 'starFill', size: 18 },
+            { name: 'heartFill', size: 18 }
+        ].forEach(({ name, size }) => {
+            basicIcons.appendChild(octicon(icons[name], size));
+        });
+
+        const sizeIcons = document.getElementById('sizeIcons');
+        [12, 16, 24, 32, 48].forEach(size => {
+            sizeIcons.appendChild(octicon(icons.starFill, size));
+        });
+
+        const colorIcons = document.getElementById('colorIcons');
+        [
+            { name: 'heartFill', fill: '#e3242b', size: 24 },
+            { name: 'starFill', fill: '#ffab00', size: 24 },
+            { name: 'bellFill', fill: '#0969da', size: 24 },
+            { name: 'checkCircleFill', fill: '#1a7f37', size: 24 },
+            { name: 'flame', fill: '#F9826C', size: 24 }
+        ].forEach(({ name, fill, size }) => {
+            colorIcons.appendChild(octicon(icons[name], size, 'dark', fill));
         });
 
         const iconButtons = document.getElementById('iconButtons');
         [
-            { name: 'heart', size: 14, bgSize: 32 },
-            { name: 'heart', size: 14, bgSize: 32 },
-            { name: 'heart', size: 14, bgSize: 32 },
-            { name: 'heart', size: 14, bgSize: 32 }
-        ].forEach(({ name, size, bgSize, fill }) => {
-            const btn = iconButton(name, { size, bgSize, fill });
-            iconButtons.appendChild(btn);
+            { name: 'bellFill', size: 16, buttonSize: 32 },
+            { name: 'bookmarkFilled', size: 16, buttonSize: 32 },
+            { name: 'starFill', size: 16, buttonSize: 32 },
+            { name: 'heartFill', size: 16, buttonSize: 32, fill: '#e3242b' }
+        ].forEach(({ name, size, buttonSize, fill }) => {
+            iconButtons.appendChild(octiconBtn(icons[name], size, buttonSize, 'dark', fill));
+        });
+
+        const buttonSizes = document.getElementById('buttonSizes');
+        [
+            { size: 12, buttonSize: 28 },
+            { size: 14, buttonSize: 32 },
+            { size: 16, buttonSize: 36 },
+            { size: 20, buttonSize: 40 }
+        ].forEach(({ size, buttonSize }) => {
+            const btn = octiconBtn(icons.copy, size, buttonSize);
+            btn.addEventListener('click', () => {
+                const originalIcon = btn.querySelector('svg');
+                originalIcon.style.display = 'none';
+
+                const spinnerIcon = octicon(icons.sync, size).querySelector('svg');
+                spinnerIcon.classList.add('spin');
+                btn.prepend(spinnerIcon);
+
+                setTimeout(() => {
+                    spinnerIcon.remove();
+                    originalIcon.style.display = '';
+                }, 1000);
+            });
+            buttonSizes.appendChild(btn);
         });
 
         const labelButtons = document.getElementById('labelButtons');
@@ -468,74 +542,135 @@ const searchLabelButton = iconButton('search', { label: 'Search', size: 12 });</
             { name: 'plus', label: 'Add new' },
             { name: 'download', label: 'Download' }
         ].forEach(({ name, label }) => {
-            const btn = iconButton(name, { label, size: 16 });
-            labelButtons.appendChild(btn);
+            labelButtons.appendChild(octiconLabelBtn(icons[name], label));
         });
 
-        const allIcons = document.getElementById('allIcons');
-        const iconNames = [
-            'accessibility', 'accessibilityInset', 'aiModel', 'alert', 'alertFill', 'apps', 'archive',
-            'arrowBoth', 'arrowDown', 'arrowDownLeft', 'arrowDownRight', 'arrowLeft', 'arrowRight',
-            'arrowSwitch', 'arrowUp', 'arrowUpLeft', 'arrowUpRight', 'beaker', 'bell', 'bellFill',
-            'bellSlash', 'blocked', 'bold', 'book', 'bookmark', 'bookmarkFilled', 'bookmarkSlash',
-            'bookmarkSlashFill', 'briefcase', 'broadcast', 'browser', 'bug', 'cache', 'calendar', 'check',
-            'checkbox', 'checkCircle', 'checkCircleFill', 'checklist', 'chevronDown', 'chevronLeft',
-            'chevronRight', 'chevronUp', 'circle', 'circleSlash', 'clock', 'clockFill', 'cloud',
-            'cloudOffline', 'code', 'codeOfConduct', 'codeReview', 'codescan', 'codescanCheckmark',
-            'codespaces', 'codeSquare', 'columns', 'commandPalette', 'comment', 'commentDiscussion',
-            'container', 'copilot', 'copilotError', 'copilotWarning', 'copy', 'cpu', 'creditCard',
-            'crossReference', 'dash', 'database', 'dependabot', 'desktopDownload', 'deviceCamera',
-            'deviceCameraVideo', 'deviceDesktop', 'deviceMobile', 'devices', 'diamond', 'diff',
-            'diffAdded', 'diffIgnored', 'diffModified', 'diffRemoved', 'diffRenamed', 'discussionClosed',
-            'discussionDuplicate', 'discussionOutdated', 'dot', 'dotFill', 'download', 'duplicate',
-            'ellipsis', 'eye', 'eyeClosed', 'feedDiscussion', 'feedForked', 'feedHeart',
-            'feedIssueClosed', 'feedIssueDraft', 'feedIssueOpen', 'feedIssueReopen', 'feedMerged',
-            'feedPerson', 'feedPlus', 'feedPublic', 'feedPullRequestClosed', 'feedPullRequestDraft',
-            'feedPullRequestOpen', 'feedRepo', 'feedRocket', 'feedStar', 'feedTag', 'feedTrophy',
-            'file', 'fileAdded', 'fileBadge', 'fileBinary', 'fileCode', 'fileDiff', 'fileDirectory',
-            'fileDirectoryFill', 'fileDirectoryOpenFill', 'fileDirectorySymlink', 'fileMedia',
-            'fileMoved', 'fileRemoved', 'fileSubmodule', 'fileSymlinkFile', 'fileZip', 'filter',
-            'filterRemove', 'fiscalHost', 'flame', 'fold', 'foldDown', 'foldUp', 'gear', 'gift',
-            'gitBranch', 'gitCommit', 'gitCompare', 'gitMerge', 'gitMergeQueue', 'gitPullRequest',
-            'gitPullRequestClosed', 'gitPullRequestDraft', 'globe', 'goal', 'grabber', 'graph', 'hash',
-            'heading', 'heart', 'heartFill', 'history', 'home', 'homeFill', 'horizontalRule', 'hourglass',
-            'hubot', 'idBadge', 'image', 'inbox', 'infinity', 'info', 'issueClosed', 'issueDraft',
-            'issueOpened', 'issueReopened', 'issueTrackedBy', 'issueTracks', 'italic', 'iterations',
-            'kebabHorizontal', 'key', 'keyAsterisk', 'law', 'lightBulb', 'link', 'linkExternal',
-            'listOrdered', 'listUnordered', 'location', 'lock', 'log', 'logoGist', 'logoGithub', 'mail',
-            'markdown', 'markGithub', 'megaphone', 'mention', 'meter', 'milestone', 'mirror', 'moon',
-            'mortarBoard', 'moveToBottom', 'moveToEnd', 'moveToStart', 'moveToTop', 'multiSelect',
-            'mute', 'noEntry', 'northStar', 'note', 'number', 'organization', 'packaged',
-            'packageDependencies', 'packageDependents', 'paintbrush', 'paperAirplane', 'paperclip',
-            'passkeyFill', 'paste', 'pencil', 'people', 'person', 'personAdd', 'personFill', 'pin',
-            'pinSlash', 'pivotColumn', 'play', 'plug', 'plus', 'plusCircle', 'project', 'projectRoadmap',
-            'projectSymlink', 'projectTemplate', 'pulse', 'question', 'quote', 'read', 'redo',
-            'relFilePath', 'reply', 'repo', 'repoClone', 'repoDeleted', 'repoForked', 'repoLocked',
-            'repoPull', 'repoPush', 'report', 'repoTemplate', 'rocket', 'rows', 'rss', 'ruby',
-            'screenFull', 'screenNormal', 'search', 'server', 'share', 'shareAndroid', 'shield',
-            'shieldCheck', 'shieldLock', 'shieldSlash', 'shieldX', 'sidebarCollapse', 'sidebarExpand',
-            'signIn', 'signOut', 'singleSelect', 'skip', 'skipFill', 'sliders', 'smiley', 'sortAsc',
-            'sortDesc', 'sparkleFill', 'sparklesFill', 'sponsorTiers', 'square', 'squareCircle',
-            'squareFill', 'squirrel', 'stack', 'star', 'starFill', 'stop', 'stopwatch', 'strikethrough',
-            'sun', 'sync', 'tab', 'tabExternal', 'table', 'tag', 'tasklist', 'telescope', 'telescopeFill',
-            'terminal', 'threeBars', 'thumbsdown', 'thumbsup', 'tools', 'trackedByClosedCompleted',
-            'trackedByClosedNotPlanned', 'trash', 'triangleDown', 'triangleLeft', 'triangleRight',
-            'triangleUp', 'trophy', 'typography', 'undo', 'unfold', 'unlink', 'unlock', 'unmute', 'unread',
-            'unverified', 'upload', 'verified', 'versions', 'video', 'webhook', 'workflow', 'x', 'xCircle',
-            'xCircleFill', 'zap', 'zoomIn', 'zoomOut'
-        ];
+        const customLabelButtons = document.getElementById('customLabelButtons');
+        [
+            { name: 'rocket', label: 'Launch', fill: '#0969da' },
+            { name: 'flame', label: 'Trending', fill: '#ff7b00' },
+            { name: 'heartFill', label: 'Favorite', fill: '#e3242b' }
+        ].forEach(({ name, label, fill }) => {
+            const btn = octiconLabelBtn(icons[name], label, 'dark', 16, true, fill);
+            btn.style.transition = 'all 0.2s ease';
 
-        iconNames.forEach(name => {
-            const btn = iconButton(name, { size: 12 });
-            btn.classList.add('icon-grid-item');
+            btn.addEventListener('click', () => {
+                const originalIcon = btn.querySelector('.octicon');
+                const originalText = btn.querySelector('.icon-label').textContent;
+
+                originalIcon.remove();
+                btn.querySelector('.icon-label').textContent = 'Loading...';
+
+                const spinnerIcon = octicon(icons.sync, 16, 'dark', fill);
+                spinnerIcon.classList.add('spin');
+                btn.prepend(spinnerIcon);
+
+                btn.disabled = true;
+                btn.style.opacity = '0.8';
+
+                setTimeout(() => {
+                    spinnerIcon.remove();
+                    btn.prepend(octicon(icons[name], 16, 'dark', fill));
+                    btn.querySelector('.icon-label').textContent = originalText;
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                }, 2000);
+            });
+
+            customLabelButtons.appendChild(btn);
+        });
+
+        const darkBgIcons = document.getElementById('darkBgIcons');
+        [
+            { name: 'starFill', fill: '#ffffff' },
+            { name: 'heartFill', fill: '#ff80aa' },
+            { name: 'checkCircleFill', fill: '#7ee787' },
+            { name: 'alertFill', fill: '#ffdf5d' }
+        ].forEach(({ name, fill }) => {
+            darkBgIcons.appendChild(octicon(icons[name], 24, 'dark', fill));
+        });
+
+        const darkButton = octiconLabelBtn(icons.globe, 'Visit Site', 'light', 16, true, '#ffffff');
+        darkButton.style.backgroundColor = '#8957e5';
+        darkButton.style.borderColor = '#7048e8';
+        darkButton.style.color = '#ffffff';
+        darkButton.style.fontWeight = '500';
+        darkBgIcons.appendChild(darkButton);
+
+        const iconGroups = document.getElementById('iconGroups');
+        const ratingContainer = document.createElement('div');
+        ratingContainer.className = 'rating-container';
+        let currentRating = 3;
+
+        function renderStars(rating) {
+            ratingContainer.innerHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                const iconElement = octicon(
+                    i <= rating ? icons.starFill : icons.star,
+                    24,
+                    'dark',
+                    i <= rating ? '#ffab00' : '#d0d7de'
+                );
+
+                iconElement.classList.add('star-rating-icon');
+                iconElement.addEventListener('click', () => {
+                    currentRating = i;
+                    renderStars(currentRating);
+                });
+
+                iconElement.addEventListener('mouseover', () => {
+                    renderStars(i);
+                });
+
+                ratingContainer.appendChild(iconElement);
+            }
+        }
+
+        ratingContainer.addEventListener('mouseout', () => {
+            renderStars(currentRating);
+        });
+
+        renderStars(currentRating);
+        iconGroups.appendChild(ratingContainer);
+
+        const statusContainer = document.createElement('div');
+        statusContainer.style.display = 'flex';
+        statusContainer.style.alignItems = 'center';
+        statusContainer.style.gap = '8px';
+        statusContainer.style.marginLeft = '32px';
+        statusContainer.style.backgroundColor = '#f6f8fa';
+        statusContainer.style.padding = '8px 12px';
+        statusContainer.style.borderRadius = '6px';
+        statusContainer.style.border = '1px solid #d0d7de';
+
+        const checkIcon = octicon(icons.checkCircleFill, 16, 'dark', '#1a7f37');
+
+        const statusLabel = document.createElement('span');
+        statusLabel.textContent = 'All checks passed';
+        statusLabel.style.fontWeight = '500';
+        statusLabel.style.color = '#1a7f37';
+
+        statusContainer.appendChild(checkIcon);
+        statusContainer.appendChild(statusLabel);
+        iconGroups.appendChild(statusContainer);
+
+        const allIcons = document.getElementById('allIcons');
+        Object.keys(icons).slice(0, 100).forEach(name => {
+            const gridItem = document.createElement('div');
+            gridItem.className = 'icon-grid-item';
+            gridItem.title = name;
+
+            const iconElement = octicon(icons[name], 16);
+            gridItem.appendChild(iconElement);
 
             const tooltip = document.createElement('span');
             tooltip.className = 'icon-tooltip';
             tooltip.textContent = name;
-            btn.appendChild(tooltip);
+            gridItem.appendChild(tooltip);
 
-            allIcons.appendChild(btn);
+            allIcons.appendChild(gridItem);
         });
     </script>
 </body>
+
 </html>
