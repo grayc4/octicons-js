@@ -225,37 +225,36 @@ labelButtons.appendChild(octiconLabelBtn(download, 'Download'));</code></pre>
 // Interactive label buttons with loading animation
 const customLabelButtons = document.getElementById('customLabelButtons');
 
-// Create interactive buttons
 [
-    { icon: rocket, label: 'Launch', fill: '#0969da' },
-    { icon: flame, label: 'Trending', fill: '#ff7b00' },
-    { icon: heartFill, label: 'Favorite', fill: '#e3242b' }
-].forEach(({ icon, label, fill }) => {
-    const btn = octiconLabelBtn(icon, label, 'dark', 16, true, fill);
-    btn.style.transition = 'all 0.2s ease';
+    { name: 'rocket', label: 'Launch', fill: '#0969da', width: 120 },
+    { name: 'flame', label: 'Trending', fill: '#ff7b00', width: 120 },
+    { name: 'heartFill', label: 'Favorite', fill: '#e3242b', width: 120 }
+].forEach(({ name, label, fill, width }) => {
+    const btn = octiconLabelBtn(icons[name], label, 'dark', 16, true, fill);
 
-    // Add loading animation on click
+    btn.style.width = `${width}px`;
+    btn.style.justifyContent = 'center';
+
     btn.addEventListener('click', () => {
+        if (btn.disabled) return;
+
         const originalIcon = btn.querySelector('.octicon');
         const originalText = btn.querySelector('.icon-label').textContent;
 
-        // Replace icon and text
         originalIcon.remove();
-        btn.querySelector('.icon-label').textContent = 'Loading...';
 
-        // Create spinner icon
-        const spinnerIcon = octiconLabelBtn(sync, '', 'dark', 16, true, fill).querySelector('.octicon');
+        const spinnerIcon = octicon(icons.sync, 16, 'dark', fill);
         spinnerIcon.classList.add('spin');
-        btn.prepend(spinnerIcon);
+        btn.insertBefore(spinnerIcon, btn.firstChild);
 
-        // Disable button during loading
+        btn.querySelector('.icon-label').textContent = 'Loading';
         btn.disabled = true;
         btn.style.opacity = '0.8';
 
-        // After 2 seconds, revert to original
         setTimeout(() => {
             spinnerIcon.remove();
-            btn.prepend(octiconLabelBtn(icon, '', 'dark', 16, true, fill).querySelector('.octicon'));
+            const newIcon = octicon(icons[name], 16, 'dark', fill);
+            btn.insertBefore(newIcon, btn.firstChild);
             btn.querySelector('.icon-label').textContent = originalText;
             btn.disabled = false;
             btn.style.opacity = '1';
