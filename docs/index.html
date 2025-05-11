@@ -467,32 +467,19 @@ const downloadIcon = octicon(download);</code></pre>
     </footer>
 
     <script type="module">
-        const basePath = location.hostname === 'grayc4.github.io' ? '/octicons-js' : '';
+        import { icons, octicon, octiconBtn, octiconLabelBtn, applyStyles } from 'https://cdn.jsdelivr.net/npm/octicons-js@1.4.1/index.js';
 
-        import(`${basePath}/index.js`).then(module => {
-            const { icons, octicon, octiconBtn, octiconLabelBtn, applyStyles } = module;
+        applyStyles();
 
-            applyStyles();
+        const button = document.querySelector('.github-button');
+        if (button) {
+            const githubIcon = octicon(icons.logoGithub, 16, 'light', '#ffffff');
+            button.prepend(githubIcon);
+        }
 
-            import(`${basePath}/icons/octiconLogoGithub.js`).then(logoModule => {
-                const logoGithub = logoModule.default;
+        initializeDemo();
 
-                const button = document.querySelector('.github-button');
-                if (button) {
-                    const githubIcon = octicon(logoGithub, 16, 'light', '#ffffff');
-                    button.prepend(githubIcon);
-                }
-
-                initializeDemo(icons, octicon, octiconBtn, octiconLabelBtn);
-            });
-        }).catch(error => {
-            console.error("Error loading modules:", error);
-            document.body.innerHTML += `<div style="color: red; padding: 20px; background: #ffeeee; border: 1px solid #ffaaaa; margin: 20px;">
-            Failed to load Octicons-JS modules. If you're viewing this on GitHub Pages, please check the console for details.
-        </div>`;
-        });
-
-        function initializeDemo(icons, octicon, octiconBtn, octiconLabelBtn) {
+        function initializeDemo() {
             const basicIcons = document.getElementById('basicIcons');
             [
                 { name: 'alertFill', size: 18 },
