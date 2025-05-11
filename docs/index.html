@@ -467,24 +467,19 @@ const downloadIcon = octicon(download);</code></pre>
     </footer>
 
     <script type="module">
-        const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/octicons-js@1.4.1/dist/octicons-js.min.js';
-        script.onload = () => {
-            const { icons, octicon, octiconBtn, octiconLabelBtn, applyStyles } = window.OcticonsJS;
+        import { icons, octicon, octiconBtn, octiconLabelBtn, applyStyles } from './src/index.js';
+        import logoGithub from './icons/octiconLogoGithub.js';
+        applyStyles();
 
-            applyStyles();
+        const button = document.querySelector('.github-button');
+        if (button) {
+            const githubIcon = octicon(logoGithub, 16, 'light', '#ffffff');
+            button.prepend(githubIcon);
+        }
 
-            const button = document.querySelector('.github-button');
-            if (button) {
-                const githubIcon = octicon(icons.logoGithub, 16, 'light', '#ffffff');
-                button.prepend(githubIcon);
-            }
+        initializeDemo();
 
-            initializeDemo(icons, octicon, octiconBtn, octiconLabelBtn);
-        };
-        document.head.appendChild(script);
-
-        function initializeDemo(icons, octicon, octiconBtn, octiconLabelBtn) {
+        function initializeDemo() {
             const basicIcons = document.getElementById('basicIcons');
             [
                 { name: 'alertFill', size: 18 },
