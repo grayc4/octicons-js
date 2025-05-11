@@ -467,209 +467,228 @@ const downloadIcon = octicon(download);</code></pre>
     </footer>
 
     <script type="module">
-        import { icons, octicon, octiconBtn, applyStyles } from 'https://cdn.jsdelivr.net/npm/octicons-js@1.4.1/+esm';
-        import logoGithub from '../icons/octiconLogoGithub.js';
+        const basePath = location.hostname === 'grayc4.github.io' ? '/octicons-js' : '';
 
-        const button = document.getElementById('github-button');
-        const githubIcon = octicon(logoGithub, 16, 'light', '#ffffff');
-        button.prepend(githubIcon);
-        applyStyles();
+        import(`${basePath}/index.js`).then(module => {
+            const { icons, octicon, octiconBtn, octiconLabelBtn, applyStyles } = module;
 
-        const basicIcons = document.getElementById('basicIcons');
-        [
-            { name: 'alertFill', size: 18 },
-            { name: 'search', size: 18 },
-            { name: 'download', size: 18 },
-            { name: 'starFill', size: 18 },
-            { name: 'heartFill', size: 18 }
-        ].forEach(({ name, size }) => {
-            basicIcons.appendChild(octicon(icons[name], size));
-        });
+            applyStyles();
 
-        const sizeIcons = document.getElementById('sizeIcons');
-        [12, 16, 24, 32, 48].forEach(size => {
-            sizeIcons.appendChild(octicon(icons.starFill, size));
-        });
+            import(`${basePath}/icons/octiconLogoGithub.js`).then(logoModule => {
+                const logoGithub = logoModule.default;
 
-        const colorIcons = document.getElementById('colorIcons');
-        [
-            { name: 'heartFill', fill: '#e3242b', size: 24 },
-            { name: 'starFill', fill: '#ffab00', size: 24 },
-            { name: 'bellFill', fill: '#0969da', size: 24 },
-            { name: 'checkCircleFill', fill: '#1a7f37', size: 24 },
-            { name: 'flame', fill: '#F9826C', size: 24 }
-        ].forEach(({ name, fill, size }) => {
-            colorIcons.appendChild(octicon(icons[name], size, 'dark', fill));
-        });
+                const button = document.querySelector('.github-button');
+                if (button) {
+                    const githubIcon = octicon(logoGithub, 16, 'light', '#ffffff');
+                    button.prepend(githubIcon);
+                }
 
-        const iconButtons = document.getElementById('iconButtons');
-        [
-            { name: 'bellFill', size: 16, buttonSize: 32 },
-            { name: 'bookmarkFilled', size: 16, buttonSize: 32 },
-            { name: 'starFill', size: 16, buttonSize: 32 },
-            { name: 'heartFill', size: 16, buttonSize: 32, fill: '#e3242b' }
-        ].forEach(({ name, size, buttonSize, fill }) => {
-            iconButtons.appendChild(octiconBtn(icons[name], size, buttonSize, 'dark', fill));
-        });
-
-        const buttonSizes = document.getElementById('buttonSizes');
-        [
-            { size: 12, buttonSize: 28 },
-            { size: 14, buttonSize: 32 },
-            { size: 16, buttonSize: 36 },
-            { size: 20, buttonSize: 40 }
-        ].forEach(({ size, buttonSize }) => {
-            const btn = octiconBtn(icons.copy, size, buttonSize);
-            btn.addEventListener('click', () => {
-                const originalIcon = btn.querySelector('svg');
-                originalIcon.style.display = 'none';
-
-                const spinnerIcon = octicon(icons.sync, size).querySelector('svg');
-                spinnerIcon.classList.add('spin');
-                btn.prepend(spinnerIcon);
-
-                setTimeout(() => {
-                    spinnerIcon.remove();
-                    originalIcon.style.display = '';
-                }, 1000);
+                initializeDemo(icons, octicon, octiconBtn, octiconLabelBtn);
             });
-            buttonSizes.appendChild(btn);
+        }).catch(error => {
+            console.error("Error loading modules:", error);
+            document.body.innerHTML += `<div style="color: red; padding: 20px; background: #ffeeee; border: 1px solid #ffaaaa; margin: 20px;">
+            Failed to load Octicons-JS modules. If you're viewing this on GitHub Pages, please check the console for details.
+        </div>`;
         });
 
-        const labelButtons = document.getElementById('labelButtons');
-        [
-            { name: 'search', label: 'Search' },
-            { name: 'plus', label: 'Add new' },
-            { name: 'download', label: 'Download' }
-        ].forEach(({ name, label }) => {
-            labelButtons.appendChild(octiconLabelBtn(icons[name], label));
-        });
-
-        const customLabelButtons = document.getElementById('customLabelButtons');
-        [
-            { name: 'rocket', label: 'Launch', fill: '#0969da' },
-            { name: 'flame', label: 'Trending', fill: '#ff7b00' },
-            { name: 'heartFill', label: 'Favorite', fill: '#e3242b' }
-        ].forEach(({ name, label, fill }) => {
-            const btn = octiconLabelBtn(icons[name], label, 'dark', 16, true, fill);
-            btn.style.transition = 'all 0.2s ease';
-
-            btn.addEventListener('click', () => {
-                const originalIcon = btn.querySelector('.octicon');
-                const originalText = btn.querySelector('.icon-label').textContent;
-
-                originalIcon.remove();
-                btn.querySelector('.icon-label').textContent = 'Loading...';
-
-                const spinnerIcon = octicon(icons.sync, 16, 'dark', fill);
-                spinnerIcon.classList.add('spin');
-                btn.prepend(spinnerIcon);
-
-                btn.disabled = true;
-                btn.style.opacity = '0.8';
-
-                setTimeout(() => {
-                    spinnerIcon.remove();
-                    btn.prepend(octicon(icons[name], 16, 'dark', fill));
-                    btn.querySelector('.icon-label').textContent = originalText;
-                    btn.disabled = false;
-                    btn.style.opacity = '1';
-                }, 2000);
+        function initializeDemo(icons, octicon, octiconBtn, octiconLabelBtn) {
+            const basicIcons = document.getElementById('basicIcons');
+            [
+                { name: 'alertFill', size: 18 },
+                { name: 'search', size: 18 },
+                { name: 'download', size: 18 },
+                { name: 'starFill', size: 18 },
+                { name: 'heartFill', size: 18 }
+            ].forEach(({ name, size }) => {
+                basicIcons.appendChild(octicon(icons[name], size));
             });
 
-            customLabelButtons.appendChild(btn);
-        });
+            const sizeIcons = document.getElementById('sizeIcons');
+            [12, 16, 24, 32, 48].forEach(size => {
+                sizeIcons.appendChild(octicon(icons.starFill, size));
+            });
 
-        const darkBgIcons = document.getElementById('darkBgIcons');
-        [
-            { name: 'starFill', fill: '#ffffff' },
-            { name: 'heartFill', fill: '#ff80aa' },
-            { name: 'checkCircleFill', fill: '#7ee787' },
-            { name: 'alertFill', fill: '#ffdf5d' }
-        ].forEach(({ name, fill }) => {
-            darkBgIcons.appendChild(octicon(icons[name], 24, 'dark', fill));
-        });
+            const colorIcons = document.getElementById('colorIcons');
+            [
+                { name: 'heartFill', fill: '#e3242b', size: 24 },
+                { name: 'starFill', fill: '#ffab00', size: 24 },
+                { name: 'bellFill', fill: '#0969da', size: 24 },
+                { name: 'checkCircleFill', fill: '#1a7f37', size: 24 },
+                { name: 'flame', fill: '#F9826C', size: 24 }
+            ].forEach(({ name, fill, size }) => {
+                colorIcons.appendChild(octicon(icons[name], size, 'dark', fill));
+            });
 
-        const darkButton = octiconLabelBtn(icons.globe, 'Visit Site', 'light', 16, true, '#ffffff');
-        darkButton.style.backgroundColor = '#8957e5';
-        darkButton.style.borderColor = '#7048e8';
-        darkButton.style.color = '#ffffff';
-        darkButton.style.fontWeight = '500';
-        darkBgIcons.appendChild(darkButton);
+            const iconButtons = document.getElementById('iconButtons');
+            [
+                { name: 'bellFill', size: 16, buttonSize: 32 },
+                { name: 'bookmarkFilled', size: 16, buttonSize: 32 },
+                { name: 'starFill', size: 16, buttonSize: 32 },
+                { name: 'heartFill', size: 16, buttonSize: 32, fill: '#e3242b' }
+            ].forEach(({ name, size, buttonSize, fill }) => {
+                iconButtons.appendChild(octiconBtn(icons[name], size, buttonSize, 'dark', fill));
+            });
 
-        const iconGroups = document.getElementById('iconGroups');
-        const ratingContainer = document.createElement('div');
-        ratingContainer.className = 'rating-container';
-        let currentRating = 3;
+            const buttonSizes = document.getElementById('buttonSizes');
+            [
+                { size: 12, buttonSize: 28 },
+                { size: 14, buttonSize: 32 },
+                { size: 16, buttonSize: 36 },
+                { size: 20, buttonSize: 40 }
+            ].forEach(({ size, buttonSize }) => {
+                const btn = octiconBtn(icons.copy, size, buttonSize);
+                btn.addEventListener('click', () => {
+                    const originalIcon = btn.querySelector('svg');
+                    originalIcon.style.display = 'none';
 
-        function renderStars(rating) {
-            ratingContainer.innerHTML = '';
-            for (let i = 1; i <= 5; i++) {
-                const iconElement = octicon(
-                    i <= rating ? icons.starFill : icons.star,
-                    24,
-                    'dark',
-                    i <= rating ? '#ffab00' : '#d0d7de'
-                );
+                    const spinnerIcon = octicon(icons.sync, size).querySelector('svg');
+                    spinnerIcon.classList.add('spin');
+                    btn.prepend(spinnerIcon);
 
-                iconElement.classList.add('star-rating-icon');
-                iconElement.addEventListener('click', () => {
-                    currentRating = i;
-                    renderStars(currentRating);
+                    setTimeout(() => {
+                        spinnerIcon.remove();
+                        originalIcon.style.display = '';
+                    }, 1000);
+                });
+                buttonSizes.appendChild(btn);
+            });
+
+            const labelButtons = document.getElementById('labelButtons');
+            [
+                { name: 'search', label: 'Search' },
+                { name: 'plus', label: 'Add new' },
+                { name: 'download', label: 'Download' }
+            ].forEach(({ name, label }) => {
+                labelButtons.appendChild(octiconLabelBtn(icons[name], label));
+            });
+
+            const customLabelButtons = document.getElementById('customLabelButtons');
+            [
+                { name: 'rocket', label: 'Launch', fill: '#0969da' },
+                { name: 'flame', label: 'Trending', fill: '#ff7b00' },
+                { name: 'heartFill', label: 'Favorite', fill: '#e3242b' }
+            ].forEach(({ name, label, fill }) => {
+                const btn = octiconLabelBtn(icons[name], label, 'dark', 16, true, fill);
+                btn.style.transition = 'all 0.2s ease';
+
+                btn.addEventListener('click', () => {
+                    const originalIcon = btn.querySelector('.octicon');
+                    const originalText = btn.querySelector('.icon-label').textContent;
+
+                    originalIcon.remove();
+                    btn.querySelector('.icon-label').textContent = 'Loading...';
+
+                    const spinnerIcon = octicon(icons.sync, 16, 'dark', fill);
+                    spinnerIcon.classList.add('spin');
+                    btn.prepend(spinnerIcon);
+
+                    btn.disabled = true;
+                    btn.style.opacity = '0.8';
+
+                    setTimeout(() => {
+                        spinnerIcon.remove();
+                        btn.prepend(octicon(icons[name], 16, 'dark', fill));
+                        btn.querySelector('.icon-label').textContent = originalText;
+                        btn.disabled = false;
+                        btn.style.opacity = '1';
+                    }, 2000);
                 });
 
-                iconElement.addEventListener('mouseover', () => {
-                    renderStars(i);
-                });
+                customLabelButtons.appendChild(btn);
+            });
 
-                ratingContainer.appendChild(iconElement);
+            const darkBgIcons = document.getElementById('darkBgIcons');
+            [
+                { name: 'starFill', fill: '#ffffff' },
+                { name: 'heartFill', fill: '#ff80aa' },
+                { name: 'checkCircleFill', fill: '#7ee787' },
+                { name: 'alertFill', fill: '#ffdf5d' }
+            ].forEach(({ name, fill }) => {
+                darkBgIcons.appendChild(octicon(icons[name], 24, 'dark', fill));
+            });
+
+            const darkButton = octiconLabelBtn(icons.globe, 'Visit Site', 'light', 16, true, '#ffffff');
+            darkButton.style.backgroundColor = '#8957e5';
+            darkButton.style.borderColor = '#7048e8';
+            darkButton.style.color = '#ffffff';
+            darkButton.style.fontWeight = '500';
+            darkBgIcons.appendChild(darkButton);
+
+            const iconGroups = document.getElementById('iconGroups');
+            const ratingContainer = document.createElement('div');
+            ratingContainer.className = 'rating-container';
+            let currentRating = 3;
+
+            function renderStars(rating) {
+                ratingContainer.innerHTML = '';
+                for (let i = 1; i <= 5; i++) {
+                    const iconElement = octicon(
+                        i <= rating ? icons.starFill : icons.star,
+                        24,
+                        'dark',
+                        i <= rating ? '#ffab00' : '#d0d7de'
+                    );
+
+                    iconElement.classList.add('star-rating-icon');
+                    iconElement.addEventListener('click', () => {
+                        currentRating = i;
+                        renderStars(currentRating);
+                    });
+
+                    iconElement.addEventListener('mouseover', () => {
+                        renderStars(i);
+                    });
+
+                    ratingContainer.appendChild(iconElement);
+                }
             }
-        }
 
-        ratingContainer.addEventListener('mouseout', () => {
+            ratingContainer.addEventListener('mouseout', () => {
+                renderStars(currentRating);
+            });
+
             renderStars(currentRating);
-        });
+            iconGroups.appendChild(ratingContainer);
 
-        renderStars(currentRating);
-        iconGroups.appendChild(ratingContainer);
+            const statusContainer = document.createElement('div');
+            statusContainer.style.display = 'flex';
+            statusContainer.style.alignItems = 'center';
+            statusContainer.style.gap = '8px';
+            statusContainer.style.marginLeft = '32px';
+            statusContainer.style.backgroundColor = '#f6f8fa';
+            statusContainer.style.padding = '8px 12px';
+            statusContainer.style.borderRadius = '6px';
+            statusContainer.style.border = '1px solid #d0d7de';
 
-        const statusContainer = document.createElement('div');
-        statusContainer.style.display = 'flex';
-        statusContainer.style.alignItems = 'center';
-        statusContainer.style.gap = '8px';
-        statusContainer.style.marginLeft = '32px';
-        statusContainer.style.backgroundColor = '#f6f8fa';
-        statusContainer.style.padding = '8px 12px';
-        statusContainer.style.borderRadius = '6px';
-        statusContainer.style.border = '1px solid #d0d7de';
+            const checkIcon = octicon(icons.checkCircleFill, 16, 'dark', '#1a7f37');
 
-        const checkIcon = octicon(icons.checkCircleFill, 16, 'dark', '#1a7f37');
+            const statusLabel = document.createElement('span');
+            statusLabel.textContent = 'All checks passed';
+            statusLabel.style.fontWeight = '500';
+            statusLabel.style.color = '#1a7f37';
 
-        const statusLabel = document.createElement('span');
-        statusLabel.textContent = 'All checks passed';
-        statusLabel.style.fontWeight = '500';
-        statusLabel.style.color = '#1a7f37';
+            statusContainer.appendChild(checkIcon);
+            statusContainer.appendChild(statusLabel);
+            iconGroups.appendChild(statusContainer);
 
-        statusContainer.appendChild(checkIcon);
-        statusContainer.appendChild(statusLabel);
-        iconGroups.appendChild(statusContainer);
+            const allIcons = document.getElementById('allIcons');
+            Object.keys(icons).slice(0, 100).forEach(name => {
+                const gridItem = document.createElement('div');
+                gridItem.className = 'icon-grid-item';
+                gridItem.title = name;
 
-        const allIcons = document.getElementById('allIcons');
-        Object.keys(icons).slice(0, 100).forEach(name => {
-            const gridItem = document.createElement('div');
-            gridItem.className = 'icon-grid-item';
-            gridItem.title = name;
+                const iconElement = octicon(icons[name], 16);
+                gridItem.appendChild(iconElement);
 
-            const iconElement = octicon(icons[name], 16);
-            gridItem.appendChild(iconElement);
+                const tooltip = document.createElement('span');
+                tooltip.className = 'icon-tooltip';
+                tooltip.textContent = name;
+                gridItem.appendChild(tooltip);
 
-            const tooltip = document.createElement('span');
-            tooltip.className = 'icon-tooltip';
-            tooltip.textContent = name;
-            gridItem.appendChild(tooltip);
-
-            allIcons.appendChild(gridItem);
-        });
+                allIcons.appendChild(gridItem);
+            });
+        }
     </script>
 </body>
 
