@@ -12,6 +12,8 @@ export const makeButton = iconFn => (props = {}) => {
         variant = 'dark',
         label,
         bgColor,
+        bgSize,
+        iconFirst = true,
         ...rest
     } = props;
 
