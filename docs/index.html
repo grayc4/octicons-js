@@ -17,7 +17,7 @@
         <p>A lightweight JavaScript library for using GitHub Octicons</p>
         <div class="badges">
             <a href="https://github.com/grayc4/octicons-js" target="_blank">
-                <img src="https://img.shields.io/badge/octicons--js-v1.4.2-blue" alt="Octicons-JS">
+                <img src="https://img.shields.io/badge/octicons--js-v1.4.1-blue" alt="Octicons-JS">
             </a>
             <a href="https://www.npmjs.com/package/octicons-js" target="_blank">
                 <img src="https://img.shields.io/npm/v/octicons-js.svg" alt="npm package">
@@ -79,7 +79,7 @@ applyStyles();</code></pre>
             <ul>
                 <div class="subline">Method #3</div>
                 <pre><code class="language-javascript">// Import from CDN url. The one below is the most up to date CDN url.
-import { icons, octicon, octiconBtn, applyStyles } from 'https://cdn.jsdelivr.net/npm/octicons-js@1.4.2/+esm';
+import { icons, octicon, octiconBtn, applyStyles } from 'https://cdn.jsdelivr.net/npm/octicons-js@1.4.0/+esm';
 
 // Required default styles (important)
 applyStyles();</code></pre>
@@ -662,21 +662,49 @@ const downloadIcon = octicon(download);</code></pre>
             iconGroups.appendChild(statusContainer);
 
             const allIcons = document.getElementById('allIcons');
-            Object.keys(icons).forEach(name => {
-                const gridItem = document.createElement('div');
-                gridItem.className = 'icon-grid-item';
-                gridItem.title = name;
+            const specialIcons = ['logoGithub', 'logoGist'];
 
-                const iconElement = octicon(icons[name], 16);
-                gridItem.appendChild(iconElement);
+            Object.keys(icons)
+                .filter(name => !specialIcons.includes(name))
+                .forEach(name => {
+                    const gridItem = document.createElement('div');
+                    gridItem.className = 'icon-grid-item';
+                    gridItem.title = name;
 
-                const tooltip = document.createElement('span');
-                tooltip.className = 'icon-tooltip';
-                tooltip.textContent = name;
-                gridItem.appendChild(tooltip);
+                    const iconElement = octicon(icons[name], 16);
+                    gridItem.appendChild(iconElement);
 
-                allIcons.appendChild(gridItem);
-            });
+                    const tooltip = document.createElement('span');
+                    tooltip.className = 'icon-tooltip';
+                    tooltip.textContent = name;
+                    gridItem.appendChild(tooltip);
+
+                    allIcons.appendChild(gridItem);
+                });
+
+            const githubItem = document.createElement('div');
+            githubItem.className = 'icon-grid-item double-width';
+            githubItem.title = 'logoGithub';
+            const githubIcon = octicon(icons.logoGithub, 24);
+            githubItem.appendChild(githubIcon);
+
+            const githubTooltip = document.createElement('span');
+            githubTooltip.className = 'icon-tooltip';
+            githubTooltip.textContent = 'logoGithub';
+            githubItem.appendChild(githubTooltip);
+            allIcons.appendChild(githubItem);
+
+            const gistItem = document.createElement('div');
+            gistItem.className = 'icon-grid-item one-half-width';
+            gistItem.title = 'logoGist';
+            const gistIcon = octicon(icons.logoGist, 20);
+            gistItem.appendChild(gistIcon);
+
+            const gistTooltip = document.createElement('span');
+            gistTooltip.className = 'icon-tooltip';
+            gistTooltip.textContent = 'logoGist';
+            gistItem.appendChild(gistTooltip);
+            allIcons.appendChild(gistItem);
         }
     </script>
 </body>
