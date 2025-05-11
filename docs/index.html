@@ -549,7 +549,6 @@ const downloadIcon = octicon(download);</code></pre>
             ].forEach(({ name, label }) => {
                 labelButtons.appendChild(octiconLabelBtn(icons[name], label));
             });
-
             const customLabelButtons = document.getElementById('customLabelButtons');
             [
                 { name: 'rocket', label: 'Launch', fill: '#0969da' },
@@ -560,14 +559,23 @@ const downloadIcon = octicon(download);</code></pre>
                 btn.style.transition = 'all 0.2s ease';
 
                 btn.addEventListener('click', () => {
+                    if (btn.disabled) return;
+
                     const originalIcon = btn.querySelector('.octicon');
                     const originalText = btn.querySelector('.icon-label').textContent;
 
                     originalIcon.remove();
-                    btn.querySelector('.icon-label').textContent = 'Loading...';
+
+                    const labelElement = btn.querySelector('.icon-label');
+                    labelElement.textContent = 'Loading';
+                    labelElement.classList.add('loading-pulse');
 
                     const spinnerIcon = octicon(icons.sync, 16, 'dark', fill);
+                    spinnerIcon.style.display = 'inline-flex';
+                    spinnerIcon.style.alignItems = 'center';
+                    spinnerIcon.style.justifyContent = 'center';
                     spinnerIcon.classList.add('spin');
+
                     btn.prepend(spinnerIcon);
 
                     btn.disabled = true;
@@ -575,8 +583,9 @@ const downloadIcon = octicon(download);</code></pre>
 
                     setTimeout(() => {
                         spinnerIcon.remove();
+                        labelElement.classList.remove('loading-pulse');
+                        labelElement.textContent = originalText;
                         btn.prepend(octicon(icons[name], 16, 'dark', fill));
-                        btn.querySelector('.icon-label').textContent = originalText;
                         btn.disabled = false;
                         btn.style.opacity = '1';
                     }, 2000);
