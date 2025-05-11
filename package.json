@@ -1,0 +1,46 @@
+{
+  "name": "octicons-js",
+  "version": "1.4.0",
+  "description": "Simple JavaScript package that provides GitHub Octicons for frontend projects with TypeScript support. Built with zero dependencies.",
+  "main": "index.js",
+  "module": "index.js",
+  "type": "module",
+  "types": "index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "src/",
+    "icons/",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": "./index.js",
+    "./icons": "./src/icons.js",
+    "./icons/*": "./icons/*.js"
+  },
+  "scripts": {
+    "generate": "node generate-icon-exports.js && node generate-icon-imports.js && node generate-entry-point.js && node generate-typescript-defs.js"
+  },
+  "keywords": [
+    "octicons",
+    "github",
+    "icons",
+    "svg",
+    "javascript",
+    "typescript",
+    "vanilla-js",
+    "frontend"
+  ],
+  "author": "grayc4",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/grayc4/octicons-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/grayc4/octicons-js/issues"
+  },
+  "homepage": "https://grayc4.github.io/octicons-js/"
+}
