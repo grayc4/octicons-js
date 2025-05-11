@@ -1,7 +1,7 @@
 const essentialCSS = `
 .octicon {
-  display: inline-block;
-  vertical-align: text-top;
+  display: inline-flex;
+  vertical-align: middle;
   fill: currentColor;
   overflow: visible;
 }
@@ -38,6 +38,7 @@ const essentialCSS = `
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
+  justify-content: center;
   align-items: center;
   border: 1px solid rgba(31, 35, 40, 0.15);
   border-radius: 6px;
@@ -53,6 +54,7 @@ const essentialCSS = `
 
 .icon-button .octicon {
   margin-right: 4px;
+  flex-shrink: 0;
 }
 
 .square-icon-button:hover,
@@ -76,6 +78,29 @@ const essentialCSS = `
 .icon-label {
   font-weight: 500;
   line-height: 20px;
+  display: inline-flex;
+  align-items: center;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 1.2s linear infinite;
+  transform-origin: center;
+  display: inline-flex;
+}
+
+.loading-pulse {
+  opacity: 0.6;
+  animation: pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
 }
 `;
 
@@ -97,4 +122,5 @@ function applyStyles() {
         stylesInjected = true;
     }
 }
+
 export { applyStyles, essentialCSS };
