@@ -549,14 +549,15 @@ const downloadIcon = octicon(download);</code></pre>
             ].forEach(({ name, label }) => {
                 labelButtons.appendChild(octiconLabelBtn(icons[name], label));
             });
+
             const customLabelButtons = document.getElementById('customLabelButtons');
+
             [
-                { name: 'rocket', label: 'Launch', fill: '#0969da' },
-                { name: 'flame', label: 'Trending', fill: '#ff7b00' },
-                { name: 'heartFill', label: 'Favorite', fill: '#e3242b' }
-            ].forEach(({ name, label, fill }) => {
-                const btn = octiconLabelBtn(icons[name], label, 'dark', 16, true, fill);
-                btn.style.transition = 'all 0.2s ease';
+                { icon: rocket, label: 'Launch', fill: '#0969da' },
+                { icon: flame, label: 'Trending', fill: '#ff7b00' },
+                { icon: heartFill, label: 'Favorite', fill: '#e3242b' }
+            ].forEach(({ icon, label, fill }) => {
+                const btn = octiconLabelBtn(icon, label, 'dark', 16, true, fill);
 
                 btn.addEventListener('click', () => {
                     if (btn.disabled) return;
@@ -566,26 +567,19 @@ const downloadIcon = octicon(download);</code></pre>
 
                     originalIcon.remove();
 
-                    const labelElement = btn.querySelector('.icon-label');
-                    labelElement.textContent = 'Loading';
-                    labelElement.classList.add('loading-pulse');
-
-                    const spinnerIcon = octicon(icons.sync, 16, 'dark', fill);
-                    spinnerIcon.style.display = 'inline-flex';
-                    spinnerIcon.style.alignItems = 'center';
-                    spinnerIcon.style.justifyContent = 'center';
+                    const spinnerIcon = octicon(sync, 16, 'dark', fill);
                     spinnerIcon.classList.add('spin');
+                    btn.insertBefore(spinnerIcon, btn.firstChild);
 
-                    btn.prepend(spinnerIcon);
-
+                    btn.querySelector('.icon-label').textContent = 'Loading...';
                     btn.disabled = true;
                     btn.style.opacity = '0.8';
 
                     setTimeout(() => {
                         spinnerIcon.remove();
-                        labelElement.classList.remove('loading-pulse');
-                        labelElement.textContent = originalText;
-                        btn.prepend(octicon(icons[name], 16, 'dark', fill));
+                        const newIcon = octicon(icon, 16, 'dark', fill);
+                        btn.insertBefore(newIcon, btn.firstChild);
+                        btn.querySelector('.icon-label').textContent = originalText;
                         btn.disabled = false;
                         btn.style.opacity = '1';
                     }, 2000);
