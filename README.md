@@ -1,6 +1,6 @@
 # Octicons-JS
 
-![Octicons-JS](https://img.shields.io/badge/octicons--js-v1.4.0-blue)
+![Octicons-JS](https://img.shields.io/badge/octicons--js-v1.4.2-blue)
 [![npm package](https://img.shields.io/npm/v/octicons-js.svg)](https://www.npmjs.com/package/octicons-js)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
