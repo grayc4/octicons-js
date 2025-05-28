@@ -2,7 +2,7 @@
 
 ![Octicons-JS](https://img.shields.io/badge/octicons--js-v1.5.4-black)
 [![npm package](https://img.shields.io/npm/v/octicons-js.svg)](https://www.npmjs.com/package/octicons-js)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 A lightweight JavaScript library that provides GitHub's Octicons for frontend projects with an intuitive API, full TypeScript support, and zero dependencies.
 
