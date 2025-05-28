@@ -1,46 +1,53 @@
 {
   "name": "octicons-js",
-  "version": "1.4.0",
-  "description": "Simple JavaScript package that provides GitHub Octicons for frontend projects with TypeScript support. Built with zero dependencies.",
-  "main": "index.js",
-  "module": "index.js",
-  "type": "module",
-  "types": "index.d.ts",
-  "sideEffects": false,
+  "version": "1.5.4",
+  "description": "Octicons as vanilla JavaScript components with tree-shaking support",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "files": [
-    "index.js",
-    "index.d.ts",
-    "src/",
-    "icons/",
+    "dist",
     "README.md",
     "LICENSE"
   ],
-  "exports": {
-    ".": "./index.js",
-    "./icons": "./src/icons.js",
-    "./icons/*": "./icons/*.js"
-  },
   "scripts": {
-    "generate": "node generate-icon-exports.js && node generate-icon-imports.js && node generate-entry-point.js && node generate-typescript-defs.js"
+    "build": "rollup -c rollup.config.mjs",
+    "dev": "rollup -c rollup.config.mjs -w",
+    "prepublishOnly": "npm run build",
+    "test": "node test/test.js"
   },
   "keywords": [
     "octicons",
-    "github",
     "icons",
     "svg",
-    "javascript",
-    "typescript",
     "vanilla-js",
-    "frontend"
+    "tree-shaking",
+    "github",
+    "components"
   ],
   "author": "grayc4",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/grayc4/octicons-js.git"
+    "url": "git+https://github.com/grayc4/octicons-js.git"
   },
   "bugs": {
     "url": "https://github.com/grayc4/octicons-js/issues"
   },
-  "homepage": "https://grayc4.github.io/octicons-js/"
+  "homepage": "https://github.com/grayc4/octicons-js#readme",
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "rollup": "^3.0.0"
+  },
+  "sideEffects": false,
+  "engines": {
+    "node": ">=14.0.0"
+  }
 }
