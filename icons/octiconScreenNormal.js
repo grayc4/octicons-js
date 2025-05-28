@@ -1,6 +1,6 @@
-import { makeIcon } from '../src/icon-factory.js';
+import { builder } from '../src/buildOcticons.js';
 
-export default makeIcon({
+export default builder({
   attr: {
   "width": "16",
   "height": "16",

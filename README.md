@@ -4,7 +4,7 @@
 [![npm package](https://img.shields.io/npm/v/octicons-js.svg)](https://www.npmjs.com/package/octicons-js)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-octicons-js is a small, zero-dependency package that makes it easy to use GitHub Octicons with JavaScript. It doesn’t modify the original SVGs, so you can work with the icons just like standard SVG code—without ever handling raw SVG files directly. Whether you’re building advanced UI components like icon toolbars or creating quick HTML prototypes, octicons-js streamlines the integration process. Simply append the icons to the DOM, or use the CDN link for single-page projects—no manual SVG editing required. Explore the examples below to get started with Octicons instantly in your project.
+octicons-js is a small, zero-dependency package that makes it easy to use GitHub Octicons with JavaScript. It doesn’t modify the original SVGs, so you can work with the icons just like standard SVG code—without ever handling raw SVG files directly. Whether you’re building advanced UI components like icon toolbars or creating quick HTML prototypes, octicons-js streamlines the integration process. Simply append the icons to the DOM, or use the CDN link for single-page projects—no manual SVG editing required. The examples below show various ways to start using Octicons in any project.
 
 ## Installation
 
@@ -57,7 +57,7 @@ document.body.appendChild(iconElement);
   const icon = Octicon({ icon: mortarBoard, size: 32 });
   document.body.appendChild(icon);
 </script>
-```
+```qww
 
 ## Tree Shaking
 

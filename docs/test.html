@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Octicons JS Test - Local</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            padding: 20px;
+            color: #24292f;
+        }
+        /* Main container for all icon items */
+        #icons-main-container {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+        }
+        /* Styling for each individual icon's wrapper */
+        .icon-item-wrapper {
+            display: flex; /* Align icon and text nicely */
+            align-items: center; /* Vertically align icon and text */
+            margin-bottom: 10px; /* Space between items */
+            padding: 8px;
+            border: 1px solid #f0f0f0;
+            border-radius: 4px;
+        }
+        .icon-item-wrapper svg {
+            vertical-align: middle;
+            margin-right: 8px;
+            fill: #24292f; /* Ensure icons have color */
+        }
+        h1 {
+            color: #24292f;
+            border-bottom: 1px solid #e1e4e8;
+            padding-bottom: 10px;
+        }
+        .status-message { /* Renamed from .success for clarity */
+            color: #1a7f37;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .final-count-message {
+            color: #1a7f37;
+            font-weight: bold;
+            margin-top:20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Octicons JS - Local Setup</h1>
+    <div class="status-message">Attempting to load package from local node_modules and render icons:</div>
+
+    <div id="icons-main-container">
+        Loading icons...
+    </div>
+
+    <script src="https://unpkg.com/octicons-js@1.5.4/dist/index.esm.js" type="module"></script>
+    <script type="module">
+        // Importing from the local node_modules path
+        import { Octicon, mortarBoard, star, gitBranch, alert, heart, rocket } from 'https://unpkg.com/octicons-js@1.5.4/dist/index.esm.js';
+
+        const mainContainer = document.getElementById('icons-main-container');
+        mainContainer.innerHTML = ''; // Clear "Loading icons..."
+
+        const iconsToRender = [
+            { icon: mortarBoard, name: 'Mortar Board (Education)', size: 24 },
+            { icon: star, name: 'Star (Favorites)', size: 20 },
+            { icon: gitBranch, name: 'Git Branch (Code)', size: 18 },
+            { icon: alert, name: 'Alert (Warning)', size: 16 },
+            { icon: heart, name: 'Heart (Love)', size: 22 },
+            { icon: rocket, name: 'Rocket (Deploy)', size: 20 }
+        ];
+
+        iconsToRender.forEach(({ icon, name, size }) => {
+            // Create a wrapper div for each icon and its text for better styling and structure
+            const itemWrapper = document.createElement('div');
+            itemWrapper.className = 'icon-item-wrapper';
+
+            if (icon && typeof Octicon === 'function') {
+                const svgElement = Octicon({ icon, size }); // Octicon() returns an SVG DOM element
+                itemWrapper.appendChild(svgElement);
+
+                const textElement = document.createElement('span');
+                textElement.textContent = `${name} - ${size}px`;
+                itemWrapper.appendChild(textElement);
+            } else {
+                itemWrapper.textContent = `Error: Icon data for "${name}" or Octicon function not loaded correctly.`;
+                console.warn("Problem with icon:", name, icon);
+            }
+            mainContainer.appendChild(itemWrapper);
+        });
+
+        // Add success message about total exports
+        const finalMessageDiv = document.createElement('div');
+        finalMessageDiv.className = 'final-count-message';
+        try {
+            // The await import() for counting should also use the same local path
+            const octiconsModule = await import('https://unpkg.com/octicons-js@1.5.4/dist/index.esm.js');
+            const exportCount = Object.keys(octiconsModule).length;
+            finalMessageDiv.innerHTML = `Total named exports available from local octicons-js: ${exportCount}`;
+        } catch (e) {
+            finalMessageDiv.innerHTML = `Could not determine total exports from local octicons-js. Check console for errors.`;
+            console.error("Error importing local octicons module for count:", e);
+        }
+        mainContainer.appendChild(finalMessageDiv);
+    </script>
+</body>
+</html>
