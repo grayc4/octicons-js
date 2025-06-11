@@ -1,42 +1,244 @@
-function Octicon( { icon, size = 16, className = '' } ) {
-    const container = document.createElement( 'div' );
-    container.className = className;
-    const svgElement = icon();
+/**
+ * Creates a basic icon element
+ * @param {Object} props - Icon properties
+ * @param {Function} props.icon - Icon function from icons collection
+ * @param {string} [props.className] - CSS class name for styling
+ * @param {Function} [props.e] - Click event handler
+ * @param {number} [props.size=16] - Icon size in pixels
+ * @param {string} [props.fill='currentColor'] - Icon fill color
+ * @returns {HTMLElement} Icon element
+ */
+function Octicon({ icon, className = '', e = null, size = 16, fill = 'currentColor' }) {
+  if (!icon || typeof icon !== 'function') {
+    throw new Error('Octicon: icon property is required and must be a function');
+  }
 
-    if ( size ) {
-        svgElement.setAttribute( 'width', size.toString() );
-        svgElement.setAttribute( 'height', size.toString() );
-    }
-
-    container.appendChild( svgElement );
-    return container;
+  const svgElement = icon();
+  
+  svgElement.setAttribute('width', size.toString());
+  svgElement.setAttribute('height', size.toString());
+  svgElement.setAttribute('fill', fill);
+  svgElement.style.display = 'block';
+  svgElement.style.flexShrink = '0';
+  
+  const wrapper = document.createElement('div');
+  wrapper.className = `octicon ${className}`.trim();
+  wrapper.appendChild(svgElement);
+  
+  if (e && typeof e === 'function') {
+    wrapper.style.cursor = 'pointer';
+    wrapper.addEventListener('click', e);
+  }
+  
+  wrapper.style.display = 'inline-flex';
+  wrapper.style.alignItems = 'center';
+  wrapper.style.justifyContent = 'center';
+  wrapper.style.verticalAlign = 'text-bottom';
+  wrapper.style.lineHeight = '1';
+  
+  return wrapper;
 }
 
-function builder( { attr, child } ) {
+/**
+ * Creates a square icon button with GitHub styling
+ * @param {Object} props - Button properties
+ * @param {Function} props.icon - Icon function from icons collection
+ * @param {number} [props.bgSize=32] - Button size in pixels (square)
+ * @param {Function} [props.e] - Click event handler
+ * @param {string} [props.className] - CSS class name for styling
+ * @param {number} [props.size=16] - Icon size in pixels
+ * @param {string} [props.fill='currentColor'] - Icon fill color
+ * @returns {HTMLButtonElement} Button element
+ */
+function OcticonBtn({ icon, bgSize = 32, e = null, className = '', size = 16, fill = 'currentColor' }) {
+  if (!icon || typeof icon !== 'function') {
+    throw new Error('OcticonBtn: icon property is required and must be a function');
+  }
+
+  const svgElement = icon();
+  
+  svgElement.setAttribute('width', size.toString());
+  svgElement.setAttribute('height', size.toString());
+  svgElement.setAttribute('fill', fill);
+  svgElement.style.display = 'block';
+  svgElement.style.flexShrink = '0';
+  
+  const button = document.createElement('button');
+  button.className = `octicon-btn ${className}`.trim();
+  button.appendChild(svgElement);
+  
+  if (e && typeof e === 'function') {
+    button.addEventListener('click', e);
+  }
+  
+  button.style.width = `${bgSize}px`;
+  button.style.height = `${bgSize}px`;
+  button.style.border = '1px solid';
+  button.style.borderColor = 'var(--borderColor-default, var(--color-border-default, #d0d7de))';
+  button.style.borderRadius = '6px';
+  button.style.backgroundColor = 'var(--bgColor-default, var(--color-canvas-default, #ffffff))';
+  button.style.color = 'var(--fgColor-default, var(--color-fg-default, #1f2328))';
+  button.style.display = 'inline-flex';
+  button.style.alignItems = 'center';
+  button.style.justifyContent = 'center';
+  button.style.cursor = 'pointer';
+  button.style.transition = 'all 0.2s cubic-bezier(0.3, 0, 0.5, 1)';
+  button.style.outline = 'none';
+  button.style.padding = '0';
+  button.style.margin = '0';
+  button.style.lineHeight = '1';
+  button.style.flexShrink = '0';
+  
+  const addHoverStyles = () => {
+    button.style.backgroundColor = 'var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa))';
+    button.style.borderColor = 'var(--borderColor-emphasis, var(--color-border-emphasis, #858585))';
+  };
+  
+  const removeHoverStyles = () => {
+    button.style.backgroundColor = 'var(--bgColor-default, var(--color-canvas-default, #ffffff))';
+    button.style.borderColor = 'var(--borderColor-default, var(--color-border-default, #d0d7de))';
+  };
+  
+  button.addEventListener('mouseenter', addHoverStyles);
+  button.addEventListener('mouseleave', removeHoverStyles);
+  button.addEventListener('focus', addHoverStyles);
+  button.addEventListener('blur', removeHoverStyles);
+  
+  button.addEventListener('mousedown', () => {
+    button.style.backgroundColor = 'var(--bgColor-emphasis, var(--color-canvas-emphasis, #e6edf3))';
+    button.style.borderColor = 'var(--borderColor-emphasis, var(--color-border-emphasis, #858585))';
+  });
+  
+  button.addEventListener('mouseup', removeHoverStyles);
+  
+  return button;
+}
+
+/**
+ * Creates a button with icon and label
+ * @param {Object} props - Button properties
+ * @param {Function} props.icon - Icon function from icons collection
+ * @param {string} props.label - Button text label
+ * @param {Function} [props.e] - Click event handler
+ * @param {string} [props.className] - CSS class name for styling
+ * @param {number} [props.size=16] - Icon size in pixels
+ * @param {string} [props.fill='currentColor'] - Icon fill color
+ * @param {boolean} [props.iconFirst=true] - Whether to show icon before text
+ * @returns {HTMLButtonElement} Button element
+ */
+function OcticonBtnLabel({ icon, label, e = null, className = '', size = 16, fill = 'currentColor', iconFirst = true }) {
+  if (!icon || typeof icon !== 'function') {
+    throw new Error('OcticonBtnLabel: icon property is required and must be a function');
+  }
+  
+  if (!label || typeof label !== 'string') {
+    throw new Error('OcticonBtnLabel: label property is required and must be a string');
+  }
+
+  const svgElement = icon();
+  
+  svgElement.setAttribute('width', size.toString());
+  svgElement.setAttribute('height', size.toString());
+  svgElement.setAttribute('fill', fill);
+  svgElement.style.display = 'block';
+  svgElement.style.flexShrink = '0';
+  
+  const button = document.createElement('button');
+  button.className = `octicon-btn-label ${className}`.trim();
+  
+  const labelElement = document.createElement('span');
+  labelElement.textContent = label;
+  labelElement.style.fontSize = '14px';
+  labelElement.style.fontWeight = '500';
+  labelElement.style.lineHeight = '1.4285714286';
+  labelElement.style.display = 'flex';
+  labelElement.style.alignItems = 'center';
+  labelElement.style.whiteSpace = 'nowrap';
+  
+  if (iconFirst) {
+    button.appendChild(svgElement);
+    button.appendChild(labelElement);
+  } else {
+    button.appendChild(labelElement);
+    button.appendChild(svgElement);
+  }
+  
+  if (e && typeof e === 'function') {
+    button.addEventListener('click', e);
+  }
+  
+  button.style.border = '1px solid';
+  button.style.borderColor = 'var(--borderColor-default, var(--color-border-default, #d0d7de))';
+  button.style.borderRadius = '6px';
+  button.style.backgroundColor = 'var(--bgColor-default, var(--color-canvas-default, #ffffff))';
+  button.style.color = 'var(--fgColor-default, var(--color-fg-default, #1f2328))';
+  button.style.display = 'inline-flex';
+  button.style.alignItems = 'center';
+  button.style.justifyContent = 'center';
+  button.style.cursor = 'pointer';
+  button.style.transition = 'all 0.2s cubic-bezier(0.3, 0, 0.5, 1)';
+  button.style.outline = 'none';
+  button.style.padding = '5px 16px';
+  button.style.gap = '8px';
+  button.style.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"';
+  button.style.minHeight = '32px';
+  button.style.margin = '0';
+  button.style.lineHeight = '20px';
+  button.style.verticalAlign = 'middle';
+  button.style.boxSizing = 'border-box';
+  button.style.textAlign = 'center';
+  button.style.flexShrink = '0';
+  
+  const addHoverStyles = () => {
+    button.style.backgroundColor = 'var(--bgColor-muted, var(--color-canvas-subtle, #f6f8fa))';
+    button.style.borderColor = 'var(--borderColor-emphasis, var(--color-border-emphasis, #858585))';
+  };
+  
+  const removeHoverStyles = () => {
+    button.style.backgroundColor = 'var(--bgColor-default, var(--color-canvas-default, #ffffff))';
+    button.style.borderColor = 'var(--borderColor-default, var(--color-border-default, #d0d7de))';
+  };
+  
+  button.addEventListener('mouseenter', addHoverStyles);
+  button.addEventListener('mouseleave', removeHoverStyles);
+  button.addEventListener('focus', addHoverStyles);
+  button.addEventListener('blur', removeHoverStyles);
+  
+  button.addEventListener('mousedown', () => {
+    button.style.backgroundColor = 'var(--bgColor-emphasis, var(--color-canvas-emphasis, #e6edf3))';
+    button.style.borderColor = 'var(--borderColor-emphasis, var(--color-border-emphasis, #858585))';
+  });
+  
+  button.addEventListener('mouseup', removeHoverStyles);
+  
+  return button;
+}
+
+function builder({ attr, child }) {
     return function createSVG() {
-        const svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 
-        Object.entries( attr ).forEach( ( [ key, value ] ) => {
-            svg.setAttribute( key, value );
-        } );
+        Object.entries(attr).forEach(([key, value]) => {
+            svg.setAttribute(key, value);
+        });
 
-        child.forEach( childElement => {
-            const element = document.createElementNS( 'http://www.w3.org/2000/svg', childElement.tag );
+        child.forEach(childElement => {
+            const element = document.createElementNS('http://www.w3.org/2000/svg', childElement.tag);
 
-            if ( childElement.attr ) {
-                Object.entries( childElement.attr ).forEach( ( [ key, value ] ) => {
-                    element.setAttribute( key, value );
-                } );
+            if (childElement.attr) {
+                Object.entries(childElement.attr).forEach(([key, value]) => {
+                    element.setAttribute(key, value);
+                });
             }
 
-            svg.appendChild( element );
-        } );
+            svg.appendChild(element);
+        });
 
         return svg;
     };
 }
 
-var octiconAccessibility = builder({
+const octiconAccessibility = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -54,7 +256,7 @@ var octiconAccessibility = builder({
 ]
 });
 
-var octiconAccessibilityInset = builder({
+const octiconAccessibilityInset = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -72,7 +274,7 @@ var octiconAccessibilityInset = builder({
 ]
 });
 
-var octiconAiModel = builder({
+const octiconAiModel = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -90,7 +292,7 @@ var octiconAiModel = builder({
 ]
 });
 
-var octiconAlert = builder({
+const octiconAlert = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -108,7 +310,7 @@ var octiconAlert = builder({
 ]
 });
 
-var octiconAlertFill = builder({
+const octiconAlertFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -126,7 +328,7 @@ var octiconAlertFill = builder({
 ]
 });
 
-var octiconApps = builder({
+const octiconApps = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -144,7 +346,7 @@ var octiconApps = builder({
 ]
 });
 
-var octiconArchive = builder({
+const octiconArchive = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -162,7 +364,7 @@ var octiconArchive = builder({
 ]
 });
 
-var octiconArrowBoth = builder({
+const octiconArrowBoth = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -180,7 +382,7 @@ var octiconArrowBoth = builder({
 ]
 });
 
-var octiconArrowDown = builder({
+const octiconArrowDown = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -198,7 +400,7 @@ var octiconArrowDown = builder({
 ]
 });
 
-var octiconArrowDownLeft = builder({
+const octiconArrowDownLeft = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -216,7 +418,7 @@ var octiconArrowDownLeft = builder({
 ]
 });
 
-var octiconArrowDownRight = builder({
+const octiconArrowDownRight = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -234,7 +436,7 @@ var octiconArrowDownRight = builder({
 ]
 });
 
-var octiconArrowLeft = builder({
+const octiconArrowLeft = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -252,7 +454,7 @@ var octiconArrowLeft = builder({
 ]
 });
 
-var octiconArrowRight = builder({
+const octiconArrowRight = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -270,7 +472,7 @@ var octiconArrowRight = builder({
 ]
 });
 
-var octiconArrowSwitch = builder({
+const octiconArrowSwitch = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -288,7 +490,7 @@ var octiconArrowSwitch = builder({
 ]
 });
 
-var octiconArrowUp = builder({
+const octiconArrowUp = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -306,7 +508,7 @@ var octiconArrowUp = builder({
 ]
 });
 
-var octiconArrowUpLeft = builder({
+const octiconArrowUpLeft = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -324,7 +526,7 @@ var octiconArrowUpLeft = builder({
 ]
 });
 
-var octiconArrowUpRight = builder({
+const octiconArrowUpRight = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -342,7 +544,7 @@ var octiconArrowUpRight = builder({
 ]
 });
 
-var octiconBeaker = builder({
+const octiconBeaker = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -360,7 +562,7 @@ var octiconBeaker = builder({
 ]
 });
 
-var octiconBell = builder({
+const octiconBell = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -378,7 +580,7 @@ var octiconBell = builder({
 ]
 });
 
-var octiconBellFill = builder({
+const octiconBellFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -396,7 +598,7 @@ var octiconBellFill = builder({
 ]
 });
 
-var octiconBellSlash = builder({
+const octiconBellSlash = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -414,7 +616,7 @@ var octiconBellSlash = builder({
 ]
 });
 
-var octiconBlocked = builder({
+const octiconBlocked = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -432,7 +634,7 @@ var octiconBlocked = builder({
 ]
 });
 
-var octiconBold = builder({
+const octiconBold = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -450,7 +652,7 @@ var octiconBold = builder({
 ]
 });
 
-var octiconBook = builder({
+const octiconBook = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -468,7 +670,7 @@ var octiconBook = builder({
 ]
 });
 
-var octiconBookmark = builder({
+const octiconBookmark = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -486,7 +688,7 @@ var octiconBookmark = builder({
 ]
 });
 
-var octiconBookmarkFilled = builder({
+const octiconBookmarkFilled = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -504,7 +706,7 @@ var octiconBookmarkFilled = builder({
 ]
 });
 
-var octiconBookmarkSlash = builder({
+const octiconBookmarkSlash = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -522,7 +724,7 @@ var octiconBookmarkSlash = builder({
 ]
 });
 
-var octiconBookmarkSlashFill = builder({
+const octiconBookmarkSlashFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -540,7 +742,7 @@ var octiconBookmarkSlashFill = builder({
 ]
 });
 
-var octiconBriefcase = builder({
+const octiconBriefcase = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -558,7 +760,7 @@ var octiconBriefcase = builder({
 ]
 });
 
-var octiconBroadcast = builder({
+const octiconBroadcast = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -576,7 +778,7 @@ var octiconBroadcast = builder({
 ]
 });
 
-var octiconBrowser = builder({
+const octiconBrowser = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -594,7 +796,7 @@ var octiconBrowser = builder({
 ]
 });
 
-var octiconBug = builder({
+const octiconBug = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -612,7 +814,7 @@ var octiconBug = builder({
 ]
 });
 
-var octiconCache = builder({
+const octiconCache = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -636,7 +838,7 @@ var octiconCache = builder({
 ]
 });
 
-var octiconCalendar = builder({
+const octiconCalendar = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -654,7 +856,7 @@ var octiconCalendar = builder({
 ]
 });
 
-var octiconCheck = builder({
+const octiconCheck = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -672,7 +874,7 @@ var octiconCheck = builder({
 ]
 });
 
-var octiconCheckCircle = builder({
+const octiconCheckCircle = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -690,7 +892,7 @@ var octiconCheckCircle = builder({
 ]
 });
 
-var octiconCheckCircleFill = builder({
+const octiconCheckCircleFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -708,7 +910,7 @@ var octiconCheckCircleFill = builder({
 ]
 });
 
-var octiconCheckbox = builder({
+const octiconCheckbox = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -726,7 +928,7 @@ var octiconCheckbox = builder({
 ]
 });
 
-var octiconChecklist = builder({
+const octiconChecklist = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -744,7 +946,7 @@ var octiconChecklist = builder({
 ]
 });
 
-var octiconChevronDown = builder({
+const octiconChevronDown = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -762,7 +964,7 @@ var octiconChevronDown = builder({
 ]
 });
 
-var octiconChevronLeft = builder({
+const octiconChevronLeft = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -780,7 +982,7 @@ var octiconChevronLeft = builder({
 ]
 });
 
-var octiconChevronRight = builder({
+const octiconChevronRight = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -798,7 +1000,7 @@ var octiconChevronRight = builder({
 ]
 });
 
-var octiconChevronUp = builder({
+const octiconChevronUp = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -816,7 +1018,7 @@ var octiconChevronUp = builder({
 ]
 });
 
-var octiconCircle = builder({
+const octiconCircle = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -834,7 +1036,7 @@ var octiconCircle = builder({
 ]
 });
 
-var octiconCircleSlash = builder({
+const octiconCircleSlash = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -852,7 +1054,7 @@ var octiconCircleSlash = builder({
 ]
 });
 
-var octiconClock = builder({
+const octiconClock = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -870,7 +1072,7 @@ var octiconClock = builder({
 ]
 });
 
-var octiconClockFill = builder({
+const octiconClockFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -888,7 +1090,7 @@ var octiconClockFill = builder({
 ]
 });
 
-var octiconCloud = builder({
+const octiconCloud = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -906,7 +1108,7 @@ var octiconCloud = builder({
 ]
 });
 
-var octiconCloudOffline = builder({
+const octiconCloudOffline = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -924,7 +1126,7 @@ var octiconCloudOffline = builder({
 ]
 });
 
-var octiconCode = builder({
+const octiconCode = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -942,7 +1144,7 @@ var octiconCode = builder({
 ]
 });
 
-var octiconCodeOfConduct = builder({
+const octiconCodeOfConduct = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -960,7 +1162,7 @@ var octiconCodeOfConduct = builder({
 ]
 });
 
-var octiconCodeReview = builder({
+const octiconCodeReview = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -978,7 +1180,7 @@ var octiconCodeReview = builder({
 ]
 });
 
-var octiconCodeSquare = builder({
+const octiconCodeSquare = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -996,7 +1198,7 @@ var octiconCodeSquare = builder({
 ]
 });
 
-var octiconCodescan = builder({
+const octiconCodescan = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1020,7 +1222,7 @@ var octiconCodescan = builder({
 ]
 });
 
-var octiconCodescanCheckmark = builder({
+const octiconCodescanCheckmark = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1044,7 +1246,7 @@ var octiconCodescanCheckmark = builder({
 ]
 });
 
-var octiconCodespaces = builder({
+const octiconCodespaces = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1068,7 +1270,7 @@ var octiconCodespaces = builder({
 ]
 });
 
-var octiconColumns = builder({
+const octiconColumns = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1086,7 +1288,7 @@ var octiconColumns = builder({
 ]
 });
 
-var octiconCommandPalette = builder({
+const octiconCommandPalette = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1104,7 +1306,7 @@ var octiconCommandPalette = builder({
 ]
 });
 
-var octiconComment = builder({
+const octiconComment = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1122,7 +1324,7 @@ var octiconComment = builder({
 ]
 });
 
-var octiconCommentDiscussion = builder({
+const octiconCommentDiscussion = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1140,7 +1342,7 @@ var octiconCommentDiscussion = builder({
 ]
 });
 
-var octiconContainer = builder({
+const octiconContainer = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1158,7 +1360,7 @@ var octiconContainer = builder({
 ]
 });
 
-var octiconCopilot = builder({
+const octiconCopilot = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1182,7 +1384,7 @@ var octiconCopilot = builder({
 ]
 });
 
-var octiconCopilotError = builder({
+const octiconCopilotError = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1200,7 +1402,7 @@ var octiconCopilotError = builder({
 ]
 });
 
-var octiconCopilotWarning = builder({
+const octiconCopilotWarning = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1224,7 +1426,7 @@ var octiconCopilotWarning = builder({
 ]
 });
 
-var octiconCopy = builder({
+const octiconCopy = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1248,7 +1450,7 @@ var octiconCopy = builder({
 ]
 });
 
-var octiconCpu = builder({
+const octiconCpu = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1266,7 +1468,7 @@ var octiconCpu = builder({
 ]
 });
 
-var octiconCreditCard = builder({
+const octiconCreditCard = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1290,7 +1492,7 @@ var octiconCreditCard = builder({
 ]
 });
 
-var octiconCrossReference = builder({
+const octiconCrossReference = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1308,7 +1510,7 @@ var octiconCrossReference = builder({
 ]
 });
 
-var octiconDash = builder({
+const octiconDash = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1326,7 +1528,7 @@ var octiconDash = builder({
 ]
 });
 
-var octiconDatabase = builder({
+const octiconDatabase = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1344,7 +1546,7 @@ var octiconDatabase = builder({
 ]
 });
 
-var octiconDependabot = builder({
+const octiconDependabot = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1368,7 +1570,7 @@ var octiconDependabot = builder({
 ]
 });
 
-var octiconDesktopDownload = builder({
+const octiconDesktopDownload = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1392,7 +1594,7 @@ var octiconDesktopDownload = builder({
 ]
 });
 
-var octiconDeviceCamera = builder({
+const octiconDeviceCamera = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1410,7 +1612,7 @@ var octiconDeviceCamera = builder({
 ]
 });
 
-var octiconDeviceCameraVideo = builder({
+const octiconDeviceCameraVideo = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1428,7 +1630,7 @@ var octiconDeviceCameraVideo = builder({
 ]
 });
 
-var octiconDeviceDesktop = builder({
+const octiconDeviceDesktop = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1446,7 +1648,7 @@ var octiconDeviceDesktop = builder({
 ]
 });
 
-var octiconDeviceMobile = builder({
+const octiconDeviceMobile = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1464,7 +1666,7 @@ var octiconDeviceMobile = builder({
 ]
 });
 
-var octiconDevices = builder({
+const octiconDevices = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1488,7 +1690,7 @@ var octiconDevices = builder({
 ]
 });
 
-var octiconDiamond = builder({
+const octiconDiamond = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1506,7 +1708,7 @@ var octiconDiamond = builder({
 ]
 });
 
-var octiconDiff = builder({
+const octiconDiff = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1524,7 +1726,7 @@ var octiconDiff = builder({
 ]
 });
 
-var octiconDiffAdded = builder({
+const octiconDiffAdded = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1542,7 +1744,7 @@ var octiconDiffAdded = builder({
 ]
 });
 
-var octiconDiffIgnored = builder({
+const octiconDiffIgnored = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1560,7 +1762,7 @@ var octiconDiffIgnored = builder({
 ]
 });
 
-var octiconDiffModified = builder({
+const octiconDiffModified = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1578,7 +1780,7 @@ var octiconDiffModified = builder({
 ]
 });
 
-var octiconDiffRemoved = builder({
+const octiconDiffRemoved = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1596,7 +1798,7 @@ var octiconDiffRemoved = builder({
 ]
 });
 
-var octiconDiffRenamed = builder({
+const octiconDiffRenamed = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1614,7 +1816,7 @@ var octiconDiffRenamed = builder({
 ]
 });
 
-var octiconDiscussionClosed = builder({
+const octiconDiscussionClosed = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1632,7 +1834,7 @@ var octiconDiscussionClosed = builder({
 ]
 });
 
-var octiconDiscussionDuplicate = builder({
+const octiconDiscussionDuplicate = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1650,7 +1852,7 @@ var octiconDiscussionDuplicate = builder({
 ]
 });
 
-var octiconDiscussionOutdated = builder({
+const octiconDiscussionOutdated = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1668,7 +1870,7 @@ var octiconDiscussionOutdated = builder({
 ]
 });
 
-var octiconDot = builder({
+const octiconDot = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1686,7 +1888,7 @@ var octiconDot = builder({
 ]
 });
 
-var octiconDotFill = builder({
+const octiconDotFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1704,7 +1906,7 @@ var octiconDotFill = builder({
 ]
 });
 
-var octiconDownload = builder({
+const octiconDownload = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1728,7 +1930,7 @@ var octiconDownload = builder({
 ]
 });
 
-var octiconDuplicate = builder({
+const octiconDuplicate = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1758,7 +1960,7 @@ var octiconDuplicate = builder({
 ]
 });
 
-var octiconEllipsis = builder({
+const octiconEllipsis = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1776,7 +1978,7 @@ var octiconEllipsis = builder({
 ]
 });
 
-var octiconEye = builder({
+const octiconEye = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1794,7 +1996,7 @@ var octiconEye = builder({
 ]
 });
 
-var octiconEyeClosed = builder({
+const octiconEyeClosed = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1812,7 +2014,7 @@ var octiconEyeClosed = builder({
 ]
 });
 
-var octiconFeedDiscussion = builder({
+const octiconFeedDiscussion = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1830,7 +2032,7 @@ var octiconFeedDiscussion = builder({
 ]
 });
 
-var octiconFeedForked = builder({
+const octiconFeedForked = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1848,7 +2050,7 @@ var octiconFeedForked = builder({
 ]
 });
 
-var octiconFeedHeart = builder({
+const octiconFeedHeart = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1866,7 +2068,7 @@ var octiconFeedHeart = builder({
 ]
 });
 
-var octiconFeedIssueClosed = builder({
+const octiconFeedIssueClosed = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1884,7 +2086,7 @@ var octiconFeedIssueClosed = builder({
 ]
 });
 
-var octiconFeedIssueDraft = builder({
+const octiconFeedIssueDraft = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1902,7 +2104,7 @@ var octiconFeedIssueDraft = builder({
 ]
 });
 
-var octiconFeedIssueOpen = builder({
+const octiconFeedIssueOpen = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1926,7 +2128,7 @@ var octiconFeedIssueOpen = builder({
 ]
 });
 
-var octiconFeedIssueReopen = builder({
+const octiconFeedIssueReopen = builder({
   attr: {
   "width": "17",
   "height": "16",
@@ -1944,7 +2146,7 @@ var octiconFeedIssueReopen = builder({
 ]
 });
 
-var octiconFeedMerged = builder({
+const octiconFeedMerged = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1962,7 +2164,7 @@ var octiconFeedMerged = builder({
 ]
 });
 
-var octiconFeedPerson = builder({
+const octiconFeedPerson = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1980,7 +2182,7 @@ var octiconFeedPerson = builder({
 ]
 });
 
-var octiconFeedPlus = builder({
+const octiconFeedPlus = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -1998,7 +2200,7 @@ var octiconFeedPlus = builder({
 ]
 });
 
-var octiconFeedPublic = builder({
+const octiconFeedPublic = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2016,7 +2218,7 @@ var octiconFeedPublic = builder({
 ]
 });
 
-var octiconFeedPullRequestClosed = builder({
+const octiconFeedPullRequestClosed = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2034,7 +2236,7 @@ var octiconFeedPullRequestClosed = builder({
 ]
 });
 
-var octiconFeedPullRequestDraft = builder({
+const octiconFeedPullRequestDraft = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2052,7 +2254,7 @@ var octiconFeedPullRequestDraft = builder({
 ]
 });
 
-var octiconFeedPullRequestOpen = builder({
+const octiconFeedPullRequestOpen = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2070,7 +2272,7 @@ var octiconFeedPullRequestOpen = builder({
 ]
 });
 
-var octiconFeedRepo = builder({
+const octiconFeedRepo = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2088,7 +2290,7 @@ var octiconFeedRepo = builder({
 ]
 });
 
-var octiconFeedRocket = builder({
+const octiconFeedRocket = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2106,7 +2308,7 @@ var octiconFeedRocket = builder({
 ]
 });
 
-var octiconFeedStar = builder({
+const octiconFeedStar = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2124,7 +2326,7 @@ var octiconFeedStar = builder({
 ]
 });
 
-var octiconFeedTag = builder({
+const octiconFeedTag = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2148,7 +2350,7 @@ var octiconFeedTag = builder({
 ]
 });
 
-var octiconFeedTrophy = builder({
+const octiconFeedTrophy = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2172,7 +2374,7 @@ var octiconFeedTrophy = builder({
 ]
 });
 
-var octiconFile = builder({
+const octiconFile = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2190,7 +2392,7 @@ var octiconFile = builder({
 ]
 });
 
-var octiconFileAdded = builder({
+const octiconFileAdded = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2208,7 +2410,7 @@ var octiconFileAdded = builder({
 ]
 });
 
-var octiconFileBadge = builder({
+const octiconFileBadge = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2232,7 +2434,7 @@ var octiconFileBadge = builder({
 ]
 });
 
-var octiconFileBinary = builder({
+const octiconFileBinary = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2250,7 +2452,7 @@ var octiconFileBinary = builder({
 ]
 });
 
-var octiconFileCode = builder({
+const octiconFileCode = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2268,7 +2470,7 @@ var octiconFileCode = builder({
 ]
 });
 
-var octiconFileDiff = builder({
+const octiconFileDiff = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2286,7 +2488,7 @@ var octiconFileDiff = builder({
 ]
 });
 
-var octiconFileDirectory = builder({
+const octiconFileDirectory = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2304,7 +2506,7 @@ var octiconFileDirectory = builder({
 ]
 });
 
-var octiconFileDirectoryFill = builder({
+const octiconFileDirectoryFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2322,7 +2524,7 @@ var octiconFileDirectoryFill = builder({
 ]
 });
 
-var octiconFileDirectoryOpenFill = builder({
+const octiconFileDirectoryOpenFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2340,7 +2542,7 @@ var octiconFileDirectoryOpenFill = builder({
 ]
 });
 
-var octiconFileDirectorySymlink = builder({
+const octiconFileDirectorySymlink = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2364,7 +2566,7 @@ var octiconFileDirectorySymlink = builder({
 ]
 });
 
-var octiconFileMedia = builder({
+const octiconFileMedia = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2382,7 +2584,7 @@ var octiconFileMedia = builder({
 ]
 });
 
-var octiconFileMoved = builder({
+const octiconFileMoved = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2406,7 +2608,7 @@ var octiconFileMoved = builder({
 ]
 });
 
-var octiconFileRemoved = builder({
+const octiconFileRemoved = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2424,7 +2626,7 @@ var octiconFileRemoved = builder({
 ]
 });
 
-var octiconFileSubmodule = builder({
+const octiconFileSubmodule = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2442,7 +2644,7 @@ var octiconFileSubmodule = builder({
 ]
 });
 
-var octiconFileSymlinkFile = builder({
+const octiconFileSymlinkFile = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2460,7 +2662,7 @@ var octiconFileSymlinkFile = builder({
 ]
 });
 
-var octiconFileZip = builder({
+const octiconFileZip = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2478,7 +2680,7 @@ var octiconFileZip = builder({
 ]
 });
 
-var octiconFilter = builder({
+const octiconFilter = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2496,7 +2698,7 @@ var octiconFilter = builder({
 ]
 });
 
-var octiconFilterRemove = builder({
+const octiconFilterRemove = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2514,7 +2716,7 @@ var octiconFilterRemove = builder({
 ]
 });
 
-var octiconFiscalHost = builder({
+const octiconFiscalHost = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2544,7 +2746,7 @@ var octiconFiscalHost = builder({
 ]
 });
 
-var octiconFlame = builder({
+const octiconFlame = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2562,7 +2764,7 @@ var octiconFlame = builder({
 ]
 });
 
-var octiconFold = builder({
+const octiconFold = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2580,7 +2782,7 @@ var octiconFold = builder({
 ]
 });
 
-var octiconFoldDown = builder({
+const octiconFoldDown = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2598,7 +2800,7 @@ var octiconFoldDown = builder({
 ]
 });
 
-var octiconFoldUp = builder({
+const octiconFoldUp = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2616,7 +2818,7 @@ var octiconFoldUp = builder({
 ]
 });
 
-var octiconGear = builder({
+const octiconGear = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2634,7 +2836,7 @@ var octiconGear = builder({
 ]
 });
 
-var octiconGift = builder({
+const octiconGift = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2652,7 +2854,7 @@ var octiconGift = builder({
 ]
 });
 
-var octiconGitBranch = builder({
+const octiconGitBranch = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2670,7 +2872,7 @@ var octiconGitBranch = builder({
 ]
 });
 
-var octiconGitCommit = builder({
+const octiconGitCommit = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2688,7 +2890,7 @@ var octiconGitCommit = builder({
 ]
 });
 
-var octiconGitCompare = builder({
+const octiconGitCompare = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2706,7 +2908,7 @@ var octiconGitCompare = builder({
 ]
 });
 
-var octiconGitMerge = builder({
+const octiconGitMerge = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2724,7 +2926,7 @@ var octiconGitMerge = builder({
 ]
 });
 
-var octiconGitMergeQueue = builder({
+const octiconGitMergeQueue = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2742,7 +2944,7 @@ var octiconGitMergeQueue = builder({
 ]
 });
 
-var octiconGitPullRequest = builder({
+const octiconGitPullRequest = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2760,7 +2962,7 @@ var octiconGitPullRequest = builder({
 ]
 });
 
-var octiconGitPullRequestClosed = builder({
+const octiconGitPullRequestClosed = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2778,7 +2980,7 @@ var octiconGitPullRequestClosed = builder({
 ]
 });
 
-var octiconGitPullRequestDraft = builder({
+const octiconGitPullRequestDraft = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2796,7 +2998,7 @@ var octiconGitPullRequestDraft = builder({
 ]
 });
 
-var octiconGlobe = builder({
+const octiconGlobe = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2814,7 +3016,7 @@ var octiconGlobe = builder({
 ]
 });
 
-var octiconGoal = builder({
+const octiconGoal = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2844,7 +3046,7 @@ var octiconGoal = builder({
 ]
 });
 
-var octiconGrabber = builder({
+const octiconGrabber = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2862,7 +3064,7 @@ var octiconGrabber = builder({
 ]
 });
 
-var octiconGraph = builder({
+const octiconGraph = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2880,7 +3082,7 @@ var octiconGraph = builder({
 ]
 });
 
-var octiconHash = builder({
+const octiconHash = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2898,7 +3100,7 @@ var octiconHash = builder({
 ]
 });
 
-var octiconHeading = builder({
+const octiconHeading = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2916,7 +3118,7 @@ var octiconHeading = builder({
 ]
 });
 
-var octiconHeart = builder({
+const octiconHeart = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2934,7 +3136,7 @@ var octiconHeart = builder({
 ]
 });
 
-var octiconHeartFill = builder({
+const octiconHeartFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2952,7 +3154,7 @@ var octiconHeartFill = builder({
 ]
 });
 
-var octiconHistory = builder({
+const octiconHistory = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2970,7 +3172,7 @@ var octiconHistory = builder({
 ]
 });
 
-var octiconHome = builder({
+const octiconHome = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -2988,7 +3190,7 @@ var octiconHome = builder({
 ]
 });
 
-var octiconHomeFill = builder({
+const octiconHomeFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3006,7 +3208,7 @@ var octiconHomeFill = builder({
 ]
 });
 
-var octiconHorizontalRule = builder({
+const octiconHorizontalRule = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3024,7 +3226,7 @@ var octiconHorizontalRule = builder({
 ]
 });
 
-var octiconHourglass = builder({
+const octiconHourglass = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3042,7 +3244,7 @@ var octiconHourglass = builder({
 ]
 });
 
-var octiconHubot = builder({
+const octiconHubot = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3060,7 +3262,7 @@ var octiconHubot = builder({
 ]
 });
 
-var octiconIdBadge = builder({
+const octiconIdBadge = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3084,7 +3286,7 @@ var octiconIdBadge = builder({
 ]
 });
 
-var octiconImage = builder({
+const octiconImage = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3102,7 +3304,7 @@ var octiconImage = builder({
 ]
 });
 
-var octiconInbox = builder({
+const octiconInbox = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3120,7 +3322,7 @@ var octiconInbox = builder({
 ]
 });
 
-var octiconInfinity = builder({
+const octiconInfinity = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3138,7 +3340,7 @@ var octiconInfinity = builder({
 ]
 });
 
-var octiconInfo = builder({
+const octiconInfo = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3156,7 +3358,7 @@ var octiconInfo = builder({
 ]
 });
 
-var octiconIssueClosed = builder({
+const octiconIssueClosed = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3180,7 +3382,7 @@ var octiconIssueClosed = builder({
 ]
 });
 
-var octiconIssueDraft = builder({
+const octiconIssueDraft = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3198,7 +3400,7 @@ var octiconIssueDraft = builder({
 ]
 });
 
-var octiconIssueOpened = builder({
+const octiconIssueOpened = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3222,7 +3424,7 @@ var octiconIssueOpened = builder({
 ]
 });
 
-var octiconIssueReopened = builder({
+const octiconIssueReopened = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3246,7 +3448,7 @@ var octiconIssueReopened = builder({
 ]
 });
 
-var octiconIssueTrackedBy = builder({
+const octiconIssueTrackedBy = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3270,7 +3472,7 @@ var octiconIssueTrackedBy = builder({
 ]
 });
 
-var octiconIssueTracks = builder({
+const octiconIssueTracks = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3294,7 +3496,7 @@ var octiconIssueTracks = builder({
 ]
 });
 
-var octiconItalic = builder({
+const octiconItalic = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3312,7 +3514,7 @@ var octiconItalic = builder({
 ]
 });
 
-var octiconIterations = builder({
+const octiconIterations = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3330,7 +3532,7 @@ var octiconIterations = builder({
 ]
 });
 
-var octiconKebabHorizontal = builder({
+const octiconKebabHorizontal = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3348,7 +3550,7 @@ var octiconKebabHorizontal = builder({
 ]
 });
 
-var octiconKey = builder({
+const octiconKey = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3366,7 +3568,7 @@ var octiconKey = builder({
 ]
 });
 
-var octiconKeyAsterisk = builder({
+const octiconKeyAsterisk = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3390,7 +3592,7 @@ var octiconKeyAsterisk = builder({
 ]
 });
 
-var octiconLaw = builder({
+const octiconLaw = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3408,7 +3610,7 @@ var octiconLaw = builder({
 ]
 });
 
-var octiconLightBulb = builder({
+const octiconLightBulb = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3426,7 +3628,7 @@ var octiconLightBulb = builder({
 ]
 });
 
-var octiconLink = builder({
+const octiconLink = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3444,7 +3646,7 @@ var octiconLink = builder({
 ]
 });
 
-var octiconLinkExternal = builder({
+const octiconLinkExternal = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3462,7 +3664,7 @@ var octiconLinkExternal = builder({
 ]
 });
 
-var octiconListOrdered = builder({
+const octiconListOrdered = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3480,7 +3682,7 @@ var octiconListOrdered = builder({
 ]
 });
 
-var octiconListUnordered = builder({
+const octiconListUnordered = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3498,7 +3700,7 @@ var octiconListUnordered = builder({
 ]
 });
 
-var octiconLocation = builder({
+const octiconLocation = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3516,7 +3718,7 @@ var octiconLocation = builder({
 ]
 });
 
-var octiconLock = builder({
+const octiconLock = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3534,7 +3736,7 @@ var octiconLock = builder({
 ]
 });
 
-var octiconLog = builder({
+const octiconLog = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3558,7 +3760,7 @@ var octiconLog = builder({
 ]
 });
 
-var octiconLogoGist = builder({
+const octiconLogoGist = builder({
   attr: {
   "width": "25",
   "height": "16",
@@ -3576,7 +3778,7 @@ var octiconLogoGist = builder({
 ]
 });
 
-var octiconLogoGithub = builder({
+const octiconLogoGithub = builder({
   attr: {
   "width": "45",
   "height": "16",
@@ -3594,7 +3796,7 @@ var octiconLogoGithub = builder({
 ]
 });
 
-var octiconMail = builder({
+const octiconMail = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3612,7 +3814,7 @@ var octiconMail = builder({
 ]
 });
 
-var octiconMarkGithub = builder({
+const octiconMarkGithub = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3630,7 +3832,7 @@ var octiconMarkGithub = builder({
 ]
 });
 
-var octiconMarkdown = builder({
+const octiconMarkdown = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3648,7 +3850,7 @@ var octiconMarkdown = builder({
 ]
 });
 
-var octiconMegaphone = builder({
+const octiconMegaphone = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3678,7 +3880,7 @@ var octiconMegaphone = builder({
 ]
 });
 
-var octiconMention = builder({
+const octiconMention = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3696,7 +3898,7 @@ var octiconMention = builder({
 ]
 });
 
-var octiconMeter = builder({
+const octiconMeter = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3714,7 +3916,7 @@ var octiconMeter = builder({
 ]
 });
 
-var octiconMilestone = builder({
+const octiconMilestone = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3732,7 +3934,7 @@ var octiconMilestone = builder({
 ]
 });
 
-var octiconMirror = builder({
+const octiconMirror = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3750,7 +3952,7 @@ var octiconMirror = builder({
 ]
 });
 
-var octiconMoon = builder({
+const octiconMoon = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3768,7 +3970,7 @@ var octiconMoon = builder({
 ]
 });
 
-var octiconMortarBoard = builder({
+const octiconMortarBoard = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3786,7 +3988,7 @@ var octiconMortarBoard = builder({
 ]
 });
 
-var octiconMoveToBottom = builder({
+const octiconMoveToBottom = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3804,7 +4006,7 @@ var octiconMoveToBottom = builder({
 ]
 });
 
-var octiconMoveToEnd = builder({
+const octiconMoveToEnd = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3822,7 +4024,7 @@ var octiconMoveToEnd = builder({
 ]
 });
 
-var octiconMoveToStart = builder({
+const octiconMoveToStart = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3840,7 +4042,7 @@ var octiconMoveToStart = builder({
 ]
 });
 
-var octiconMoveToTop = builder({
+const octiconMoveToTop = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3858,7 +4060,7 @@ var octiconMoveToTop = builder({
 ]
 });
 
-var octiconMultiSelect = builder({
+const octiconMultiSelect = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3876,7 +4078,7 @@ var octiconMultiSelect = builder({
 ]
 });
 
-var octiconMute = builder({
+const octiconMute = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3894,7 +4096,7 @@ var octiconMute = builder({
 ]
 });
 
-var octiconNoEntry = builder({
+const octiconNoEntry = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3918,7 +4120,7 @@ var octiconNoEntry = builder({
 ]
 });
 
-var octiconNorthStar = builder({
+const octiconNorthStar = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3936,7 +4138,7 @@ var octiconNorthStar = builder({
 ]
 });
 
-var octiconNote = builder({
+const octiconNote = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3954,7 +4156,7 @@ var octiconNote = builder({
 ]
 });
 
-var octiconNumber = builder({
+const octiconNumber = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3972,7 +4174,7 @@ var octiconNumber = builder({
 ]
 });
 
-var octiconOrganization = builder({
+const octiconOrganization = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -3990,7 +4192,7 @@ var octiconOrganization = builder({
 ]
 });
 
-var octiconPackageDependencies = builder({
+const octiconPackageDependencies = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4008,7 +4210,7 @@ var octiconPackageDependencies = builder({
 ]
 });
 
-var octiconPackageDependents = builder({
+const octiconPackageDependents = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4026,7 +4228,7 @@ var octiconPackageDependents = builder({
 ]
 });
 
-var octiconPackaged = builder({
+const octiconPackaged = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4044,7 +4246,7 @@ var octiconPackaged = builder({
 ]
 });
 
-var octiconPaintbrush = builder({
+const octiconPaintbrush = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4062,7 +4264,7 @@ var octiconPaintbrush = builder({
 ]
 });
 
-var octiconPaperAirplane = builder({
+const octiconPaperAirplane = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4080,7 +4282,7 @@ var octiconPaperAirplane = builder({
 ]
 });
 
-var octiconPaperclip = builder({
+const octiconPaperclip = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4098,7 +4300,7 @@ var octiconPaperclip = builder({
 ]
 });
 
-var octiconPasskeyFill = builder({
+const octiconPasskeyFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4122,7 +4324,7 @@ var octiconPasskeyFill = builder({
 ]
 });
 
-var octiconPaste = builder({
+const octiconPaste = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4140,7 +4342,7 @@ var octiconPaste = builder({
 ]
 });
 
-var octiconPencil = builder({
+const octiconPencil = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4158,7 +4360,7 @@ var octiconPencil = builder({
 ]
 });
 
-var octiconPeople = builder({
+const octiconPeople = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4176,7 +4378,7 @@ var octiconPeople = builder({
 ]
 });
 
-var octiconPerson = builder({
+const octiconPerson = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4194,7 +4396,7 @@ var octiconPerson = builder({
 ]
 });
 
-var octiconPersonAdd = builder({
+const octiconPersonAdd = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4212,7 +4414,7 @@ var octiconPersonAdd = builder({
 ]
 });
 
-var octiconPersonFill = builder({
+const octiconPersonFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4230,7 +4432,7 @@ var octiconPersonFill = builder({
 ]
 });
 
-var octiconPin = builder({
+const octiconPin = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4248,7 +4450,7 @@ var octiconPin = builder({
 ]
 });
 
-var octiconPinSlash = builder({
+const octiconPinSlash = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4272,7 +4474,7 @@ var octiconPinSlash = builder({
 ]
 });
 
-var octiconPivotColumn = builder({
+const octiconPivotColumn = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4296,7 +4498,7 @@ var octiconPivotColumn = builder({
 ]
 });
 
-var octiconPlay = builder({
+const octiconPlay = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4314,7 +4516,7 @@ var octiconPlay = builder({
 ]
 });
 
-var octiconPlug = builder({
+const octiconPlug = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4332,7 +4534,7 @@ var octiconPlug = builder({
 ]
 });
 
-var octiconPlus = builder({
+const octiconPlus = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4350,7 +4552,7 @@ var octiconPlus = builder({
 ]
 });
 
-var octiconPlusCircle = builder({
+const octiconPlusCircle = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4368,7 +4570,7 @@ var octiconPlusCircle = builder({
 ]
 });
 
-var octiconProject = builder({
+const octiconProject = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4386,7 +4588,7 @@ var octiconProject = builder({
 ]
 });
 
-var octiconProjectRoadmap = builder({
+const octiconProjectRoadmap = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4410,7 +4612,7 @@ var octiconProjectRoadmap = builder({
 ]
 });
 
-var octiconProjectSymlink = builder({
+const octiconProjectSymlink = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4434,7 +4636,7 @@ var octiconProjectSymlink = builder({
 ]
 });
 
-var octiconProjectTemplate = builder({
+const octiconProjectTemplate = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4452,7 +4654,7 @@ var octiconProjectTemplate = builder({
 ]
 });
 
-var octiconPulse = builder({
+const octiconPulse = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4470,7 +4672,7 @@ var octiconPulse = builder({
 ]
 });
 
-var octiconQuestion = builder({
+const octiconQuestion = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4488,7 +4690,7 @@ var octiconQuestion = builder({
 ]
 });
 
-var octiconQuote = builder({
+const octiconQuote = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4506,7 +4708,7 @@ var octiconQuote = builder({
 ]
 });
 
-var octiconRead = builder({
+const octiconRead = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4524,7 +4726,7 @@ var octiconRead = builder({
 ]
 });
 
-var octiconRedo = builder({
+const octiconRedo = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4542,7 +4744,7 @@ var octiconRedo = builder({
 ]
 });
 
-var octiconRelFilePath = builder({
+const octiconRelFilePath = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4560,7 +4762,7 @@ var octiconRelFilePath = builder({
 ]
 });
 
-var octiconReply = builder({
+const octiconReply = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4578,7 +4780,7 @@ var octiconReply = builder({
 ]
 });
 
-var octiconRepo = builder({
+const octiconRepo = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4596,7 +4798,7 @@ var octiconRepo = builder({
 ]
 });
 
-var octiconRepoClone = builder({
+const octiconRepoClone = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4620,7 +4822,7 @@ var octiconRepoClone = builder({
 ]
 });
 
-var octiconRepoDeleted = builder({
+const octiconRepoDeleted = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4644,7 +4846,7 @@ var octiconRepoDeleted = builder({
 ]
 });
 
-var octiconRepoForked = builder({
+const octiconRepoForked = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4662,7 +4864,7 @@ var octiconRepoForked = builder({
 ]
 });
 
-var octiconRepoLocked = builder({
+const octiconRepoLocked = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4686,7 +4888,7 @@ var octiconRepoLocked = builder({
 ]
 });
 
-var octiconRepoPull = builder({
+const octiconRepoPull = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4710,7 +4912,7 @@ var octiconRepoPull = builder({
 ]
 });
 
-var octiconRepoPush = builder({
+const octiconRepoPush = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4728,7 +4930,7 @@ var octiconRepoPush = builder({
 ]
 });
 
-var octiconRepoTemplate = builder({
+const octiconRepoTemplate = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4746,7 +4948,7 @@ var octiconRepoTemplate = builder({
 ]
 });
 
-var octiconReport = builder({
+const octiconReport = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4764,7 +4966,7 @@ var octiconReport = builder({
 ]
 });
 
-var octiconRocket = builder({
+const octiconRocket = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4782,7 +4984,7 @@ var octiconRocket = builder({
 ]
 });
 
-var octiconRows = builder({
+const octiconRows = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4800,7 +5002,7 @@ var octiconRows = builder({
 ]
 });
 
-var octiconRss = builder({
+const octiconRss = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4818,7 +5020,7 @@ var octiconRss = builder({
 ]
 });
 
-var octiconRuby = builder({
+const octiconRuby = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4836,7 +5038,7 @@ var octiconRuby = builder({
 ]
 });
 
-var octiconScreenFull = builder({
+const octiconScreenFull = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4854,7 +5056,7 @@ var octiconScreenFull = builder({
 ]
 });
 
-var octiconScreenNormal = builder({
+const octiconScreenNormal = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4872,7 +5074,7 @@ var octiconScreenNormal = builder({
 ]
 });
 
-var octiconSearch = builder({
+const octiconSearch = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4890,7 +5092,7 @@ var octiconSearch = builder({
 ]
 });
 
-var octiconServer = builder({
+const octiconServer = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4908,7 +5110,7 @@ var octiconServer = builder({
 ]
 });
 
-var octiconShare = builder({
+const octiconShare = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4926,7 +5128,7 @@ var octiconShare = builder({
 ]
 });
 
-var octiconShareAndroid = builder({
+const octiconShareAndroid = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4944,7 +5146,7 @@ var octiconShareAndroid = builder({
 ]
 });
 
-var octiconShield = builder({
+const octiconShield = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4962,7 +5164,7 @@ var octiconShield = builder({
 ]
 });
 
-var octiconShieldCheck = builder({
+const octiconShieldCheck = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4980,7 +5182,7 @@ var octiconShieldCheck = builder({
 ]
 });
 
-var octiconShieldLock = builder({
+const octiconShieldLock = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -4998,7 +5200,7 @@ var octiconShieldLock = builder({
 ]
 });
 
-var octiconShieldSlash = builder({
+const octiconShieldSlash = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5016,7 +5218,7 @@ var octiconShieldSlash = builder({
 ]
 });
 
-var octiconShieldX = builder({
+const octiconShieldX = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5034,7 +5236,7 @@ var octiconShieldX = builder({
 ]
 });
 
-var octiconSidebarCollapse = builder({
+const octiconSidebarCollapse = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5058,7 +5260,7 @@ var octiconSidebarCollapse = builder({
 ]
 });
 
-var octiconSidebarExpand = builder({
+const octiconSidebarExpand = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5082,7 +5284,7 @@ var octiconSidebarExpand = builder({
 ]
 });
 
-var octiconSignIn = builder({
+const octiconSignIn = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5100,7 +5302,7 @@ var octiconSignIn = builder({
 ]
 });
 
-var octiconSignOut = builder({
+const octiconSignOut = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5118,7 +5320,7 @@ var octiconSignOut = builder({
 ]
 });
 
-var octiconSingleSelect = builder({
+const octiconSingleSelect = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5142,7 +5344,7 @@ var octiconSingleSelect = builder({
 ]
 });
 
-var octiconSkip = builder({
+const octiconSkip = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5160,7 +5362,7 @@ var octiconSkip = builder({
 ]
 });
 
-var octiconSkipFill = builder({
+const octiconSkipFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5178,7 +5380,7 @@ var octiconSkipFill = builder({
 ]
 });
 
-var octiconSliders = builder({
+const octiconSliders = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5196,7 +5398,7 @@ var octiconSliders = builder({
 ]
 });
 
-var octiconSmiley = builder({
+const octiconSmiley = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5214,7 +5416,7 @@ var octiconSmiley = builder({
 ]
 });
 
-var octiconSortAsc = builder({
+const octiconSortAsc = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5232,7 +5434,7 @@ var octiconSortAsc = builder({
 ]
 });
 
-var octiconSortDesc = builder({
+const octiconSortDesc = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5250,7 +5452,7 @@ var octiconSortDesc = builder({
 ]
 });
 
-var octiconSparkleFill = builder({
+const octiconSparkleFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5268,7 +5470,7 @@ var octiconSparkleFill = builder({
 ]
 });
 
-var octiconSparklesFill = builder({
+const octiconSparklesFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5286,7 +5488,7 @@ var octiconSparklesFill = builder({
 ]
 });
 
-var octiconSponsorTiers = builder({
+const octiconSponsorTiers = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5304,7 +5506,7 @@ var octiconSponsorTiers = builder({
 ]
 });
 
-var octiconSquare = builder({
+const octiconSquare = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5322,7 +5524,7 @@ var octiconSquare = builder({
 ]
 });
 
-var octiconSquareCircle = builder({
+const octiconSquareCircle = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5346,7 +5548,7 @@ var octiconSquareCircle = builder({
 ]
 });
 
-var octiconSquareFill = builder({
+const octiconSquareFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5364,7 +5566,7 @@ var octiconSquareFill = builder({
 ]
 });
 
-var octiconSquirrel = builder({
+const octiconSquirrel = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5382,7 +5584,7 @@ var octiconSquirrel = builder({
 ]
 });
 
-var octiconStack = builder({
+const octiconStack = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5400,7 +5602,7 @@ var octiconStack = builder({
 ]
 });
 
-var octiconStar = builder({
+const octiconStar = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5418,7 +5620,7 @@ var octiconStar = builder({
 ]
 });
 
-var octiconStarFill = builder({
+const octiconStarFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5436,7 +5638,7 @@ var octiconStarFill = builder({
 ]
 });
 
-var octiconStop = builder({
+const octiconStop = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5454,7 +5656,7 @@ var octiconStop = builder({
 ]
 });
 
-var octiconStopwatch = builder({
+const octiconStopwatch = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5472,7 +5674,7 @@ var octiconStopwatch = builder({
 ]
 });
 
-var octiconStrikethrough = builder({
+const octiconStrikethrough = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5490,7 +5692,7 @@ var octiconStrikethrough = builder({
 ]
 });
 
-var octiconSun = builder({
+const octiconSun = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5508,7 +5710,7 @@ var octiconSun = builder({
 ]
 });
 
-var octiconSync = builder({
+const octiconSync = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5526,7 +5728,7 @@ var octiconSync = builder({
 ]
 });
 
-var octiconTab = builder({
+const octiconTab = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5544,7 +5746,7 @@ var octiconTab = builder({
 ]
 });
 
-var octiconTabExternal = builder({
+const octiconTabExternal = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5568,7 +5770,7 @@ var octiconTabExternal = builder({
 ]
 });
 
-var octiconTable = builder({
+const octiconTable = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5586,7 +5788,7 @@ var octiconTable = builder({
 ]
 });
 
-var octiconTag = builder({
+const octiconTag = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5604,7 +5806,7 @@ var octiconTag = builder({
 ]
 });
 
-var octiconTasklist = builder({
+const octiconTasklist = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5622,7 +5824,7 @@ var octiconTasklist = builder({
 ]
 });
 
-var octiconTelescope = builder({
+const octiconTelescope = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5640,7 +5842,7 @@ var octiconTelescope = builder({
 ]
 });
 
-var octiconTelescopeFill = builder({
+const octiconTelescopeFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5658,7 +5860,7 @@ var octiconTelescopeFill = builder({
 ]
 });
 
-var octiconTerminal = builder({
+const octiconTerminal = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5676,7 +5878,7 @@ var octiconTerminal = builder({
 ]
 });
 
-var octiconThreeBars = builder({
+const octiconThreeBars = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5694,7 +5896,7 @@ var octiconThreeBars = builder({
 ]
 });
 
-var octiconThumbsdown = builder({
+const octiconThumbsdown = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5712,7 +5914,7 @@ var octiconThumbsdown = builder({
 ]
 });
 
-var octiconThumbsup = builder({
+const octiconThumbsup = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5730,7 +5932,7 @@ var octiconThumbsup = builder({
 ]
 });
 
-var octiconTools = builder({
+const octiconTools = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5748,7 +5950,7 @@ var octiconTools = builder({
 ]
 });
 
-var octiconTrackedByClosedCompleted = builder({
+const octiconTrackedByClosedCompleted = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5772,7 +5974,7 @@ var octiconTrackedByClosedCompleted = builder({
 ]
 });
 
-var octiconTrackedByClosedNotPlanned = builder({
+const octiconTrackedByClosedNotPlanned = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5796,7 +5998,7 @@ var octiconTrackedByClosedNotPlanned = builder({
 ]
 });
 
-var octiconTrash = builder({
+const octiconTrash = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5814,7 +6016,7 @@ var octiconTrash = builder({
 ]
 });
 
-var octiconTriangleDown = builder({
+const octiconTriangleDown = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5832,7 +6034,7 @@ var octiconTriangleDown = builder({
 ]
 });
 
-var octiconTriangleLeft = builder({
+const octiconTriangleLeft = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5850,7 +6052,7 @@ var octiconTriangleLeft = builder({
 ]
 });
 
-var octiconTriangleRight = builder({
+const octiconTriangleRight = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5868,7 +6070,7 @@ var octiconTriangleRight = builder({
 ]
 });
 
-var octiconTriangleUp = builder({
+const octiconTriangleUp = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5886,7 +6088,7 @@ var octiconTriangleUp = builder({
 ]
 });
 
-var octiconTrophy = builder({
+const octiconTrophy = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5904,7 +6106,7 @@ var octiconTrophy = builder({
 ]
 });
 
-var octiconTypography = builder({
+const octiconTypography = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5922,7 +6124,7 @@ var octiconTypography = builder({
 ]
 });
 
-var octiconUndo = builder({
+const octiconUndo = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5940,7 +6142,7 @@ var octiconUndo = builder({
 ]
 });
 
-var octiconUnfold = builder({
+const octiconUnfold = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5958,7 +6160,7 @@ var octiconUnfold = builder({
 ]
 });
 
-var octiconUnlink = builder({
+const octiconUnlink = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5976,7 +6178,7 @@ var octiconUnlink = builder({
 ]
 });
 
-var octiconUnlock = builder({
+const octiconUnlock = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -5994,7 +6196,7 @@ var octiconUnlock = builder({
 ]
 });
 
-var octiconUnmute = builder({
+const octiconUnmute = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -6012,7 +6214,7 @@ var octiconUnmute = builder({
 ]
 });
 
-var octiconUnread = builder({
+const octiconUnread = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -6036,7 +6238,7 @@ var octiconUnread = builder({
 ]
 });
 
-var octiconUnverified = builder({
+const octiconUnverified = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -6054,7 +6256,7 @@ var octiconUnverified = builder({
 ]
 });
 
-var octiconUpload = builder({
+const octiconUpload = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -6078,7 +6280,7 @@ var octiconUpload = builder({
 ]
 });
 
-var octiconVerified = builder({
+const octiconVerified = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -6096,7 +6298,7 @@ var octiconVerified = builder({
 ]
 });
 
-var octiconVersions = builder({
+const octiconVersions = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -6114,7 +6316,7 @@ var octiconVersions = builder({
 ]
 });
 
-var octiconVideo = builder({
+const octiconVideo = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -6138,7 +6340,7 @@ var octiconVideo = builder({
 ]
 });
 
-var octiconWebhook = builder({
+const octiconWebhook = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -6168,7 +6370,7 @@ var octiconWebhook = builder({
 ]
 });
 
-var octiconWorkflow = builder({
+const octiconWorkflow = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -6186,7 +6388,7 @@ var octiconWorkflow = builder({
 ]
 });
 
-var octiconX = builder({
+const octiconX = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -6204,7 +6406,7 @@ var octiconX = builder({
 ]
 });
 
-var octiconXCircle = builder({
+const octiconXCircle = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -6222,7 +6424,7 @@ var octiconXCircle = builder({
 ]
 });
 
-var octiconXCircleFill = builder({
+const octiconXCircleFill = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -6240,7 +6442,7 @@ var octiconXCircleFill = builder({
 ]
 });
 
-var octiconZap = builder({
+const octiconZap = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -6258,7 +6460,7 @@ var octiconZap = builder({
 ]
 });
 
-var octiconZoomIn = builder({
+const octiconZoomIn = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -6282,7 +6484,7 @@ var octiconZoomIn = builder({
 ]
 });
 
-var octiconZoomOut = builder({
+const octiconZoomOut = builder({
   attr: {
   "width": "16",
   "height": "16",
@@ -6306,4 +6508,4 @@ var octiconZoomOut = builder({
 ]
 });
 
-export { Octicon, octiconAccessibility as accessibility, octiconAccessibilityInset as accessibilityInset, octiconAiModel as aiModel, octiconAlert as alert, octiconAlertFill as alertFill, octiconApps as apps, octiconArchive as archive, octiconArrowBoth as arrowBoth, octiconArrowDown as arrowDown, octiconArrowDownLeft as arrowDownLeft, octiconArrowDownRight as arrowDownRight, octiconArrowLeft as arrowLeft, octiconArrowRight as arrowRight, octiconArrowSwitch as arrowSwitch, octiconArrowUp as arrowUp, octiconArrowUpLeft as arrowUpLeft, octiconArrowUpRight as arrowUpRight, octiconBeaker as beaker, octiconBell as bell, octiconBellFill as bellFill, octiconBellSlash as bellSlash, octiconBlocked as blocked, octiconBold as bold, octiconBook as book, octiconBookmark as bookmark, octiconBookmarkFilled as bookmarkFilled, octiconBookmarkSlash as bookmarkSlash, octiconBookmarkSlashFill as bookmarkSlashFill, octiconBriefcase as briefcase, octiconBroadcast as broadcast, octiconBrowser as browser, octiconBug as bug, octiconCache as cache, octiconCalendar as calendar, octiconCheck as check, octiconCheckCircle as checkCircle, octiconCheckCircleFill as checkCircleFill, octiconCheckbox as checkbox, octiconChecklist as checklist, octiconChevronDown as chevronDown, octiconChevronLeft as chevronLeft, octiconChevronRight as chevronRight, octiconChevronUp as chevronUp, octiconCircle as circle, octiconCircleSlash as circleSlash, octiconClock as clock, octiconClockFill as clockFill, octiconCloud as cloud, octiconCloudOffline as cloudOffline, octiconCode as code, octiconCodeOfConduct as codeOfConduct, octiconCodeReview as codeReview, octiconCodeSquare as codeSquare, octiconCodescan as codescan, octiconCodescanCheckmark as codescanCheckmark, octiconCodespaces as codespaces, octiconColumns as columns, octiconCommandPalette as commandPalette, octiconComment as comment, octiconCommentDiscussion as commentDiscussion, octiconContainer as container, octiconCopilot as copilot, octiconCopilotError as copilotError, octiconCopilotWarning as copilotWarning, octiconCopy as copy, octiconCpu as cpu, octiconCreditCard as creditCard, octiconCrossReference as crossReference, octiconDash as dash, octiconDatabase as database, octiconDependabot as dependabot, octiconDesktopDownload as desktopDownload, octiconDeviceCamera as deviceCamera, octiconDeviceCameraVideo as deviceCameraVideo, octiconDeviceDesktop as deviceDesktop, octiconDeviceMobile as deviceMobile, octiconDevices as devices, octiconDiamond as diamond, octiconDiff as diff, octiconDiffAdded as diffAdded, octiconDiffIgnored as diffIgnored, octiconDiffModified as diffModified, octiconDiffRemoved as diffRemoved, octiconDiffRenamed as diffRenamed, octiconDiscussionClosed as discussionClosed, octiconDiscussionDuplicate as discussionDuplicate, octiconDiscussionOutdated as discussionOutdated, octiconDot as dot, octiconDotFill as dotFill, octiconDownload as download, octiconDuplicate as duplicate, octiconEllipsis as ellipsis, octiconEye as eye, octiconEyeClosed as eyeClosed, octiconFeedDiscussion as feedDiscussion, octiconFeedForked as feedForked, octiconFeedHeart as feedHeart, octiconFeedIssueClosed as feedIssueClosed, octiconFeedIssueDraft as feedIssueDraft, octiconFeedIssueOpen as feedIssueOpen, octiconFeedIssueReopen as feedIssueReopen, octiconFeedMerged as feedMerged, octiconFeedPerson as feedPerson, octiconFeedPlus as feedPlus, octiconFeedPublic as feedPublic, octiconFeedPullRequestClosed as feedPullRequestClosed, octiconFeedPullRequestDraft as feedPullRequestDraft, octiconFeedPullRequestOpen as feedPullRequestOpen, octiconFeedRepo as feedRepo, octiconFeedRocket as feedRocket, octiconFeedStar as feedStar, octiconFeedTag as feedTag, octiconFeedTrophy as feedTrophy, octiconFile as file, octiconFileAdded as fileAdded, octiconFileBadge as fileBadge, octiconFileBinary as fileBinary, octiconFileCode as fileCode, octiconFileDiff as fileDiff, octiconFileDirectory as fileDirectory, octiconFileDirectoryFill as fileDirectoryFill, octiconFileDirectoryOpenFill as fileDirectoryOpenFill, octiconFileDirectorySymlink as fileDirectorySymlink, octiconFileMedia as fileMedia, octiconFileMoved as fileMoved, octiconFileRemoved as fileRemoved, octiconFileSubmodule as fileSubmodule, octiconFileSymlinkFile as fileSymlinkFile, octiconFileZip as fileZip, octiconFilter as filter, octiconFilterRemove as filterRemove, octiconFiscalHost as fiscalHost, octiconFlame as flame, octiconFold as fold, octiconFoldDown as foldDown, octiconFoldUp as foldUp, octiconGear as gear, octiconGift as gift, octiconGitBranch as gitBranch, octiconGitCommit as gitCommit, octiconGitCompare as gitCompare, octiconGitMerge as gitMerge, octiconGitMergeQueue as gitMergeQueue, octiconGitPullRequest as gitPullRequest, octiconGitPullRequestClosed as gitPullRequestClosed, octiconGitPullRequestDraft as gitPullRequestDraft, octiconGlobe as globe, octiconGoal as goal, octiconGrabber as grabber, octiconGraph as graph, octiconHash as hash, octiconHeading as heading, octiconHeart as heart, octiconHeartFill as heartFill, octiconHistory as history, octiconHome as home, octiconHomeFill as homeFill, octiconHorizontalRule as horizontalRule, octiconHourglass as hourglass, octiconHubot as hubot, octiconIdBadge as idBadge, octiconImage as image, octiconInbox as inbox, octiconInfinity as infinity, octiconInfo as info, octiconIssueClosed as issueClosed, octiconIssueDraft as issueDraft, octiconIssueOpened as issueOpened, octiconIssueReopened as issueReopened, octiconIssueTrackedBy as issueTrackedBy, octiconIssueTracks as issueTracks, octiconItalic as italic, octiconIterations as iterations, octiconKebabHorizontal as kebabHorizontal, octiconKey as key, octiconKeyAsterisk as keyAsterisk, octiconLaw as law, octiconLightBulb as lightBulb, octiconLink as link, octiconLinkExternal as linkExternal, octiconListOrdered as listOrdered, octiconListUnordered as listUnordered, octiconLocation as location, octiconLock as lock, octiconLog as log, octiconLogoGist as logoGist, octiconLogoGithub as logoGithub, octiconMail as mail, octiconMarkGithub as markGithub, octiconMarkdown as markdown, octiconMegaphone as megaphone, octiconMention as mention, octiconMeter as meter, octiconMilestone as milestone, octiconMirror as mirror, octiconMoon as moon, octiconMortarBoard as mortarBoard, octiconMoveToBottom as moveToBottom, octiconMoveToEnd as moveToEnd, octiconMoveToStart as moveToStart, octiconMoveToTop as moveToTop, octiconMultiSelect as multiSelect, octiconMute as mute, octiconNoEntry as noEntry, octiconNorthStar as northStar, octiconNote as note, octiconNumber as number, octiconOrganization as organization, octiconPackageDependencies as packageDependencies, octiconPackageDependents as packageDependents, octiconPackaged as packaged, octiconPaintbrush as paintbrush, octiconPaperAirplane as paperAirplane, octiconPaperclip as paperclip, octiconPasskeyFill as passkeyFill, octiconPaste as paste, octiconPencil as pencil, octiconPeople as people, octiconPerson as person, octiconPersonAdd as personAdd, octiconPersonFill as personFill, octiconPin as pin, octiconPinSlash as pinSlash, octiconPivotColumn as pivotColumn, octiconPlay as play, octiconPlug as plug, octiconPlus as plus, octiconPlusCircle as plusCircle, octiconProject as project, octiconProjectRoadmap as projectRoadmap, octiconProjectSymlink as projectSymlink, octiconProjectTemplate as projectTemplate, octiconPulse as pulse, octiconQuestion as question, octiconQuote as quote, octiconRead as read, octiconRedo as redo, octiconRelFilePath as relFilePath, octiconReply as reply, octiconRepo as repo, octiconRepoClone as repoClone, octiconRepoDeleted as repoDeleted, octiconRepoForked as repoForked, octiconRepoLocked as repoLocked, octiconRepoPull as repoPull, octiconRepoPush as repoPush, octiconRepoTemplate as repoTemplate, octiconReport as report, octiconRocket as rocket, octiconRows as rows, octiconRss as rss, octiconRuby as ruby, octiconScreenFull as screenFull, octiconScreenNormal as screenNormal, octiconSearch as search, octiconServer as server, octiconShare as share, octiconShareAndroid as shareAndroid, octiconShield as shield, octiconShieldCheck as shieldCheck, octiconShieldLock as shieldLock, octiconShieldSlash as shieldSlash, octiconShieldX as shieldX, octiconSidebarCollapse as sidebarCollapse, octiconSidebarExpand as sidebarExpand, octiconSignIn as signIn, octiconSignOut as signOut, octiconSingleSelect as singleSelect, octiconSkip as skip, octiconSkipFill as skipFill, octiconSliders as sliders, octiconSmiley as smiley, octiconSortAsc as sortAsc, octiconSortDesc as sortDesc, octiconSparkleFill as sparkleFill, octiconSparklesFill as sparklesFill, octiconSponsorTiers as sponsorTiers, octiconSquare as square, octiconSquareCircle as squareCircle, octiconSquareFill as squareFill, octiconSquirrel as squirrel, octiconStack as stack, octiconStar as star, octiconStarFill as starFill, octiconStop as stop, octiconStopwatch as stopwatch, octiconStrikethrough as strikethrough, octiconSun as sun, octiconSync as sync, octiconTab as tab, octiconTabExternal as tabExternal, octiconTable as table, octiconTag as tag, octiconTasklist as tasklist, octiconTelescope as telescope, octiconTelescopeFill as telescopeFill, octiconTerminal as terminal, octiconThreeBars as threeBars, octiconThumbsdown as thumbsdown, octiconThumbsup as thumbsup, octiconTools as tools, octiconTrackedByClosedCompleted as trackedByClosedCompleted, octiconTrackedByClosedNotPlanned as trackedByClosedNotPlanned, octiconTrash as trash, octiconTriangleDown as triangleDown, octiconTriangleLeft as triangleLeft, octiconTriangleRight as triangleRight, octiconTriangleUp as triangleUp, octiconTrophy as trophy, octiconTypography as typography, octiconUndo as undo, octiconUnfold as unfold, octiconUnlink as unlink, octiconUnlock as unlock, octiconUnmute as unmute, octiconUnread as unread, octiconUnverified as unverified, octiconUpload as upload, octiconVerified as verified, octiconVersions as versions, octiconVideo as video, octiconWebhook as webhook, octiconWorkflow as workflow, octiconX as x, octiconXCircle as xCircle, octiconXCircleFill as xCircleFill, octiconZap as zap, octiconZoomIn as zoomIn, octiconZoomOut as zoomOut };
+export { Octicon, OcticonBtn, OcticonBtnLabel, octiconAccessibility as accessibility, octiconAccessibilityInset as accessibilityInset, octiconAiModel as aiModel, octiconAlert as alert, octiconAlertFill as alertFill, octiconApps as apps, octiconArchive as archive, octiconArrowBoth as arrowBoth, octiconArrowDown as arrowDown, octiconArrowDownLeft as arrowDownLeft, octiconArrowDownRight as arrowDownRight, octiconArrowLeft as arrowLeft, octiconArrowRight as arrowRight, octiconArrowSwitch as arrowSwitch, octiconArrowUp as arrowUp, octiconArrowUpLeft as arrowUpLeft, octiconArrowUpRight as arrowUpRight, octiconBeaker as beaker, octiconBell as bell, octiconBellFill as bellFill, octiconBellSlash as bellSlash, octiconBlocked as blocked, octiconBold as bold, octiconBook as book, octiconBookmark as bookmark, octiconBookmarkFilled as bookmarkFilled, octiconBookmarkSlash as bookmarkSlash, octiconBookmarkSlashFill as bookmarkSlashFill, octiconBriefcase as briefcase, octiconBroadcast as broadcast, octiconBrowser as browser, octiconBug as bug, octiconCache as cache, octiconCalendar as calendar, octiconCheck as check, octiconCheckCircle as checkCircle, octiconCheckCircleFill as checkCircleFill, octiconCheckbox as checkbox, octiconChecklist as checklist, octiconChevronDown as chevronDown, octiconChevronLeft as chevronLeft, octiconChevronRight as chevronRight, octiconChevronUp as chevronUp, octiconCircle as circle, octiconCircleSlash as circleSlash, octiconClock as clock, octiconClockFill as clockFill, octiconCloud as cloud, octiconCloudOffline as cloudOffline, octiconCode as code, octiconCodeOfConduct as codeOfConduct, octiconCodeReview as codeReview, octiconCodeSquare as codeSquare, octiconCodescan as codescan, octiconCodescanCheckmark as codescanCheckmark, octiconCodespaces as codespaces, octiconColumns as columns, octiconCommandPalette as commandPalette, octiconComment as comment, octiconCommentDiscussion as commentDiscussion, octiconContainer as container, octiconCopilot as copilot, octiconCopilotError as copilotError, octiconCopilotWarning as copilotWarning, octiconCopy as copy, octiconCpu as cpu, octiconCreditCard as creditCard, octiconCrossReference as crossReference, octiconDash as dash, octiconDatabase as database, octiconDependabot as dependabot, octiconDesktopDownload as desktopDownload, octiconDeviceCamera as deviceCamera, octiconDeviceCameraVideo as deviceCameraVideo, octiconDeviceDesktop as deviceDesktop, octiconDeviceMobile as deviceMobile, octiconDevices as devices, octiconDiamond as diamond, octiconDiff as diff, octiconDiffAdded as diffAdded, octiconDiffIgnored as diffIgnored, octiconDiffModified as diffModified, octiconDiffRemoved as diffRemoved, octiconDiffRenamed as diffRenamed, octiconDiscussionClosed as discussionClosed, octiconDiscussionDuplicate as discussionDuplicate, octiconDiscussionOutdated as discussionOutdated, octiconDot as dot, octiconDotFill as dotFill, octiconDownload as download, octiconDuplicate as duplicate, octiconEllipsis as ellipsis, octiconEye as eye, octiconEyeClosed as eyeClosed, octiconFeedDiscussion as feedDiscussion, octiconFeedForked as feedForked, octiconFeedHeart as feedHeart, octiconFeedIssueClosed as feedIssueClosed, octiconFeedIssueDraft as feedIssueDraft, octiconFeedIssueOpen as feedIssueOpen, octiconFeedIssueReopen as feedIssueReopen, octiconFeedMerged as feedMerged, octiconFeedPerson as feedPerson, octiconFeedPlus as feedPlus, octiconFeedPublic as feedPublic, octiconFeedPullRequestClosed as feedPullRequestClosed, octiconFeedPullRequestDraft as feedPullRequestDraft, octiconFeedPullRequestOpen as feedPullRequestOpen, octiconFeedRepo as feedRepo, octiconFeedRocket as feedRocket, octiconFeedStar as feedStar, octiconFeedTag as feedTag, octiconFeedTrophy as feedTrophy, octiconFile as file, octiconFileAdded as fileAdded, octiconFileBadge as fileBadge, octiconFileBinary as fileBinary, octiconFileCode as fileCode, octiconFileDiff as fileDiff, octiconFileDirectory as fileDirectory, octiconFileDirectoryFill as fileDirectoryFill, octiconFileDirectoryOpenFill as fileDirectoryOpenFill, octiconFileDirectorySymlink as fileDirectorySymlink, octiconFileMedia as fileMedia, octiconFileMoved as fileMoved, octiconFileRemoved as fileRemoved, octiconFileSubmodule as fileSubmodule, octiconFileSymlinkFile as fileSymlinkFile, octiconFileZip as fileZip, octiconFilter as filter, octiconFilterRemove as filterRemove, octiconFiscalHost as fiscalHost, octiconFlame as flame, octiconFold as fold, octiconFoldDown as foldDown, octiconFoldUp as foldUp, octiconGear as gear, octiconGift as gift, octiconGitBranch as gitBranch, octiconGitCommit as gitCommit, octiconGitCompare as gitCompare, octiconGitMerge as gitMerge, octiconGitMergeQueue as gitMergeQueue, octiconGitPullRequest as gitPullRequest, octiconGitPullRequestClosed as gitPullRequestClosed, octiconGitPullRequestDraft as gitPullRequestDraft, octiconGlobe as globe, octiconGoal as goal, octiconGrabber as grabber, octiconGraph as graph, octiconHash as hash, octiconHeading as heading, octiconHeart as heart, octiconHeartFill as heartFill, octiconHistory as history, octiconHome as home, octiconHomeFill as homeFill, octiconHorizontalRule as horizontalRule, octiconHourglass as hourglass, octiconHubot as hubot, octiconIdBadge as idBadge, octiconImage as image, octiconInbox as inbox, octiconInfinity as infinity, octiconInfo as info, octiconIssueClosed as issueClosed, octiconIssueDraft as issueDraft, octiconIssueOpened as issueOpened, octiconIssueReopened as issueReopened, octiconIssueTrackedBy as issueTrackedBy, octiconIssueTracks as issueTracks, octiconItalic as italic, octiconIterations as iterations, octiconKebabHorizontal as kebabHorizontal, octiconKey as key, octiconKeyAsterisk as keyAsterisk, octiconLaw as law, octiconLightBulb as lightBulb, octiconLink as link, octiconLinkExternal as linkExternal, octiconListOrdered as listOrdered, octiconListUnordered as listUnordered, octiconLocation as location, octiconLock as lock, octiconLog as log, octiconLogoGist as logoGist, octiconLogoGithub as logoGithub, octiconMail as mail, octiconMarkGithub as markGithub, octiconMarkdown as markdown, octiconMegaphone as megaphone, octiconMention as mention, octiconMeter as meter, octiconMilestone as milestone, octiconMirror as mirror, octiconMoon as moon, octiconMortarBoard as mortarBoard, octiconMoveToBottom as moveToBottom, octiconMoveToEnd as moveToEnd, octiconMoveToStart as moveToStart, octiconMoveToTop as moveToTop, octiconMultiSelect as multiSelect, octiconMute as mute, octiconNoEntry as noEntry, octiconNorthStar as northStar, octiconNote as note, octiconNumber as number, octiconOrganization as organization, octiconPackageDependencies as packageDependencies, octiconPackageDependents as packageDependents, octiconPackaged as packaged, octiconPaintbrush as paintbrush, octiconPaperAirplane as paperAirplane, octiconPaperclip as paperclip, octiconPasskeyFill as passkeyFill, octiconPaste as paste, octiconPencil as pencil, octiconPeople as people, octiconPerson as person, octiconPersonAdd as personAdd, octiconPersonFill as personFill, octiconPin as pin, octiconPinSlash as pinSlash, octiconPivotColumn as pivotColumn, octiconPlay as play, octiconPlug as plug, octiconPlus as plus, octiconPlusCircle as plusCircle, octiconProject as project, octiconProjectRoadmap as projectRoadmap, octiconProjectSymlink as projectSymlink, octiconProjectTemplate as projectTemplate, octiconPulse as pulse, octiconQuestion as question, octiconQuote as quote, octiconRead as read, octiconRedo as redo, octiconRelFilePath as relFilePath, octiconReply as reply, octiconRepo as repo, octiconRepoClone as repoClone, octiconRepoDeleted as repoDeleted, octiconRepoForked as repoForked, octiconRepoLocked as repoLocked, octiconRepoPull as repoPull, octiconRepoPush as repoPush, octiconRepoTemplate as repoTemplate, octiconReport as report, octiconRocket as rocket, octiconRows as rows, octiconRss as rss, octiconRuby as ruby, octiconScreenFull as screenFull, octiconScreenNormal as screenNormal, octiconSearch as search, octiconServer as server, octiconShare as share, octiconShareAndroid as shareAndroid, octiconShield as shield, octiconShieldCheck as shieldCheck, octiconShieldLock as shieldLock, octiconShieldSlash as shieldSlash, octiconShieldX as shieldX, octiconSidebarCollapse as sidebarCollapse, octiconSidebarExpand as sidebarExpand, octiconSignIn as signIn, octiconSignOut as signOut, octiconSingleSelect as singleSelect, octiconSkip as skip, octiconSkipFill as skipFill, octiconSliders as sliders, octiconSmiley as smiley, octiconSortAsc as sortAsc, octiconSortDesc as sortDesc, octiconSparkleFill as sparkleFill, octiconSparklesFill as sparklesFill, octiconSponsorTiers as sponsorTiers, octiconSquare as square, octiconSquareCircle as squareCircle, octiconSquareFill as squareFill, octiconSquirrel as squirrel, octiconStack as stack, octiconStar as star, octiconStarFill as starFill, octiconStop as stop, octiconStopwatch as stopwatch, octiconStrikethrough as strikethrough, octiconSun as sun, octiconSync as sync, octiconTab as tab, octiconTabExternal as tabExternal, octiconTable as table, octiconTag as tag, octiconTasklist as tasklist, octiconTelescope as telescope, octiconTelescopeFill as telescopeFill, octiconTerminal as terminal, octiconThreeBars as threeBars, octiconThumbsdown as thumbsdown, octiconThumbsup as thumbsup, octiconTools as tools, octiconTrackedByClosedCompleted as trackedByClosedCompleted, octiconTrackedByClosedNotPlanned as trackedByClosedNotPlanned, octiconTrash as trash, octiconTriangleDown as triangleDown, octiconTriangleLeft as triangleLeft, octiconTriangleRight as triangleRight, octiconTriangleUp as triangleUp, octiconTrophy as trophy, octiconTypography as typography, octiconUndo as undo, octiconUnfold as unfold, octiconUnlink as unlink, octiconUnlock as unlock, octiconUnmute as unmute, octiconUnread as unread, octiconUnverified as unverified, octiconUpload as upload, octiconVerified as verified, octiconVersions as versions, octiconVideo as video, octiconWebhook as webhook, octiconWorkflow as workflow, octiconX as x, octiconXCircle as xCircle, octiconXCircleFill as xCircleFill, octiconZap as zap, octiconZoomIn as zoomIn, octiconZoomOut as zoomOut };

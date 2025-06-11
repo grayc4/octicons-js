@@ -1,8 +1,8 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import typescript from '@rollup/plugin-typescript';
+import { copyFileSync } from 'fs';
 
 export default {
-    input: 'src/index.js',
+    input: 'index.js',
     output: [
         {
             file: 'dist/index.cjs.js',
@@ -11,15 +11,26 @@ export default {
         },
         {
             file: 'dist/index.esm.js',
-            format: 'esm'
+            format: 'esm',
+            generatedCode: {
+                constBindings: true
+            }
+        },
+        {
+            file: 'dist/index.umd.js',
+            format: 'umd',
+            name: 'octicons',
+            exports: 'named'
         }
     ],
     plugins: [
         nodeResolve(),
-        typescript( {
-            declaration: true,
-            outDir: 'dist'
-        } )
+        {
+            name: 'copy-types',
+            writeBundle() {
+                copyFileSync('index.d.ts', 'dist/index.d.ts');
+            }
+        }
     ],
     external: []
 };

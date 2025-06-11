@@ -1,7 +1,7 @@
 {
   "name": "octicons-js",
-  "version": "1.5.4",
-  "description": "Octicons as vanilla JavaScript components with tree-shaking support",
+  "version": "2.0.2",
+  "description": "Super simple GitHub Octicon usage in JavaScript. Supports ES modules, CommonJS, and TypeScript.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -20,8 +20,7 @@
   "scripts": {
     "build": "rollup -c rollup.config.mjs",
     "dev": "rollup -c rollup.config.mjs -w",
-    "prepublishOnly": "npm run build",
-    "test": "node test/test.js"
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "octicons",
