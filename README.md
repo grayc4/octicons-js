@@ -1,17 +1,10 @@
-# Octicons-JS
+# octicons-js
 
-A lightweight, tree-shakeable JavaScript library for using GitHub's Octicons in vanilla JavaScript projects.
+![Octicons-JS](https://img.shields.io/badge/octicons--js-v1.5.4-black)
+[![npm package](https://img.shields.io/npm/v/octicons-js.svg)](https://www.npmjs.com/package/octicons-js)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-## Features
-
-- **Simple API**: Three clean functions for all your icon needs
-- **Tree-shakeable**: Import only the icons you use
-- **Zero dependencies**: Pure vanilla JavaScript
-- **No more long SVG codes**: No more inserting long SVG codes to add icons to HTML pages
-- **GitHub styling**: Default styles match GitHub's design system
-- **TypeScript support**: Full type definitions included
-- **ES6 modules**: Modern module system with backwards compatibility
-- 
+octicons-js is a small, zero-dependency package that makes it easy to use GitHub Octicons with JavaScript. It doesn’t modify the original SVGs, so you can work with the icons just like standard SVG code—without ever handling raw SVG files directly. Whether you’re building advanced UI components like icon toolbars or creating quick HTML prototypes, octicons-js streamlines the integration process. Simply append the icons to the DOM, or use the CDN link for single-page projects—no manual SVG editing required. The examples below show various ways to start using Octicons in any project.
 
 ## Installation
 
@@ -449,4 +442,13 @@ For a complete list of available icons, visit the [GitHub Octicons](https://prim
 
 ## License
 
-MIT License - see LICENSE file for details.
+MIT © [grayc4](https://github.com/grayc4)
+
+## Related
+
+- [GitHub Octicons](https://github.com/primer/octicons) - Official Octicons
+- [Primer Design System](https://primer.style/) - GitHub's design system
+
+---
+
+**Last updated**: 2025-05-28
