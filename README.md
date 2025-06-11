@@ -1,6 +1,6 @@
 # Octicons-JS
 
-A lightweight, tree-shakeable JavaScript library for using GitHub's Octicons in vanilla JavaScript projects.
+A lightweight, tree-shakeable JavaScript library for using GitHub's Octicons.
 
 ## Features
 
