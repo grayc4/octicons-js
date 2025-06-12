@@ -46,7 +46,7 @@ document.body.appendChild(labelButton);
 Use directly in HTML without any installation or setup:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/octicons-js@2.0.0/dist/index.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/octicons-js@2.0.2/dist/index.umd.js"></script>
 ```
 
 Usage example
@@ -80,7 +80,7 @@ Usage example
 <body>
     <div id="app"></div>
     
-    <script src="https://cdn.jsdelivr.net/npm/octicons-js@2.0.1/dist/index.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/octicons-js@2.0.2/dist/index.umd.js"></script>
     <script>
         // Access via global object
         const { Octicon, OcticonBtn, OcticonBtnLabel, gear, star, download } = window.octicons;
